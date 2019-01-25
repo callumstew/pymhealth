@@ -15,7 +15,7 @@ Installation
 Pymhealth is not yet provided on PyPI, it can be installed through
 pip:
 ::
-    pip install git+git://github.com/callumstew/pymhealth.git
+    $ pip install git+git://github.com/callumstew/pymhealth.git
 
 You can also download or clone the repository and either install the
 directory with pip or add the directory to your python path.
