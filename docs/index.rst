@@ -1,21 +1,48 @@
-.. pymhealth documentation master file, created by
-   sphinx-quickstart on Fri Jan 25 14:49:39 2019.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+=========
+pymhealth
+=========
 
-Welcome to pymhealth's documentation!
-=====================================
+Pymhealth is a python package for processing and extracting features from
+mHealth sensors and data streams, particularly those from smartphones
+and common wearable devices. 
+
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-    intro
+-------
+General
+-------
+* :doc:`intro`
 
 
+---------------
+Getting started
+---------------
+* None
+* None
+
+
+
+----------------------
+Tutorials and examples
+----------------------
+* None
+* None
+
+
+
+--------------------
+Module documentation
+--------------------
+* None
+* None
+
+------------------
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`
