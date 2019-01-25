@@ -9,14 +9,14 @@ pymhealth
 -------
 General
 -------
-intro
+* :doc:`intro`
 
 
 ---------------
 Getting started
 ---------------
-None
-None
+* None
+* None
 
 
 
