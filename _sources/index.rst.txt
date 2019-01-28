@@ -2,6 +2,12 @@
 pymhealth
 =========
 
+Pymhealth is a python package for processing and extracting features from
+mHealth sensors and data streams, particularly those from smartphones
+and common wearable devices. 
+
+Pymhealth is in development and the API/package structure is likely to change.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
@@ -29,10 +35,36 @@ Tutorials and examples
 
 
 --------------------
-Module documentation
+API documentation
 --------------------
-* None
-* None
+* Processing
+  * accelerometer
+  * battery
+  * eda
+  * generic
+  * gyroscope
+  * heart
+  * light
+  * :doc:`processing/location`
+  * magnetometer
+  * smartphone
+  * steps
+  * telephony
+  * temperature
+* Features
+  * accelerometer
+  * battery
+  * ecg
+  * generic
+  * gyroscope
+  * heart
+  * light
+  * location
+  * magnetometer
+  * smartphone
+  * steps
+  * telephony
+  * temperature
 
 ------------------
 
