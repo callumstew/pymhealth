@@ -11,6 +11,9 @@ Distance formula between latitude and longitude points given in decimal degrees.
 - vector: distance between a single fixed location and vectors for compared latitudes and longitudes
 - outer_product: The distance outer product between two sets of latitude/longitude vectors
 
+Metrics:
+- `Haversine`_
+
 
 Haversine
 ---------
