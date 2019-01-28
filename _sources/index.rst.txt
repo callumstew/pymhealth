@@ -42,15 +42,15 @@ API documentation
     - battery
     - eda
     - generic
-  * gyroscope
-  * heart
-  * light
-  * :doc:`processing/location`
-  * magnetometer
-  * smartphone
-  * steps
-  * telephony
-  * temperature
+    - gyroscope
+    - heart
+    - light
+    - :doc:`processing/location`
+    - magnetometer
+    - smartphone
+    - steps
+    - telephony
+    - temperature
 * Features
   * accelerometer
   * battery

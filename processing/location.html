@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>&lt;no title&gt; &#8212; pymhealth 0.0.1 documentation</title>
+    <title>Location &#8212; pymhealth 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -14,6 +14,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
@@ -32,7 +33,47 @@
 
           <div class="body" role="main">
             
-  
+  <div class="section" id="location">
+<h1>Location<a class="headerlink" href="#location" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="distance">
+<h2>Distance<a class="headerlink" href="#distance" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="haversine">
+<h3>Haversine<a class="headerlink" href="#haversine" title="Permalink to this headline">¶</a></h3>
+<p>Haversine gives the great-circle distance between two points on a sphere.</p>
+<p><span class="math notranslate nohighlight">\(distance =2r\arcsin \left({\sqrt {\sin ^{2}\left({\frac {\varphi _{2}-\varphi _{1}}{2}}\right)+\cos(\varphi _{1})\cos(\varphi _{2})\sin ^{2}\left({\frac {\lambda _{2}-\lambda _{1}}{2}}\)</span></p>
+<p>The radius of the earth varies, so the mean radius is used (6371km). The
+calculated distance should be accurate within ~0.5%</p>
+<dl class="function">
+<dt>
+<code class="descname">haversine</code><span class="sig-paren">(</span><em>lat1</em>, <em>lon1</em>, <em>lat2</em>, <em>lon2</em><span class="sig-paren">)</span></dt>
+<dt>
+<code class="descname">Find the haversine distance in kilometers between the points</code></dt>
+<dt>
+<code class="descname">(lat1, lon1) and (lat2, lon2) given in degrees.</code></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>lat1</strong> (<em>float</em>) – latitude of first point</li>
+<li><strong>lon1</strong> (<em>float</em>) – longitude of first point</li>
+<li><strong>lat2</strong> (<em>float</em>) – latitude of first point</li>
+<li><strong>lon2</strong> (<em>float</em>) – longitude of first point</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float64</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>347.32834804</p>
+</div>
+</div>
+</div>
+
 
           </div>
           

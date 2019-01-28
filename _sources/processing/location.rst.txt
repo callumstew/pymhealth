@@ -1,0 +1,40 @@
+========
+Location
+========
+
+--------
+Distance
+--------
+
+
+Haversine
+---------
+Haversine gives the great-circle distance between two points on a sphere.
+
+:math:`distance =2r\arcsin \left({\sqrt {\sin ^{2}\left({\frac {\varphi _{2}-\varphi _{1}}{2}}\right)+\cos(\varphi _{1})\cos(\varphi _{2})\sin ^{2}\left({\frac {\lambda _{2}-\lambda _{1}}{2}}`
+
+The radius of the earth varies, so the mean radius is used (6371km). The
+calculated distance should be accurate within ~0.5%
+
+.. py:function:: haversine(lat1, lon1, lat2, lon2)
+    Find the haversine distance in kilometers between the points
+    (lat1, lon1) and (lat2, lon2) given in degrees.
+
+    :param lat1: latitude of first point
+    :type lat1: float
+    :param lon1: longitude of first point
+    :type lon1: float
+    :param lat2: latitude of first point
+    :type lat2: float
+    :param lon2: longitude of first point
+    :type lon2: float
+    :rtype: float64
+
+
+.. code-block::
+    from mhealth.processing.location.distance import haversine
+    (41.507483, -99.436554),
+     11     (38.504048, -98.315949),
+    haversine(41.507483, -99.436554, 38.504048, -98.315949)
+
+347.32834804
