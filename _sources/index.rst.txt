@@ -38,10 +38,10 @@ Tutorials and examples
 API documentation
 --------------------
 * Processing
-  * accelerometer
-  * battery
-  * eda
-  * generic
+    - accelerometer
+    - battery
+    - eda
+    - generic
   * gyroscope
   * heart
   * light
