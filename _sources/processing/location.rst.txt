@@ -33,8 +33,6 @@ calculated distance should be accurate within ~0.5%
 
 Example:
 ::
-    from mhealth.processing.location.distance import haversine
-    haversine(41.507483, -99.436554, 38.504048, -98.315949)
-    347.32834804
-
-347.32834804
+    >>> from mhealth.processing.location.distance import haversine
+    >>> haversine(41.507483, -99.436554, 38.504048, -98.315949)
+    347.32834803942626
