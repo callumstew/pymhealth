@@ -51,5 +51,73 @@ Example:
     >>> haversine(*london, *paris)
     334.57613798049994
 
+.. py:function haversine_elementwise(lat1, lon1, lat2, lon2)
+    The haversine elementwise distance between two sets of
+    latitude and longitude vectors.
+
+    :param lat1: vector of latitudes
+    :type lat1: float64[n]
+    :param lon1: vector of longitudes
+    :type lon1: float64[n]
+    :param lat2: vector of latitudes
+    :type lat2: float64[n]
+    :param lon2: vector of longitudes
+    :type lon2: float64[n]
+    :rtype: float64[n]
+
+For example, to find the distance between successive points:
+::
+    >>> from mhealth.processing.location.distance import haversine_elementwise
+    >>> lats = [0.123, -43.23, 88.09, 51.23] # (It is preferable to provide numpy arrays.)
+    >>> lons = [160.1, 99.12, 1.12, -20.1]
+    >>> haversine_elementwise(lats[1:], lons[1:], lats[:-1], lons[:-1])
+    array([ 7715.92891568, 14840.77608768,  4113.65086425])
 
 
+.. py:function haversine_vector(lat1, lon1, latcol, loncol)
+    The haversine distance between a fixed point and a set of
+    latitude / longitude vectors
+
+    :param lat1: fixed latitude
+    :type lat1: float64
+    :param lon1: fixed longitude
+    :type lon1: float64
+    :param latcol: latitude vector
+    :type latcol: float64[n]
+    :param loncol: longitude vector
+    :type loncol: float64[n]
+    :rtype: float64[n]
+
+ Example:
+::
+    >>> from mhealth.processing.location.distance import haversine_vector
+    >>> lats = [0.123, -43.23, 88.09, 51.23] # (It is preferable to provide numpy arrays.)
+    >>> lons = [160.1, 99.12, 1.12, -20.1]
+    >>> haversine_vector(lats[0], lons[0], lats[1:], lons[1:])
+    array([ 7715.92891568, 10192.11206194, 14304.8626077 ])
+
+
+.. py:function haversine_outer_product(lat1, lon1, lat2, lon2)
+    The haversine distance between every element of two sets of
+    latitude/longitude vectors
+
+    :param lat1: latitude vector
+    :type lat1: float64[n]
+    :param lon1: longitude vector
+    :type lon1: float64[n]
+    :param lat2: latitude vector
+    :type lat2: float64[m]
+    :param lon2: longitude vector
+    :type lon2: float64[m]
+    :rtype: float64[n,m]
+
+For example, to find the pairwise distance of a list of points:
+::
+    >>> import numpy as np
+    >>> from mhealth.processing.location.distance import haversine_outer_product
+    >>> points = np.array([[0.123, 21.432], [54.54, 65.6], [-5.0, -10.0]])
+    >>> haversine_outer_product(points[:, 0], points[:, 1], points[:, 0], points[:, 1])
+    array([[   0.        , 7260.9522096 , 3536.83264235],
+           [7260.9522096 ,    0.        , 9543.74292632],
+           [3536.83264235, 9543.74292632,    0.        ]])
+    
