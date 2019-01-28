@@ -5,7 +5,9 @@ from numba import jit, njit, vectorize, guvectorize
 def haversine(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     """
     Haversine distance in kilometers between two points given in degrees.
-    r = 6367, 2r = 12734
+    r = 6371, 2r = 12742
+    Because the haversine distance assumes a spherical Earth, it will only
+    be accurate within ~0.5%. The mean earth radius is used (6371km).
     """
     λ1 = np.radians(lat1)
     λ2 = np.radians(lat2)
@@ -13,7 +15,7 @@ def haversine(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     φ2 = np.radians(lon2)
     Δλ = λ2 - λ1
     Δφ = φ2 - φ1
-    return 12734 * np.arcsin(np.sqrt(np.sin(Δλ/2.0)**2 + (np.cos(λ1) * np.cos(λ2) * np.sin(Δφ/2.0)**2)))
+    return 12742 * np.arcsin(np.sqrt(np.sin(Δλ/2.0)**2 + (np.cos(λ1) * np.cos(λ2) * np.sin(Δφ/2.0)**2)))
 
 
 @guvectorize(["void(float64[:], float64[:], float64[:], float64[:], float64[:])"],
@@ -51,4 +53,4 @@ def haversine_outer_product(lat1, lon1, lat2, lon2, res):
     """
     for i in range(lat1.shape[0]):
         for j in range(lat2.shape[0]):
-            res[i,j] = haversine(lat1[i], lon1[i], lat2[i], lon2[i])
+            res[i,j] = haversine(lat1[i], lon1[i], lat2[j], lon2[j])
