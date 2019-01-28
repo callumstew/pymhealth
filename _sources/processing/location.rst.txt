@@ -12,7 +12,9 @@ Distance formula between latitude and longitude points given in decimal degrees.
 - outer_product: The distance outer product between two sets of latitude/longitude vectors
 
 Metrics:
-- `Haversine`_
+
+* `Haversine`_
+* None
 
 
 Haversine
