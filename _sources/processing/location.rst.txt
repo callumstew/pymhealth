@@ -24,17 +24,18 @@ calculated distance should be accurate within ~0.5%
     :type lat1: float
     :param lon1: longitude of first point
     :type lon1: float
-    :param lat2: latitude of first point
+    :param lat2: latitude of second point
     :type lat2: float
-    :param lon2: longitude of first point
+    :param lon2: longitude of second point
     :type lon2: float
     :rtype: float64
 
 
-.. code-block::
+.. code-block
     from mhealth.processing.location.distance import haversine
     (41.507483, -99.436554),
      11     (38.504048, -98.315949),
     haversine(41.507483, -99.436554, 38.504048, -98.315949)
+    347.32834804
 
 347.32834804
