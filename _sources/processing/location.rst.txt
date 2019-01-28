@@ -1,4 +1,4 @@
-.. highlight:: python
+.. highlight:: python3
 ========
 Location
 ========
@@ -31,10 +31,10 @@ calculated distance should be accurate within ~0.5%
     :type lon2: float
     :rtype: float64
 
-
+Example:
 ::
     from mhealth.processing.location.distance import haversine
     haversine(41.507483, -99.436554, 38.504048, -98.315949)
     347.32834804
 
-347.3283480
+347.32834804
