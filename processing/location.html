@@ -82,6 +82,10 @@ calculated distance should be accurate within ~0.5%</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mhealth.processing.location.distance</span> <span class="k">import</span> <span class="n">haversine</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">haversine</span><span class="p">(</span><span class="mf">41.507483</span><span class="p">,</span> <span class="o">-</span><span class="mf">99.436554</span><span class="p">,</span> <span class="mf">38.504048</span><span class="p">,</span> <span class="o">-</span><span class="mf">98.315949</span><span class="p">)</span>
 <span class="go">347.32834803942626</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">london</span> <span class="o">=</span> <span class="p">(</span><span class="mf">51.5074</span><span class="p">,</span> <span class="mf">0.1278</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">paris</span> <span class="o">=</span> <span class="p">(</span><span class="mf">48.8566</span><span class="p">,</span> <span class="mf">2.3522</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">haversine</span><span class="p">(</span><span class="o">*</span><span class="n">london</span><span class="p">,</span> <span class="o">*</span><span class="n">paris</span><span class="p">)</span>
+<span class="go">334.57613798049994</span>
 </pre></div>
 </div>
 </div>

@@ -45,3 +45,10 @@ Example:
     >>> from mhealth.processing.location.distance import haversine
     >>> haversine(41.507483, -99.436554, 38.504048, -98.315949)
     347.32834803942626
+    >>> london = (51.5074, 0.1278)
+    >>> paris = (48.8566, 2.3522)
+    >>> haversine(*london, *paris)
+    334.57613798049994
+
+
+
