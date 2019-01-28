@@ -31,10 +31,8 @@ calculated distance should be accurate within ~0.5%
     :rtype: float64
 
 
-.. code-block
+.. code-block::python
     from mhealth.processing.location.distance import haversine
-    (41.507483, -99.436554),
-     11     (38.504048, -98.315949),
     haversine(41.507483, -99.436554, 38.504048, -98.315949)
     347.32834804
 
