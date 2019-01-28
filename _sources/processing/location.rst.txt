@@ -21,7 +21,7 @@ Haversine
 ---------
 Haversine gives the great-circle distance between two points on a sphere.
 
-:math:`distance =2r\arcsin \left({\sqrt {\sin ^{2}\left({\frac {\varphi _{2}-\varphi _{1}}{2}}\right)+\cos(\varphi _{1})\cos(\varphi _{2})\sin ^{2}\left({\frac {\lambda _{2}-\lambda _{1}}{2}}`
+:math:`d = 2r \cdot \arcsin (\sqrt{\sin^2(\frac{\phi_2 - \phi_1}{2}) + \cos(\phi_1) \cdot \cos(\phi_2) \cdot \sin^2(\frac{\lambda_2 - \lambda_1}{2})})`
 
 The radius of the earth varies, so the mean radius is used (6371km). The
 calculated distance should be accurate within ~0.5%
