@@ -15,7 +15,7 @@ Distance formula between latitude and longitude points given in decimal degrees.
 Metrics:
 
 * `Haversine`_
-* None
+* Karney TODO
 
 
 Haversine

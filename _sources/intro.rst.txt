@@ -26,4 +26,4 @@ Package structure
 There are two main subpackages: processing and features, for processing and
 extracting features from mHealth data respectively. Each contains submodules
 corresponding to common mHealth data streams (accelerometer, eda, telephony,
-etc).
+etc). There are also device specific preprocessing functions for some mHealth devicesand data (Fitbit, Empatica E4, Biovotion VSM1).

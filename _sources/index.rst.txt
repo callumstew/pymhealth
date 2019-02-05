@@ -52,19 +52,19 @@ API documentation
     - telephony
     - temperature
 * Features
-  * accelerometer
-  * battery
-  * ecg
-  * generic
-  * gyroscope
-  * heart
-  * light
-  * location
-  * magnetometer
-  * smartphone
-  * steps
-  * telephony
-  * temperature
+    - accelerometer
+    - battery
+    - ecg
+    - generic
+    - gyroscope
+    - heart
+    - light
+    - location
+    - magnetometer
+    - smartphone
+    - steps
+    - telephony
+    - temperature
 
 ------------------
 
