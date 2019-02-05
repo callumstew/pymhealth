@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>&lt;no title&gt; &#8212; pymhealth 0.0.1 documentation</title>
+    <title>Accelerometer &#8212; pymhealth 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -14,6 +14,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
@@ -32,7 +33,88 @@
 
           <div class="body" role="main">
             
-  
+  <div class="section" id="accelerometer">
+<h1>Accelerometer<a class="headerlink" href="#accelerometer" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="filters">
+<h2>Filters<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h2>
+<p>Convenience functions around scipy.signal for filtering accelerometer data, using a 5th order Butterworth filter.</p>
+<div class="section" id="linear-acceleration">
+<h3>Linear acceleration<a class="headerlink" href="#linear-acceleration" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="acc_linear">
+<code class="descname">acc_linear</code><span class="sig-paren">(</span><em>acc</em>, <em>freq</em>, <em>cutoff</em>, <em>order</em><span class="sig-paren">)</span><a class="headerlink" href="#acc_linear" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descname">Estimate linear acceleration using a high-pass Butterworth filter.</code></dt>
+<dt>
+<code class="descname">Optionally, you can specify a low-pass cutoff to perform a band-pass filter by passing two values to cutoff.</code></dt>
+<dd><blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param acc:</th><td class="field-body">acceleration vector or matrix. If a matrix, columns correspond to dimension in space</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type acc:</th><td class="field-body">float[n,m]</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param freq:</th><td class="field-body">Sampling frequency of acceleration</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type freq:</th><td class="field-body">float</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param cutoff:</th><td class="field-body">Cutoff value(s) for highpass or bandpass filter</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type cutoff:</th><td class="field-body">float or (float, float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param order:</th><td class="field-body">Order of Butterworth filter</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type order:</th><td class="field-body">int</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">float[n,m]</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="gravitational-component">
+<h3>Gravitational component<a class="headerlink" href="#gravitational-component" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="acc_gravity">
+<code class="descname">acc_gravity</code><span class="sig-paren">(</span><em>acc</em>, <em>freq</em>, <em>cutoff</em>, <em>order</em><span class="sig-paren">)</span><a class="headerlink" href="#acc_gravity" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descname">Estimate gravitational component of acceleration using a low-pass Butterworth filter.</code></dt>
+<dd><blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param acc:</th><td class="field-body">acceleration vector or matrix. If a matrix, columns correspond to dimension in space</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type acc:</th><td class="field-body">float[n,m]</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param freq:</th><td class="field-body">Sampling frequency of acceleration</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type freq:</th><td class="field-body">float</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param cutoff:</th><td class="field-body">Low-pass cutoff value(s)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type cutoff:</th><td class="field-body">float</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param order:</th><td class="field-body">Order of Butterworth filter</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type order:</th><td class="field-body">int</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">float[n,m]</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
 
           </div>
           
