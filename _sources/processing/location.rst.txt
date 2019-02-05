@@ -26,8 +26,6 @@ Haversine gives the great-circle distance between two points on a sphere.
 
 The radius of the earth varies, so the mean radius is used (6371.009 km - same as geopy). The calculated distance should be accurate within ~0.5%
 
-Scalars
-^^^^^^^^
 
 .. py:function:: haversine(lat1, lon1, lat2, lon2)
     Find the haversine distance in kilometers between the points
@@ -91,7 +89,7 @@ For example, to find the distance between successive points:
     :type loncol: float64[n]
     :rtype: float64[n]
 
- Example:
+Example:
 ::
     >>> from mhealth.processing.location.distance import haversine_vector
     >>> lats = [0.123, -43.23, 88.09, 51.23] # (It is preferable to provide numpy arrays.)
