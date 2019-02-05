@@ -30,7 +30,7 @@ Linear acceleration
 Gravitational component
 -----------------------
 .. py:function:: acc_gravity(acc, freq, cutoff, order) 
-   Estimate gravitational component of acceleration using a low-pass Butterworth filter.
+    Estimate gravitational component of acceleration using a low-pass Butterworth filter.
 
     :param acc: acceleration vector or matrix. If a matrix, columns correspond to dimension in space
     :type acc: float[n,m]

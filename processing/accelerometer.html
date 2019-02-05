@@ -74,32 +74,23 @@
 <code class="descname">acc_gravity</code><span class="sig-paren">(</span><em>acc</em>, <em>freq</em>, <em>cutoff</em>, <em>order</em><span class="sig-paren">)</span><a class="headerlink" href="#acc_gravity" title="Permalink to this definition">¶</a></dt>
 <dt>
 <code class="descname">Estimate gravitational component of acceleration using a low-pass Butterworth filter.</code></dt>
-<dd><blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">param acc:</th><td class="field-body">acceleration vector or matrix. If a matrix, columns correspond to dimension in space</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>acc</strong> (<em>float</em><em>[</em><em>n</em><em>,</em><em>m</em><em>]</em>) – acceleration vector or matrix. If a matrix, columns correspond to dimension in space</li>
+<li><strong>freq</strong> (<em>float</em>) – Sampling frequency of acceleration</li>
+<li><strong>cutoff</strong> (<em>float</em>) – Low-pass cutoff value(s)</li>
+<li><strong>order</strong> (<em>int</em>) – Order of Butterworth filter</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">type acc:</th><td class="field-body">float[n,m]</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">param freq:</th><td class="field-body">Sampling frequency of acceleration</td>
-</tr>
-<tr class="field-even field"><th class="field-name">type freq:</th><td class="field-body">float</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">param cutoff:</th><td class="field-body">Low-pass cutoff value(s)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">type cutoff:</th><td class="field-body">float</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">param order:</th><td class="field-body">Order of Butterworth filter</td>
-</tr>
-<tr class="field-even field"><th class="field-name">type order:</th><td class="field-body">int</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">float[n,m]</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float[n,m]</p>
+</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
 </dd></dl>
 
 </div>
