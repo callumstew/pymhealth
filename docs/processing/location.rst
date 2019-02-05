@@ -26,6 +26,9 @@ Haversine gives the great-circle distance between two points on a sphere.
 
 The radius of the earth varies, so the mean radius is used (6371.009 km - same as geopy). The calculated distance should be accurate within ~0.5%
 
+Scalars
+^^^^^^^^
+
 .. py:function:: haversine(lat1, lon1, lat2, lon2)
     Find the haversine distance in kilometers between the points
     (lat1, lon1) and (lat2, lon2) given in degrees.
@@ -51,9 +54,7 @@ Example:
     334.57613798049994
 
 
-Elementwise
-
-.. py:function haversine_elementwise(lat1, lon1, lat2, lon2)
+.. py:function:: haversine_elementwise(lat1, lon1, lat2, lon2)
     The haversine elementwise distance between two sets of
     latitude and longitude vectors.
 
@@ -76,7 +77,7 @@ For example, to find the distance between successive points:
     array([ 7715.92891568, 14840.77608768,  4113.65086425])
 
 
-.. py:function haversine_vector(lat1, lon1, latcol, loncol)
+.. py:function:: haversine_vector(lat1, lon1, latcol, loncol)
     The haversine distance between a fixed point and a set of
     latitude / longitude vectors
 
@@ -99,7 +100,7 @@ For example, to find the distance between successive points:
     array([ 7715.92891568, 10192.11206194, 14304.8626077 ])
 
 
-.. py:function haversine_outer_product(lat1, lon1, lat2, lon2)
+.. py:function:: haversine_outer_product(lat1, lon1, lat2, lon2)
     The haversine distance between every element of two sets of
     latitude/longitude vectors
 
