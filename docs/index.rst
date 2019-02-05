@@ -38,33 +38,33 @@ Tutorials and examples
 API documentation
 --------------------
 * Processing
-  * accelerometer
-  * battery
-  * eda
-  * generic
-  * gyroscope
-  * heart
-  * light
-  * :doc:`processing/location`
-  * magnetometer
-  * smartphone
-  * steps
-  * telephony
-  * temperature
+    - accelerometer
+    - battery
+    - eda
+    - generic
+    - gyroscope
+    - heart
+    - light
+    - :doc:`processing/location`
+    - magnetometer
+    - smartphone
+    - steps
+    - telephony
+    - temperature
 * Features
-  * accelerometer
-  * battery
-  * ecg
-  * generic
-  * gyroscope
-  * heart
-  * light
-  * location
-  * magnetometer
-  * smartphone
-  * steps
-  * telephony
-  * temperature
+    - accelerometer
+    - battery
+    - ecg
+    - generic
+    - gyroscope
+    - heart
+    - light
+    - location
+    - magnetometer
+    - smartphone
+    - steps
+    - telephony
+    - temperature
 
 ------------------
 
