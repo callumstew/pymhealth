@@ -42,3 +42,19 @@ Gravitational component
     :param order: Order of Butterworth filter
     :type order: int
     :rtype: float[n,m]
+
+
+
+.. py:function haversine_vector(lat1, lon1, latcol, loncol)
+    The haversine distance between a fixed point and a set of
+    latitude / longitude vectors
+
+    :param lat1: fixed latitude
+    :type lat1: float64
+    :param lon1: fixed longitude
+    :type lon1: float64
+    :param latcol: latitude vector
+    :type latcol: float64[n]
+    :param loncol: longitude vector
+    :type loncol: float64[n]
+    :rtype: float64[n]
