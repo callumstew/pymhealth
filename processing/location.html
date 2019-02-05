@@ -91,9 +91,32 @@
 <span class="go">334.57613798049994</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="elementwise">
-<h4>Elementwise<a class="headerlink" href="#elementwise" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="haversine_elementwise">
+<code class="descname">haversine_elementwise</code><span class="sig-paren">(</span><em>lat1</em>, <em>lon1</em>, <em>lat2</em>, <em>lon2</em><span class="sig-paren">)</span><a class="headerlink" href="#haversine_elementwise" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descname">The haversine elementwise distance between two sets of</code></dt>
+<dt>
+<code class="descname">latitude and longitude vectors.</code></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>lat1</strong> (<em>float64</em><em>[</em><em>n</em><em>]</em>) – vector of latitudes</li>
+<li><strong>lon1</strong> (<em>float64</em><em>[</em><em>n</em><em>]</em>) – vector of longitudes</li>
+<li><strong>lat2</strong> (<em>float64</em><em>[</em><em>n</em><em>]</em>) – vector of latitudes</li>
+<li><strong>lon2</strong> (<em>float64</em><em>[</em><em>n</em><em>]</em>) – vector of longitudes</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float64[n]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <p>For example, to find the distance between successive points:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mhealth.processing.location.distance</span> <span class="k">import</span> <span class="n">haversine_elementwise</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lats</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.123</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.23</span><span class="p">,</span> <span class="mf">88.09</span><span class="p">,</span> <span class="mf">51.23</span><span class="p">]</span> <span class="c1"># (It is preferable to provide numpy arrays.)</span>
@@ -102,9 +125,42 @@
 <span class="go">array([ 7715.92891568, 14840.77608768,  4113.65086425])</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="vector-against-point">
-<h4>Vector against point<a class="headerlink" href="#vector-against-point" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="haversine_vector">
+<code class="descname">haversine_vector</code><span class="sig-paren">(</span><em>lat1</em>, <em>lon1</em>, <em>latcol</em>, <em>loncol</em><span class="sig-paren">)</span><a class="headerlink" href="#haversine_vector" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descname">The haversine distance between a fixed point and a set of</code></dt>
+<dt>
+<code class="descname">latitude / longitude vectors</code></dt>
+<dd><blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param lat1:</th><td class="field-body">fixed latitude</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type lat1:</th><td class="field-body">float64</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param lon1:</th><td class="field-body">fixed longitude</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type lon1:</th><td class="field-body">float64</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param latcol:</th><td class="field-body">latitude vector</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type latcol:</th><td class="field-body">float64[n]</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param loncol:</th><td class="field-body">longitude vector</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type loncol:</th><td class="field-body">float64[n]</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">float64[n]</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Example:</p>
+</dd></dl>
+
 <dl class="docutils">
 <dt>::</dt>
 <dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mhealth.processing.location.distance</span> <span class="k">import</span> <span class="n">haversine_vector</span>
@@ -116,9 +172,32 @@
 </div>
 </dd>
 </dl>
-</div>
-<div class="section" id="outer-product-between-vectors">
-<h4>Outer product between vectors<a class="headerlink" href="#outer-product-between-vectors" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="haversine_outer_product">
+<code class="descname">haversine_outer_product</code><span class="sig-paren">(</span><em>lat1</em>, <em>lon1</em>, <em>lat2</em>, <em>lon2</em><span class="sig-paren">)</span><a class="headerlink" href="#haversine_outer_product" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descname">The haversine distance between every element of two sets of</code></dt>
+<dt>
+<code class="descname">latitude/longitude vectors</code></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>lat1</strong> (<em>float64</em><em>[</em><em>n</em><em>]</em>) – latitude vector</li>
+<li><strong>lon1</strong> (<em>float64</em><em>[</em><em>n</em><em>]</em>) – longitude vector</li>
+<li><strong>lat2</strong> (<em>float64</em><em>[</em><em>m</em><em>]</em>) – latitude vector</li>
+<li><strong>lon2</strong> (<em>float64</em><em>[</em><em>m</em><em>]</em>) – longitude vector</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float64[n,m]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <p>For example, to find the pairwise distance of a list of points:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mhealth.processing.location.distance</span> <span class="k">import</span> <span class="n">haversine_outer_product</span>
