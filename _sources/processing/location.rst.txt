@@ -51,6 +51,7 @@ Example:
     >>> haversine(*london, *paris)
     334.57613798049994
 
+------------
 
 .. py:function:: haversine_elementwise(lat1, lon1, lat2, lon2)
     The haversine elementwise distance between two sets of
@@ -74,6 +75,7 @@ For example, to find the distance between successive points:
     >>> haversine_elementwise(lats[1:], lons[1:], lats[:-1], lons[:-1])
     array([ 7715.92891568, 14840.77608768,  4113.65086425])
 
+------------
 
 .. py:function:: haversine_vector(lat1, lon1, latcol, loncol)
     The haversine distance between a fixed point and a set of
@@ -97,6 +99,7 @@ Example:
     >>> haversine_vector(lats[0], lons[0], lats[1:], lons[1:])
     array([ 7715.92891568, 10192.11206194, 14304.8626077 ])
 
+------------
 
 .. py:function:: haversine_outer_product(lat1, lon1, lat2, lon2)
     The haversine distance between every element of two sets of
