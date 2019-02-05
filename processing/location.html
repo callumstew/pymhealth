@@ -53,6 +53,8 @@
 <p>Haversine gives the great-circle distance between two points on a sphere.</p>
 <p><span class="math notranslate nohighlight">\(d = 2r \cdot \arcsin (\sqrt{\sin^2(\frac{\phi_2 - \phi_1}{2}) + \cos(\phi_1) \cdot \cos(\phi_2) \cdot \sin^2(\frac{\lambda_2 - \lambda_1}{2})})\)</span></p>
 <p>The radius of the earth varies, so the mean radius is used (6371.009 km - same as geopy). The calculated distance should be accurate within ~0.5%</p>
+<div class="section" id="scalars">
+<h4>Scalars<a class="headerlink" href="#scalars" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt>
 <code class="descname">haversine</code><span class="sig-paren">(</span><em>lat1</em>, <em>lon1</em>, <em>lat2</em>, <em>lon2</em><span class="sig-paren">)</span></dt>
@@ -89,7 +91,9 @@
 <span class="go">334.57613798049994</span>
 </pre></div>
 </div>
-<p>Elementwise</p>
+</div>
+<div class="section" id="elementwise">
+<h4>Elementwise<a class="headerlink" href="#elementwise" title="Permalink to this headline">¶</a></h4>
 <p>For example, to find the distance between successive points:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mhealth.processing.location.distance</span> <span class="k">import</span> <span class="n">haversine_elementwise</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lats</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.123</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.23</span><span class="p">,</span> <span class="mf">88.09</span><span class="p">,</span> <span class="mf">51.23</span><span class="p">]</span> <span class="c1"># (It is preferable to provide numpy arrays.)</span>
@@ -98,6 +102,9 @@
 <span class="go">array([ 7715.92891568, 14840.77608768,  4113.65086425])</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="vector-against-point">
+<h4>Vector against point<a class="headerlink" href="#vector-against-point" title="Permalink to this headline">¶</a></h4>
 <dl class="docutils">
 <dt>::</dt>
 <dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mhealth.processing.location.distance</span> <span class="k">import</span> <span class="n">haversine_vector</span>
@@ -109,6 +116,9 @@
 </div>
 </dd>
 </dl>
+</div>
+<div class="section" id="outer-product-between-vectors">
+<h4>Outer product between vectors<a class="headerlink" href="#outer-product-between-vectors" title="Permalink to this headline">¶</a></h4>
 <p>For example, to find the pairwise distance of a list of points:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mhealth.processing.location.distance</span> <span class="k">import</span> <span class="n">haversine_outer_product</span>
@@ -118,6 +128,7 @@
 <span class="go">       [7260.9522096 ,    0.        , 9543.74292632],</span>
 <span class="go">       [3536.83264235, 9543.74292632,    0.        ]])</span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>
