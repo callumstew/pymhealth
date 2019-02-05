@@ -10,6 +10,7 @@ Convenience functions around scipy.signal for filtering accelerometer data, usin
 
 Linear acceleration
 -------------------
+Filter out the linear component of acceleration from a raw accelerometer signal.
 
 .. py:function:: acc_linear(acc, freq, cutoff, order) 
     Estimate linear acceleration using a high-pass Butterworth filter.
@@ -29,6 +30,8 @@ Linear acceleration
 
 Gravitational component
 -----------------------
+Filter out the gravitational component of acceleration from a raw accelerometer signal.
+
 .. py:function:: acc_gravity(acc, freq, cutoff, order) 
     Estimate gravitational component of acceleration using a low-pass Butterworth filter.
 
@@ -42,19 +45,3 @@ Gravitational component
     :param order: Order of Butterworth filter
     :type order: int
     :rtype: float[n,m]
-
-
-
-.. py:function haversine_vector(lat1, lon1, latcol, loncol)
-    The haversine distance between a fixed point and a set of
-    latitude / longitude vectors
-
-    :param lat1: fixed latitude
-    :type lat1: float64
-    :param lon1: fixed longitude
-    :type lon1: float64
-    :param latcol: latitude vector
-    :type latcol: float64[n]
-    :param loncol: longitude vector
-    :type loncol: float64[n]
-    :rtype: float64[n]
