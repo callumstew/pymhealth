@@ -17,7 +17,8 @@ setup(
         long_description=LONG_DESCRIPTION,
         install_requires=[
             'numpy',
-            'numba'
+            'numba',
+            'scipy'
         ],
         classifiers=[
             'Programming Language :: Python',
