@@ -1,8 +1,8 @@
 import numpy as np
 from numba import jit, njit, vectorize, guvectorize
 
-@jit
-def haversine(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+@njit
+def haversine(lat1, lon1, lat2, lon2):
     """
     Haversine distance in kilometers between two points given in degrees.
     r = 6371.009, 2r = 12742.018

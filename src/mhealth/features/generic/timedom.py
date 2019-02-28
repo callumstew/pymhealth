@@ -3,7 +3,7 @@
 import numpy as np
 from numpy.lib.stride_tricks import as_strided
 from numpy.polynomial.polynomial import polyval, polyfit
-from numba import njit
+from numba import njit, vectorize, guvectorize
 
 
 @njit
@@ -109,14 +109,33 @@ def dfa(x, windows, o=1):
 
     def fluctuations(xp, windows, o):
         s = windows[0]
-        out = np.zeros((len(windows), len(x)//s))
+        out = np.zeros((len(windows), len(xp)//s))
         for i, w in enumerate(windows):
             res = polyfit(np.arange(w), view(xp, w, s).T, o, full=True)[1][0]
             rms = np.sqrt(res / w)
             out[i, :rms.shape[0]] = rms
         return out.mean(1)
 
-    scaling_exponent = polyfit(
-        np.log(windows),
-        np.log(fluctuations(profile(x), windows, o).mean(1)), 1)[1]
+    F = fluctuations(profile(x), windows, o)
+    scaling_exponent = o1fit(np.log(windows), np.log(F.mean(1)))
     return scaling_exponent
+
+
+@njit
+def o1fit(x, y):
+    n = len(x)
+    sumx = np.sum(x)
+    b = (((n * np.sum(x * y)) - (sumx * np.sum(y))) /
+         ((n * np.sum(x * x)) - (sumx * sumx)))
+    A = np.mean(y) - (b * np.mean(x))
+    return (A, b)
+
+
+def o1fit_vec(x, ys):
+    @guvectorize(["void(float64[:], float64[:], float64[:, :], float64[:, :])"],
+                 "(t),(n),(n,m)->(t,m)")
+    def o1fit_vector(two, x, ys, res):
+        for i in range(ys.shape[1]):
+            res[:, i] = o1fit(x, ys[:, i])
+
+    return o1fit_vector(np.zeros(2), x, ys)
