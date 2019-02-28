@@ -1,7 +1,7 @@
 """ Accelerometer-specific preprocessing filters
 """
 import numpy as np
-from ..generic.filter import butterworth
+from ..generic.filters import butterworth
 
 
 def acc_linear(acc, freq, cutoff=0.5, order=5):
