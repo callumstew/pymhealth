@@ -10,6 +10,8 @@ import numpy as np
 import hdbscan
 from numba import njit
 
+from ..generic.information import entropy
+
 
 def location_variance(df):
     """ Variance in locations
@@ -45,7 +47,7 @@ def cluster_locations(df, **kwargs):
             Default = N/20
         kwargs: Key-word arguments to provide HDBSCAN
     Returns:
-        np.ndarray[int]: Cluster labels 
+        np.ndarray[int]: Cluster labels
     """
     min_samples = kwargs.pop('min_samples', len(df)//20)
     clusterer = hdbscan.HDBSCAN(metric='haversine', min_samples=min_samples)
@@ -72,18 +74,6 @@ def cluster_totals(cluster_labels):
     """
     return dict(((c, n) for c, n in
                  zip(*np.unique(cluster_labels, return_counts=True))))
-
-
-@njit
-def entropy(x):
-    """ Shannon entropy
-    Args:
-        x (np.ndarray[float]): Counts or probabilities of discrete distribution
-    Returns:
-        float: Shannon entropy of distribution
-    """
-    x = x / np.sum(x)
-    return - np.sum(x * np.log(x))
 
 
 def cluster_entropy(cluster_labels):
