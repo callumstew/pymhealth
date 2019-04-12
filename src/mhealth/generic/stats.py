@@ -28,8 +28,15 @@ def minmax(x):
     return (minimum, maximum)
 
 
-def range(x):
-    return np.max(x) - np.min(x)
+def drange(x):
+    """ Range of data
+    Params:
+        x (np.ndarray[float/int])
+    Returns
+        float/int: max(x) - min(x)
+    """
+    minimum, maximum = minmax(x)
+    return maximum - minimum
 
 
 def interquartile_range(x):
