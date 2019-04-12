@@ -16,13 +16,13 @@ from ..generic.information import entropy
 def location_variance(df):
     """ Variance in locations
     Defined as the log of the sum of the variances of latitude and longitude.
-    log(var(latitude) + var(longitude))
+    var(latitude) + var(longitude)
     Args:
         df: (pandas.DataFrame) RADAR android_phone_location dataframe
     Returns:
         float: location variance
     """
-    arr_location_variance(df['latitude'].values, df['longitude'].values)
+    return arr_location_variance(df['latitude'].values, df['longitude'].values)
 
 
 @njit
@@ -36,7 +36,7 @@ def arr_location_variance(latitude, longitude):
     Returns:
         float: location variance
     """
-    return np.log(np.var(latitude) + np.var(longitude))
+    return np.var(latitude) + np.var(longitude)
 
 
 def cluster_locations(df, **kwargs):
@@ -49,7 +49,7 @@ def cluster_locations(df, **kwargs):
     Returns:
         np.ndarray[int]: Cluster labels
     """
-    min_samples = kwargs.pop('min_samples', len(df)//20)
+    min_samples = kwargs.pop('min_samples', 1 + len(df)//20)
     clusterer = hdbscan.HDBSCAN(metric='haversine', min_samples=min_samples)
     clusterer.fit(df[['latitude', 'longitude']])
     return clusterer.labels_

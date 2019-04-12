@@ -9,8 +9,27 @@ from numpy import mean, median, std, var, min, max, percentile
 from numba import njit
 
 
+@njit
+def minmax(x):
+    """ Minimum and maximum of an array looping once
+    Params:
+        x (np.ndarray[float/int]): Array
+    Returns:
+        (float/int, float/int): Tuple of minimum and maximum
+    """
+    x = x.ravel()
+    minimum = x[0]
+    maximum = x[0]
+    for i in range(1, len(x)):
+        if x[i] < minimum:
+            minimum = x[i]
+        if x[i] > maximum:
+            maximum = x[i]
+    return (minimum, maximum)
+
+
 def range(x):
-    return max(x) - min(x)
+    return np.max(x) - np.min(x)
 
 
 def interquartile_range(x):

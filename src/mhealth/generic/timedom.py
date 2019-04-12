@@ -28,6 +28,17 @@ def zero_crossing_count(x):
     return np.sum(zero_crossings(x))
 
 
+def hjorth_activity(x):
+    """ Hjorth activity
+    The variance of the input signal
+    Params:
+        x (np.ndarray): Signal
+    Returns
+        float: Hjorth activity (variance)
+    """
+    return np.var(x)
+
+
 def hjorth_mobility(x):
     """ Hjorth mobility
     sqrt of the variance of the first derivative of the signal divided by
@@ -80,6 +91,22 @@ def hjorth_complexity_derivatives(x, deriv1, deriv2):
     """
     return (hjorth_mobility_derivative(deriv1, deriv2) /
             hjorth_mobility_derivative(x, deriv1))
+
+
+def hjorth_parameters(x):
+    """ Calculate all Hjorth parameters of a signal.
+    doi:10.1016/0013-4694(70)90143-4
+    Params:
+        x (np.ndarray): Signal in time domain
+    Returns
+        (float, float, float): Tuple of activity, mobility, complexity.
+    """
+    deriv1 = np.gradient(x)
+    deriv2 = np.gradient(deriv1)
+    activity = hjorth_activity(x)
+    mobility = hjorth_mobility_derivative(x, deriv1)
+    complexity = hjorth_complexity_derivatives(x, deriv1, deriv2)
+    return (activity, mobility, complexity)
 
 
 def dfa(x, windows, o=1):
