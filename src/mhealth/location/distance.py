@@ -19,7 +19,8 @@ def haversine(lat1, lon1, lat2, lon2):
         np.sin(Δλ/2.0)**2 + (np.cos(λ1) * np.cos(λ2) * np.sin(Δφ/2.0)**2)))
 
 
-@guvectorize(["void(float64[:], float64[:], float64[:], float64[:], float64[:])"],
+@guvectorize([("void(float64[:], float64[:], float64[:], float64[:],"
+               " float64[:])")],
              "(n),(n),(n),(n)->(n)")
 def haversine_elementwise(lat1, lon1, lat2, lon2, res):
     """ Elementwise haversine distance between vectors
@@ -43,7 +44,8 @@ def haversine_vector(lat1, lon1, latcol, loncol, res):
         res[i] = haversine(lat1, lon1, latcol[i], loncol[i])
 
 
-@guvectorize(["void(float64[:], float64[:], float64[:], float64[:], float64[:,:])"],
+@guvectorize([("void(float64[:], float64[:], float64[:], float64[:],"
+               " float64[:,:])")],
              "(n),(n),(m),(m)->(n,m)")
 def haversine_outer_product(lat1, lon1, lat2, lon2, res):
     """ Haversine distance between vectors of latitudes and longitudes
@@ -54,4 +56,4 @@ def haversine_outer_product(lat1, lon1, lat2, lon2, res):
     """
     for i in range(lat1.shape[0]):
         for j in range(lat2.shape[0]):
-            res[i,j] = haversine(lat1[i], lon1[i], lat2[j], lon2[j])
+            res[i, j] = haversine(lat1[i], lon1[i], lat2[j], lon2[j])
