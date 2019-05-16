@@ -18,7 +18,7 @@ def location_variance(df):
     Defined as the log of the sum of the variances of latitude and longitude.
     var(latitude) + var(longitude)
     Args:
-        df: (pandas.DataFrame) RADAR android_phone_location dataframe
+        df (pandas.DataFrame): RADAR android_phone_location dataframe
     Returns:
         float: location variance
     """
@@ -42,7 +42,7 @@ def arr_location_variance(latitude, longitude):
 def cluster_locations(df, **kwargs):
     """ Cluster locations with HDBSCAN
     Args:
-        df: (pandas.DataFrame) RADAR android_phone_location dataframe
+        df (pandas.DataFrame): RADAR android_phone_location dataframe
         min_samples (int): Minimum number of samples to form a cluster
             Default = N/20
         kwargs: Key-word arguments to provide HDBSCAN
