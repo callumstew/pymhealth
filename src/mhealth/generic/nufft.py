@@ -1,4 +1,4 @@
-""" Non-Uniform FFT
+""" Non-Uniform FFT - Not implemented
 https://cims.nyu.edu/cmcl/nufft
 """
 from numba import njit
