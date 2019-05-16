@@ -5,7 +5,7 @@ The dataframe is assumed to have a datetime index and a latitude and
 longitude column, each measured in degrees.
 """
 import numpy as np
-from ...processing.location import distance
+from . import distance
 
 
 def determine_home_coords(df, start_time='23:00', end_time='06:00'):

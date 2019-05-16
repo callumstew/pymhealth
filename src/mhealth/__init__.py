@@ -1,2 +1,1 @@
-from . import features
-from . import processing
+from . import generic, heart, inertial, location, smartphone, util
