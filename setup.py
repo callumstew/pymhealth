@@ -7,7 +7,7 @@ LONG_DESCRIPTION = (
 
 setup(
         name='mhealth',
-        version='0.0.1',
+        version='0.0.2',
         packages=find_packages(where='src'),
         package_dir={'mhealth': 'src/mhealth'},
         url='https://github.com/callumstew/pymhealth',
@@ -18,7 +18,8 @@ setup(
         install_requires=[
             'numpy',
             'numba',
-            'scipy'
+            'scipy',
+            'pandas'
         ],
         classifiers=[
             'Programming Language :: Python',
