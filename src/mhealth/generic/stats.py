@@ -5,7 +5,6 @@ However, scipy has a greater selection of statistical features and
 may be preferable.
 """
 import numpy as np
-from numpy import mean, median, std, var, min, max, percentile
 from numba import njit
 
 
@@ -40,6 +39,12 @@ def drange(x):
 
 
 def interquartile_range(x):
+    """ Interquartile range
+    Params:
+        x (np.ndarray[float/int])
+    Returns
+        float/int: 75th percentile - 25th percentile
+    """
     return np.subtract(*np.percentile(x, [75, 25]))
 
 
@@ -73,3 +78,12 @@ def kurtosis_excess(x):
         float: kurtosis excess
     """
     return kurtosis(x) - 3
+
+
+mean = np.mean
+median = np.median
+std = np.std
+var = np.var
+dmin = np.min
+dmax = np.max
+percetile = np.percentile
