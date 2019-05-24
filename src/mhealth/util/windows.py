@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """ Moving window operations
 """
+from typing import Callable
+from functools import lru_cache, singledispatch
 import numpy as np
 from numba import jit
-from functools import lru_cache
-from typing import Callable
 
 
 def moving_window_func(func: Callable, min_window_len: int = 1):
-    """ Create a rolling window aggregation function from a function
-    This function is designed for rolling windows with a non-uniform index,
+    """ Create a moving window aggregation function from a function
+    This function is designed for moving windows with a non-uniform index,
     particularly datetime indices. The returned function will aggregate windows
     of a specified size and stride.
 
