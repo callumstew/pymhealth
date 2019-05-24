@@ -2,30 +2,34 @@
 """
 import numpy as np
 from numpy.lib.stride_tricks import as_strided
-from numpy.polynomial.polynomial import polyval, polyfit
-from numba import njit, vectorize, guvectorize
+from numpy.polynomial.polynomial import polyfit
+from numba import njit, guvectorize
 
 
 @njit
-def zero_crossings(x):
+def zero_crossings(x, th=0):
     """ Indices of zero-crossings in the input signal
     Params:
         x (np.ndarray): Signal
+        th (float/int): Threshold for zero crossing
     Returns:
-        np.ndarray[int]: Indices of zero-crossings
+        np.ndarray[bool]: Whether there was a zero crossing at the index
     """
+    x = x.copy()
+    x[np.abs(x) <= th] = 0
     pos = x > 0
-    return np.where(np.bitwise_xor(pos[:-1], pos[1:]))[0]
+    return np.bitwise_xor(pos[:-1], pos[1:])
 
 
-def zero_crossing_count(x):
+def zero_crossing_count(x, th=0):
     """ Number of zero-crossings in the input signal
     Params:
         x (np.ndarray): Signal
+        th (float/int): Threshold for zero crossing
     Returns:
         int
     """
-    return np.sum(zero_crossings(x))
+    return zero_crossings(x, th=th).sum()
 
 
 def hjorth_activity(x):
