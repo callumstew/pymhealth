@@ -113,43 +113,63 @@ def hjorth_parameters(x):
     return (activity, mobility, complexity)
 
 
-def dfa(x, windows, o=1):
-    """ Detrended fluctuation analysis
+# def dfa(x, windows, o=1):
+#     """ Detrended fluctuation analysis
+#     Params:
+#         x (np.ndarray): Signal
+#         windows (List[int[): List of window sizes
+#         o (int): Order of the polynomial to fit. Default 1
+#     Returns:
+#         float: scaling exponent
+#     """
+#     def profile(x):
+#         return np.cumsum(x - np.mean(x))
+# 
+#     def view(x, w, s):
+#         """ Strided window view of array - not necessary?
+#         Params:
+#             x (np.ndarray): Array to make window views of
+#             w (int): Window size
+#             s (int): Step size
+#         Returns:
+#             np.ndarray
+#         """
+#         stride = x.strides[0]
+#         N = x.shape[0]
+#         return as_strided(x, (((N - w) // s) + 1, w), (s * stride, stride))
+# 
+#     def fluctuations(xp, windows, o):
+#         s = windows[0]
+#         out = np.zeros((len(windows), len(xp)//s))
+#         for i, w in enumerate(windows):
+#             res = polyfit(np.arange(w), view(xp, w, s).T, o, full=True)[1][0]
+#             rms = np.sqrt(res / w)
+#             out[i, :rms.shape[0]] = rms
+#         return out.mean(1)
+# 
+#     F = fluctuations(profile(x), windows, o)
+#     scaling_exponent = o1fit(np.log(windows), np.log(F.mean(1)))
+#     return scaling_exponent
+
+
+def hurst(x: np.ndarray, lags: np.ndarray = np.arange(2, 64)):
+    """ Hurst exponent of a signal.
+    A test for mean-reversion / trend
+    H < 0.5 - mean reversion
+    H = 0.5 - random walk
+    H > 0.5 - trending
     Params:
-        x (np.ndarray): Signal
-        windows (List[int[): List of window sizes
-        o (int): Order of the polynomial to fit. Default 1
+        x (np.ndarray[int/float]): Signal to calculate hurst exponent on
+        lags (np.ndarray[int]): Time-lags to calculate. Default = 2..64
     Returns:
-        float: scaling exponent
+        float: Hurst exponent
     """
-    def profile(x):
-        return np.cumsum(x - np.mean(x))
-
-    def view(x, w, s):
-        """ Strided window view of array - not necessary?
-        Params:
-            x (np.ndarray): Array to make window views of
-            w (int): Window size
-            s (int): Step size
-        Returns:
-            np.ndarray
-        """
-        stride = x.strides[0]
-        N = x.shape[0]
-        return as_strided(x, (((N - w) // s) + 1, w), (s * stride, stride))
-
-    def fluctuations(xp, windows, o):
-        s = windows[0]
-        out = np.zeros((len(windows), len(xp)//s))
-        for i, w in enumerate(windows):
-            res = polyfit(np.arange(w), view(xp, w, s).T, o, full=True)[1][0]
-            rms = np.sqrt(res / w)
-            out[i, :rms.shape[0]] = rms
-        return out.mean(1)
-
-    F = fluctuations(profile(x), windows, o)
-    scaling_exponent = o1fit(np.log(windows), np.log(F.mean(1)))
-    return scaling_exponent
+    lags = np.array(lags)
+    tau = np.zeros(lags.shape)
+    for i in range(len(tau)):
+        tau[i] = np.sqrt(np.std(np.subtract(x[lags[i]:], x[:-lags[i]])))
+    cf = o1fit(np.log(lags), np.log(tau))
+    return cf[1] * 2.
 
 
 @njit
