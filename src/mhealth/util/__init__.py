@@ -1,2 +1,1 @@
-from . import windows
-from .windows import moving_window_func
+from .windows import rolling_window, nonuniform_rolling_window
