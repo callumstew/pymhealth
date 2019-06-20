@@ -7,7 +7,7 @@ LONG_DESCRIPTION = (
 
 setup(
         name='mhealth',
-        version='0.0.2',
+        version='0.0.3',
         packages=find_packages(where='src'),
         package_dir={'mhealth': 'src/mhealth'},
         url='https://github.com/callumstew/pymhealth',
