@@ -5,10 +5,10 @@ However, scipy has a greater selection of statistical features and
 may be preferable.
 """
 import numpy as np
-from numba import njit
+from numba import jit
 
 
-@njit
+@jit(nopython=True)
 def minmax(x):
     """ Minimum and maximum of an array looping once
     Params:
@@ -48,7 +48,7 @@ def interquartile_range(x):
     return np.subtract(*np.percentile(x, [75, 25]))
 
 
-@njit
+@jit(nopython=True)
 def skewness(x):
     """ Skewness (third-moment) of a distribution
     Params:
@@ -56,10 +56,13 @@ def skewness(x):
     Returns:
         float: skewness
     """
-    return np.sum(((x - np.mean(x)) ** 3) / len(x)) / (np.std(x) ** 3)
+    sd = np.std(x)
+    if sd == 0:
+        return 0
+    return np.sum(((x - np.mean(x))**3) / len(x)) / sd**3
 
 
-@njit
+@jit(nopython=True)
 def kurtosis(x):
     """ Kurtosis B2 = mu_4 / mu_2^2
     Params:
@@ -67,7 +70,10 @@ def kurtosis(x):
     Returns:
         float: kurtosis
     """
-    return np.sum(((x - np.mean(x)) ** 4) / len(x)) / (np.var(x) ** 2)
+    v = np.var(x)
+    if v == 0:
+        return 0
+    return np.sum(((x - np.mean(x))**4) / len(x)) / (v**2)
 
 
 def kurtosis_excess(x):
