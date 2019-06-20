@@ -1,7 +1,6 @@
 """ ECG QRS-complex and R-peak detection algorithms
 """
 import numpy as np
-from numba import njit
 
 from ..generic.filters import butterworth
 
