@@ -1,11 +1,12 @@
 """ Recurrence quantification analysis features
 """
 import numpy as np
-from numba import njit, jit
+from numba import jit
 from .information import entropy
 
 
-def rq(x: np.ndarray, radius: float = 0.):
+@jit(nopython=True)
+def rq(x: np.ndarray, radius: float = 0.) -> np.ndarray:
     """ Recurrence matrix
     Params:
         x (np.ndarray): signal
@@ -14,11 +15,18 @@ def rq(x: np.ndarray, radius: float = 0.):
     Returns:
         np.ndarray[bool, bool]: N*N boolean matrix where True corresponds to
             a recurrence, N = len(x)
-    """
     return np.abs(np.subtract.outer(x, x)) <= radius
+    """
+    n = len(x)
+    out = np.zeros((n, n), dtype=np.bool_)
+    for i in range(n):
+        for j in range(n):
+            out[i, j] = np.abs(x[i] - x[j]) <= radius
+    return out
 
 
-def recurrence_rate(r: np.ndarray):
+@jit
+def recurrence_rate(r: np.ndarray) -> float:
     """ The proportion of recurrence points in a recurrence matrix
     Params:
         r (np.ndarray[bool, bool]): Recurrence matrix
@@ -28,8 +36,8 @@ def recurrence_rate(r: np.ndarray):
     return np.sum(r)/(r.shape[0]*r.shape[1])
 
 
-@njit
-def determinism(r: np.ndarray):
+@jit(nopython=True)
+def determinism(r: np.ndarray) -> float:
     """ Determinism - proportion of recurrence points forming diagonal lines
     at least 2 points long.
     Params:
@@ -51,8 +59,8 @@ def determinism(r: np.ndarray):
     return np.sum(out) / (r.shape[0] * r.shape[1])
 
 
-@njit
-def laminarity(r: np.ndarray):
+@jit(nopython=True)
+def laminarity(r: np.ndarray) -> float:
     """ Laminarity - proportion of recurrence points forming vertical lines
     at least 2 points long.
     Params:
@@ -69,15 +77,15 @@ def laminarity(r: np.ndarray):
     return np.sum(out) / (r.shape[0] * r.shape[1])
 
 
-@jit
-def diagonal_lengths(r: np.ndarray, minlen: int = 2):
+@jit(nopython=True)
+def diagonal_lengths(r: np.ndarray, minlen: int = 2) -> np.ndarray:
     """ The lengths of the contiguous diagonal lines
     Slower than simply counting points as in determinism.
     Params:
         r (np.ndarray[bool, bool]): Recurrence matrix
         minlen (int): Minimum length of a line
     Returns:
-        np.ndarray[int]
+        np.ndarray[int]: Lengths of diagonal lines greater than the minlen
     """
     out = np.zeros(r.shape, dtype=np.int32)
     for i in range(1, r.shape[0]):
@@ -86,34 +94,51 @@ def diagonal_lengths(r: np.ndarray, minlen: int = 2):
             if out[i, j]:
                 out[i-1, j-1] = 0
     out += 1
+    out = out.reshape(out.shape[0] * out.shape[1])
     return out[out >= minlen]
 
 
-@jit
-def vertical_lengths(r: np.ndarray, minlen: int = 2):
+@jit(nopython=True)
+def vertical_lengths(r: np.ndarray, minlen: int = 2) -> np.ndarray:
     """ The lengths of the contiguous vertical lines
     Slower than simply counting points as in laminarity.
     Params:
         r (np.ndarray[bool, bool]): Recurrence matrix
         minlen (int): Minimum length of a line
     Returns:
-        np.ndarray[int]
+        np.ndarray[int]: Lengths of vertical lines greater than the minlen
     """
     out = np.zeros(r.shape, dtype=np.int32)
-    for i in range(1, r.shape[0]):
-        for j in range(r.shape[1]):
+    n, m = r.shape
+    for i in range(1, n):
+        for j in range(m):
             out[i, j] = (out[i-1, j] + 1) * (r[i-1, j] & r[i, j])
-        out[i-1, out[i].astype(bool)] = 0
+        for j in range(m):
+            if out[i, j] >= 1:
+                out[i-1, j] = 0
     out += 1
+    out = out.reshape(out.shape[0] * out.shape[1])
     return out[out >= minlen]
 
 
-def length_entropy(segment_lengths):
+@jit
+def length_entropy(r: np.ndarray, minlen: int = 2) -> float:
     """ Entropy of the segment lengths (e.g. diagonals)
     Params:
-        segment_lengths (np.ndarray[int]): Segment lengths
+        r (np.ndarray[bool, bool]): Recurrence matrix
+        minlen (int): Minimum length of a line
     Returns:
         float: Shannon entropy of distribution of segment lengths
     """
-    counts = np.unique(segment_lengths, return_counts=True)[1]
+    dlens = diagonal_lengths(r, minlen)
+    counts = _dlen_counts(dlens, minlen, r.shape[0])
     return entropy(counts)
+
+
+@jit(nopython=True)
+def _dlen_counts(dlens: np.ndarray, minlen: int, N: int) -> np.ndarray:
+    out = np.zeros(N, dtype=np.int64)
+    for v in dlens:
+        out[v] += 1
+    return out[minlen:]
+
