@@ -19,7 +19,7 @@ setup(
             'numpy',
             'numba',
             'scipy',
-            'pandas'
+            'hdbscan'
         ],
         classifiers=[
             'Programming Language :: Python',
