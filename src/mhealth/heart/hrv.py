@@ -11,12 +11,13 @@ of measurement, physiological interpretation, and clinical use.
 European Heart Journal, 17(3), 354-381.
 """
 import numpy as np
-import pandas as pd
-from numba import njit
+
+TD_FACTOR = {'ns': 1, 'us': 1e3, 'ms': 1e6, 's': 1e9}
 
 
-def nni_timestamps(nni, interval_unit='ms'):
-    return pd.to_timedelta(np.cumsum(nni), unit=interval_unit)
+def nni_cumulative(nni, interval_units='ms'):
+    nni = nni * TD_FACTOR[interval_units]
+    return np.cumsum(nni, dtype='timedelta64[ns]')
 
 
 # Time domain
