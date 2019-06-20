@@ -6,7 +6,8 @@ from scipy import signal
 
 
 def butterworth(arr: np.ndarray, cutoff: Union[float, List[float]],
-                freq: float, order: int = 5, ftype: str = 'highpass'):
+                freq: float, order: int = 5,
+                ftype: str = 'highpass') -> np.ndarray:
     """ butterworth filters the array through a highpass butterworth filter.
     Params:
         arr (list or numpy.array): The timeseries array
