@@ -1,45 +1,129 @@
 #!/usr/bin/env python3
 """ Moving window operations
 """
-from typing import Callable
-from functools import lru_cache, singledispatch
+from typing import Callable, List, Dict
+from functools import lru_cache, singledispatch, partial
 import numpy as np
+from numpy.lib.stride_tricks import as_strided
 from numba import jit
+from .deps import pd
 
 
-def moving_window_func(func: Callable, min_window_len: int = 1):
-    """ Create a moving window aggregation function from a function
-    This function is designed for moving windows with a non-uniform index,
-    particularly datetime indices. The returned function will aggregate windows
-    of a specified size and stride.
-
+def view(x, w, s):
+    """ Strided window view of array
     Params:
-        func (Callable): A function which will be applied to each window
+        x (np.ndarray): Array to make window views of
+        w (int): Window size
+        s (int): Step size
     Returns:
-        Callable: A function with the signature (index, arr, wsize, wstep).
+        np.ndarray
     """
-    def moving_window(index: np.ndarray, arr: np.ndarray,
-                      wsize: np.timedelta64, wstep: np.timedelta64,
-                      min_window_len: int = min_window_len):
-        """ Aggregate windows with the '{}' function
-        Params:
-            index (np.ndarray): Index of the array
-            arr (np.ndarray): Array to perform windowed aggregation on
-            wsize (np.timedelta64): Length of window
-            wstep (np.timedelta64): Length of step
-        Returns:
-            np.ndarray: Window aggregations
-        """
-        indices = get_indices(index, wsize, wstep)
-        out = windows_apply(indices, arr, min_window_len)
-        return out
-    windows_apply = windows_apply_func(func)
-    moving_window.__doc__ = moving_window.__doc__.format(func.__name__)
-    return moving_window
+    stride = x.strides[0]
+    N = x.shape[0]
+    return as_strided(x, (((N - w) // s) + 1, w), (s * stride, stride))
 
 
 @lru_cache(64)
-def windows_apply_func(func: Callable):
+def rolling_apply(func: Callable, **kwargs):
+    """ Create a function to loop through an evenly-sampled array
+    and apply the supplied function. Additional kwargs are optional
+    and will be passed as the default value to the resulting function
+    Params:
+        func (Callable): Function to apply to each window
+        wsize (int): Size of window
+        wstep (int): Size of step between windows
+        shape (Tuple[int]): Shape of output of func. Default: (1,)
+        dtype (type): dtype of the output
+    Returns:
+        Callable: Function that will apply func to windows in a given array
+    """
+
+    @jit
+    def windows_loop(arr, wsize, wstep, shape=tuple(), dtype=np.float64):
+        nw = 1 + (len(arr) - wsize) // wstep
+        out = np.zeros((nw, *shape), dtype=dtype)
+        for i in range(nw):
+            out[i] = func(arr[i*wstep:i*wstep + wsize])
+        return out
+    return partial(windows_loop, **kwargs)
+
+
+@singledispatch
+def rolling_window(func: Callable, **kwargs) -> Callable:
+    """ Create a function to loop through an evenly-sampled array
+    and apply the supplied function. Additional args/kwargs are optional
+    and will be passed as the default value to the resulting function
+    Params:
+        func (Callable): Function to apply to each window
+        wsize (int): Size of window
+        wstep (int): Size of step between windows
+        shape (Tuple[int]): Shape of output of func. Default: (1,)
+        dtype (type): dtype of the output
+    Returns:
+        Callable: Function that will apply func to windows in a given array
+    """
+    @singledispatch
+    def rolling_dispatch(arr: np.ndarray, *args, **kwargs):
+        return rolling_apply(func)(arr, *args, **kwargs)
+
+    @rolling_dispatch.register(pd.DataFrame)
+    def _(df: pd.DataFrame, wsize, wstep, *args, **kwargs) -> pd.DataFrame:
+        data = {}
+        for c in df.columns:
+            data[c] = rolling_apply(func)(df[c].values, wsize,
+                                          wstep, *args, **kwargs)
+        df = pd.DataFrame(data=data)
+        tdstep = wstep * (df.index[1] - df.index[0])
+        start = df.index[0]
+        stop = start + tdstep * len(df)
+        win_index = np.arange(start, stop, tdstep)
+        win_index = win_index.astype(df.index.values.dtype)
+        df = df.set_index(win_index)
+        return df
+
+    return partial(rolling_dispatch, **kwargs)
+
+
+@rolling_window.register(list)
+def _(funcs: List[Callable], **kwargs):
+
+    def funcs_loop(arr, wsize, wstep, shapes=None, dtypes=None):
+        N = len(funcs)
+        if shapes is None:
+            shapes = [tuple() for i in range(N)]
+        if dtypes is None:
+            dtypes = [np.float64 for i in range(N)]
+        out = []
+        for f, s, d in zip(funcs, shapes, dtypes):
+            out.append(rolling_window(f)(arr, wsize, wstep,
+                                         shape=s, dtype=d))
+        return out
+
+    return partial(funcs_loop, **kwargs)
+
+
+@rolling_window.register(dict)
+def _(funcs: Dict[str, Callable], **kwargs):
+
+    @singledispatch
+    def funcs_loop(arr, *args, **kwargs):
+        vals = rolling_window(list(funcs))(arr, *args, **kwargs)
+        return {n: y for n, y in zip(names, vals)}
+
+    @funcs_loop.register(pd.DataFrame)
+    def _(df, *args, **kwargs):
+        cols = [c + '_' + n for n in names for c in df.columns]
+        df = pd.concat([rolling_window(f)(df, *args, **kwargs)
+                        for f in funcs], axis=1)
+        df.columns = cols
+        return df
+
+    names, funcs = list(zip(*funcs.items()))
+    return partial(funcs_loop, **kwargs)
+
+
+@lru_cache(64)
+def nonuniform_window_aggregator(func: Callable):
     """ Create a function to loop through known window indices and
     apply the supplied function.
     Params:
@@ -48,7 +132,7 @@ def windows_apply_func(func: Callable):
         Callable: function with signature (indices, arr)
     """
     @jit
-    def windows_apply(indices: np.ndarray, arr: np.ndarray, min_window_len=1):
+    def windows_loop(indices: np.ndarray, arr: np.ndarray, min_window_len=1):
         """ Apply the '{}' function to windows with known indices
         Params:
             indices (np.ndarray[2, n]): Int array of start and end indices
@@ -66,8 +150,8 @@ def windows_apply_func(func: Callable):
             else:
                 out[i] = np.nan
         return out
-    windows_apply.__doc__ = windows_apply.__doc__.format(func.__name__)
-    return windows_apply
+    windows_loop.__doc__ = windows_loop.__doc__.format(str(func))
+    return windows_loop
 
 
 def get_indices(index: np.ndarray, wsize: np.timedelta64,
@@ -84,3 +168,100 @@ def get_indices(index: np.ndarray, wsize: np.timedelta64,
     ends = starts + wsize
     starts_and_ends = np.concatenate((starts, ends))
     return np.searchsorted(index, starts_and_ends).reshape((2, len(starts)))
+
+
+@singledispatch
+def nonuniform_rolling_window(func: Callable, min_window: int = 1):
+    """ Create a moving window aggregation function from a function
+    This function is designed for moving windows with a non-uniform index,
+    particularly datetime indices. The returned function will aggregate windows
+    of a specified size and stride.
+
+    Params:
+        func (Callable): A function which will be applied to each window
+        min_window (int): The minimum length of a window to aggregate.
+            Windows under this length will return nan.
+    Returns:
+        Callable: A function with the signature (index, arr, wsize, wstep).
+    """
+    @singledispatch
+    def moving_window(index: np.ndarray,
+                      arr: np.ndarray,
+                      wsize: np.timedelta64,
+                      wstep: np.timedelta64,
+                      min_window: int = min_window):
+        """ Aggregate windows with the '{}' function
+        Params:
+            index (np.ndarray): Index of the array
+            arr (np.ndarray): Array to perform windowed aggregation on
+            wsize (np.timedelta64): Length of window
+            wstep (np.timedelta64): Length of step
+        Returns:
+            np.ndarray: Window aggregations
+        """
+        indices = get_indices(index, wsize, wstep)
+        out = f(indices, arr, min_window)
+        return out
+
+    @moving_window.register(pd.DataFrame)
+    def _(df, wsize, wstep, min_window=min_window):
+        indices = get_indices(df.index.values, wsize, wstep)
+        aggs = {c + '_' + func.__name__: f(indices, df[c].values, min_window)
+                for c in df.columns}
+        win_index = np.arange(df.index[0].value, df.index[-1].value, wstep)
+        win_index = win_index.astype(df.index.values.dtype)
+        return pd.DataFrame(data=aggs, index=win_index)
+
+    f = nonuniform_window_aggregator(func)
+    moving_window.__doc__ = moving_window.__doc__.format(func.__name__)
+    return moving_window
+
+
+@nonuniform_rolling_window.register(list)
+def _(funcs: List[Callable], min_window_len: int = 1, method='uniform'):
+    funcs = [nonuniform_window_aggregator(f) for f in funcs]
+
+    @singledispatch
+    def moving_window(index, arr, wsize, wstep):
+        indices = get_indices(index, wsize, wstep)
+        out = [] * len(funcs)
+        for i, f in enumerate(funcs):
+            out[i] = f(indices, arr, min_window_len)
+        return out
+
+    @moving_window.register(pd.DataFrame)
+    def _(df, wsize, wstep):
+        indices = get_indices(df.index.values, wsize, wstep)
+        aggs = {c + '_' + f.__name__:
+                    f(indices, df[c].values, min_window_len)
+                for c in df.columns for f in funcs}
+        win_index = np.arange(df.index[0].value, df.index[-1].value, wstep)
+        win_index = win_index.astype(df.index.values.dtype)
+        return pd.DataFrame(index=win_index, data=aggs)
+
+    return moving_window
+
+
+@nonuniform_rolling_window.register(dict)
+def _(funcs: Dict[str, Callable], min_window_len: int = 1, method='uniform'):
+    funcs = {k: nonuniform_window_aggregator(f) for k, f in funcs.items()}
+
+    @singledispatch
+    def moving_window(index, arr, wsize, wstep):
+        indices = get_indices(index, wsize, wstep)
+        out = dict()
+        for k, f in funcs.items():
+            out[k] = f(indices, arr, min_window_len)
+        return out
+
+    @moving_window.register(pd.DataFrame)
+    def _(df, wsize, wstep):
+        indices = get_indices(df.index.values, wsize, wstep)
+        aggs = {c + '_' + name:
+                    f(indices, df[c].values, min_window_len)
+                for c in df.columns for name, f in funcs.items()}
+        win_index = np.arange(df.index[0].value, df.index[-1].value, wstep)
+        win_index = win_index.astype(df.index.values.dtype)
+        return pd.DataFrame(index=win_index, data=aggs)
+
+    return moving_window
