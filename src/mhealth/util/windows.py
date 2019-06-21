@@ -75,14 +75,15 @@ def rolling_window(func: Callable, *args, **kwargs) -> Callable:
         for c in df.columns:
             data[c] = rolling_apply(func)(df[c].values, wsize,
                                           wstep, shape, dtype)
-        df = pd.DataFrame(data=data)
+        out = pd.DataFrame(data=data)
         tdstep = wstep * (df.index[1] - df.index[0])
         start = df.index[0]
-        stop = start + tdstep * len(df)
+        stop = start + tdstep * len(out)
         win_index = np.arange(start, stop, tdstep)
         win_index = win_index.astype(df.index.values.dtype)
-        df = df.set_index(win_index)
-        return df
+        print(win_index)
+        out = out.set_index(win_index)
+        return out
 
     @wraps(rolling_dispatch)
     def wrapper(x, *a, **kw):
