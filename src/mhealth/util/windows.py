@@ -2,7 +2,7 @@
 """ Moving window operations
 """
 from typing import Callable, List, Dict
-from functools import lru_cache, singledispatch, partial
+from functools import lru_cache, singledispatch, wraps, partial
 import numpy as np
 from numpy.lib.stride_tricks import as_strided
 from numba import jit
@@ -49,7 +49,7 @@ def rolling_apply(func: Callable, **kwargs):
 
 
 @singledispatch
-def rolling_window(func: Callable, **kwargs) -> Callable:
+def rolling_window(func: Callable, *args, **kwargs) -> Callable:
     """ Create a function to loop through an evenly-sampled array
     and apply the supplied function. Additional args/kwargs are optional
     and will be passed as the default value to the resulting function
@@ -63,15 +63,18 @@ def rolling_window(func: Callable, **kwargs) -> Callable:
         Callable: Function that will apply func to windows in a given array
     """
     @singledispatch
-    def rolling_dispatch(arr: np.ndarray, *args, **kwargs):
-        return rolling_apply(func)(arr, *args, **kwargs)
+    def rolling_dispatch(arr: np.ndarray, wsize: int, wstep: int,
+                         shape: tuple = tuple(),
+                         dtype: type = np.float64) -> np.ndarray:
+        return rolling_apply(func)(arr, wsize, wstep, shape, dtype)
 
     @rolling_dispatch.register(pd.DataFrame)
-    def _(df: pd.DataFrame, wsize, wstep, *args, **kwargs) -> pd.DataFrame:
+    def _(df: pd.DataFrame, wsize: int, wstep: int,
+          shape: tuple = tuple(), dtype: type = np.float64) -> pd.DataFrame:
         data = {}
         for c in df.columns:
             data[c] = rolling_apply(func)(df[c].values, wsize,
-                                          wstep, *args, **kwargs)
+                                          wstep, shape, dtype)
         df = pd.DataFrame(data=data)
         tdstep = wstep * (df.index[1] - df.index[0])
         start = df.index[0]
@@ -81,13 +84,19 @@ def rolling_window(func: Callable, **kwargs) -> Callable:
         df = df.set_index(win_index)
         return df
 
-    return partial(rolling_dispatch, **kwargs)
+    @wraps(rolling_dispatch)
+    def wrapper(x, *a, **kw):
+        return rolling_dispatch(x, *args, *a, **kwargs, **kw)
+
+    return wrapper
 
 
 @rolling_window.register(list)
-def _(funcs: List[Callable], **kwargs):
+@rolling_window.register(tuple)
+def _(funcs: List[Callable], *args, **kwargs):
 
-    def funcs_loop(arr, wsize, wstep, shapes=None, dtypes=None):
+    @singledispatch
+    def window_applyf(arr, wsize, wstep, shapes=None, dtypes=None):
         N = len(funcs)
         if shapes is None:
             shapes = [tuple() for i in range(N)]
@@ -99,27 +108,47 @@ def _(funcs: List[Callable], **kwargs):
                                          shape=s, dtype=d))
         return out
 
-    return partial(funcs_loop, **kwargs)
+    @window_applyf.register(pd.DataFrame)
+    def _(df, wsize, wstep, shapes=None, dtypes=None):
+        if shapes is None:
+            shapes = [tuple() for i in range(len(funcs))]
+        if dtypes is None:
+            dtypes = [np.float64 for i in range(len(funcs))]
+        cols = [c + '_' + str(i) for i in range(len(funcs))
+                for c in df.columns]
+        out = pd.concat([rolling_window(f)(df, wsize, wstep, s, dt)
+                         for f, s, dt in zip(funcs, shapes, dtypes)], axis=1)
+        out.columns = cols
+        return out
+
+    @wraps(window_applyf)
+    def wrapper(x, *a, **kw):
+        return window_applyf(x, *args, *a, **kwargs, **kw)
+
+    return wrapper
 
 
 @rolling_window.register(dict)
-def _(funcs: Dict[str, Callable], **kwargs):
+def _(funcs: Dict[str, Callable], *args, **kwargs):
 
     @singledispatch
-    def funcs_loop(arr, *args, **kwargs):
+    def window_applyf(arr, *args, **kwargs):
         vals = rolling_window(list(funcs))(arr, *args, **kwargs)
         return {n: y for n, y in zip(names, vals)}
 
-    @funcs_loop.register(pd.DataFrame)
+    @window_applyf.register(pd.DataFrame)
     def _(df, *args, **kwargs):
         cols = [c + '_' + n for n in names for c in df.columns]
-        df = pd.concat([rolling_window(f)(df, *args, **kwargs)
-                        for f in funcs], axis=1)
-        df.columns = cols
-        return df
+        out = rolling_window(funcs)(df, *args, **kwargs)
+        out.columns = cols
+        return out
+
+    @wraps(window_applyf)
+    def wrapper(x, *a, **kw):
+        return window_applyf(x, *args, *a, **kwargs, **kw)
 
     names, funcs = list(zip(*funcs.items()))
-    return partial(funcs_loop, **kwargs)
+    return wrapper
 
 
 @lru_cache(64)
