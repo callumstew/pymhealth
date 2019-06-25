@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Functions for use with acceleration data
 """
-from typing import Optional, List
+from typing import Optional, List, Union, Tuple
 from functools import singledispatch
 import numpy as np
 from ..util.deps import pd
@@ -62,24 +62,34 @@ def _df_pitch(df: pd.DataFrame, xcol: str = 'x',
 
 
 @singledispatch
-def linear_filter(acc, freq, cutoff=0.5, order=5):
+def linear_filter(acc: np.ndarray, freq: float,
+                  cutoff: Union[float, Tuple[float, float]] = 0.5,
+                  order: int = 5) -> np.ndarray:
     """ Filters input with a two-pass butterworth filter, returning
     the linear component of acceleration.
     To also de-noising using a bandpass filter, provide a both the
     low-pass and high-pass cutoff. e.g. (0.5, 10) to bandpass between
     0.5Hz and 10Hz
 
-    Parameters:
-        acc (array floats): A vector or array of acceleration values
+    Params <np.ndarray[float]>:
+        acc (np.ndarray[float]): A vector or array of acceleration values
             If multiple vectors are given in a 2d array, the 2nd dimension
             seperates vectors. i.e acc[m, n] where n is the dimension of
-            acceleration in space
+            acceleration.
         freq (float): Sampling frequency
-        cutoff (float or (float, float)): Cut-off frequency (Hz). Default: 0.5
+        cutoff (float, Tuple[float, float]): Cut-off frequency. Default: 0.5
         order (int): Order of the filter. Default: 5
-
     Returns:
-        np.ndarray of floats: Linear acceleration
+        np.ndarray[float]: Linear acceleration (above cut-off frequency)
+
+    Params <pd.DataFrame>:
+        df (pd.DataFrame): Dataframe containing acceleration
+        freq (float): Sampling frequency
+        cutoff (float, Tuple[float, float]): Cut-off frequency. Default: 0.5
+        order (int): Order of filter. Default: 5
+        columns (List[str]): List of column names. Optional
+    Returns:
+        pd.DataFrame: DataFrame containing filtered columns
     """
     shape = acc.shape
     ftype = 'highpass' if np.shape(cutoff) == () else 'bandpass'
@@ -92,32 +102,44 @@ def linear_filter(acc, freq, cutoff=0.5, order=5):
 
 
 @linear_filter.register(pd.DataFrame)
-def _df_linear_filter(df, freq, cutoff=0.5, order=5, columns=None):
+def _df_linear_filter(df: pd.DataFrame,
+                      freq: float,
+                      cutoff: Union[float, Tuple[float, float]] = 0.5,
+                      order: int = 5,
+                      columns: List[str] = None) -> pd.DataFrame:
     if columns:
         out = df[columns].copy()
     else:
-        out = df._get_numeric_data().copy()
-    for col in out.columns:
-        out[col] = linear_filter(df[col].values, freq, cutoff, order)
+        out = df.select_dtypes(include=[float, int]).copy()
+    out[:] = linear_filter(out.values, freq, cutoff, order)
     return out
 
 
 @singledispatch
 def gravity_filter(acc: np.ndarray, freq: float,
-                   cutoff: float = 0.5, order: int = 5):
-    """ Filters acceleration with a two-pass Butterworth filter, returning
-    the gravitational component
-    Parameters:
-        acc (array floats): A vector or array of acceleration values
+                   cutoff: float = 0.5, order: int = 5) -> np.ndarray:
+    """ Filters acceleration with a two-pass Butterworth filter,
+    returning the gravitational component
+
+    Params <np.ndarray[float]>:
+        acc (np.ndarray[float]): A vector or array of acceleration values
             If multiple vectors are given in a 2d array, the 2nd dimension
             seperates vectors. i.e acc[m, n] where n is the dimension of
-            acceleration in space
+            acceleration.
         freq (float): Sampling frequency
         cutoff (float): Cut-off frequency (Hz). Default: 0.5
         order (int): Order of the filter. Default: 5
-
     Returns:
-        np.ndarray of floats: Gravitational component of acceleration
+        np.ndarray[float]: Gravitational component of acceleration
+
+    Params <pd.DataFrame>:
+        df (pd.DataFrame): Dataframe containing acceleration
+        freq (float): Sampling frequency
+        cutoff (float): Low-pass cut-off frequency. Default: 0.5
+        order (int): Order of filter. Default: 5
+        columns (List[str]): List of column names. Optional
+    Returns:
+        pd.DataFrame: DataFrame containing filtered columns
     """
     shape = acc.shape
     acc = acc.reshape(shape[0], 1 if len(shape) == 1 else shape[1])
@@ -129,24 +151,38 @@ def gravity_filter(acc: np.ndarray, freq: float,
 
 
 @gravity_filter.register(pd.DataFrame)
-def _df_gravity_filter(df: pd.DataFrame, freq: float, cutoff: float = 0.5,
-                       order:int = 5, columns: Optional[List[str]] = None):
+def _df_gravity_filter(df: pd.DataFrame, freq: float,
+                       cutoff: float = 0.5, order: int = 5,
+                       columns: Optional[List[str]] = None) -> pd.DataFrame:
     if columns:
         out = df[columns].copy()
     else:
-        out = df._get_numeric_data().copy()
-    for col in out.columns:
-        out[col] = gravity_filter(df[col].values, freq, cutoff, order)
+        out = df.select_dtypes(include=[float, int]).copy()
+    out[:] = gravity_filter(out.values, freq, cutoff, order)
     return out
 
 
 @singledispatch
-def magnitude(x: float, y: float, z: float):
+def magnitude(x: float, y: float, z: float) -> float:
+    """ Magnitude of x, y, z acceleration √(x²+y²+z²)
+
+    Params <float>:
+        x, y, z (float): Axes of acceleration
+    Returns:
+        float: Magnitude of acceleration
+
+    Params <pd.Dataframe>:
+        df (pd.DataFrame): Dataframe containing acceleration columns
+        xcol, ycol, zcol (str): Column names. Default: 'x', 'y', 'z'
+    Returns:
+        float: Magnitude of acceleration
+    """
     return np.sqrt(x**2 + y**2 + z**2)
 
 
 @magnitude.register(pd.DataFrame)
-def _pd_magnitude(df, xcol: str = 'x', ycol: str = 'y', zcol: str = 'z'):
+def _pd_magnitude(df, xcol: str = 'x',
+                  ycol: str = 'y', zcol: str = 'z') -> pd.DataFrame:
     out = magnitude(df['x'], df['y'], df['z'])
     out.name = 'magnitude'
     return out

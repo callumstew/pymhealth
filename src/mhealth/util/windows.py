@@ -9,7 +9,7 @@ from numba import jit
 from .deps import pd
 
 
-def view(x, w, s):
+def view(x: np.ndarray, w: int, s: int) -> np.ndarray:
     """ Strided window view of array
     Params:
         x (np.ndarray): Array to make window views of
@@ -24,7 +24,7 @@ def view(x, w, s):
 
 
 @lru_cache(64)
-def rolling_apply(func: Callable, **kwargs):
+def rolling_apply(func: Callable, **kwargs) -> Callable:
     """ Create a function to loop through an evenly-sampled array
     and apply the supplied function. Additional kwargs are optional
     and will be passed as the default value to the resulting function
@@ -94,7 +94,7 @@ def rolling_window(func: Callable, *args, **kwargs) -> Callable:
 
 @rolling_window.register(list)
 @rolling_window.register(tuple)
-def _(funcs: List[Callable], *args, **kwargs):
+def _(funcs: List[Callable], *args, **kwargs) -> Callable:
 
     @singledispatch
     def window_applyf(arr, wsize, wstep, shapes=None, dtypes=None):
@@ -130,7 +130,7 @@ def _(funcs: List[Callable], *args, **kwargs):
 
 
 @rolling_window.register(dict)
-def _(funcs: Dict[str, Callable], *args, **kwargs):
+def _(funcs: Dict[str, Callable], *args, **kwargs) -> Callable:
 
     @singledispatch
     def window_applyf(arr, *args, **kwargs):
@@ -153,7 +153,7 @@ def _(funcs: Dict[str, Callable], *args, **kwargs):
 
 
 @lru_cache(64)
-def nonuniform_window_aggregator(func: Callable):
+def nonuniform_window_aggregator(func: Callable) -> Callable:
     """ Create a function to loop through known window indices and
     apply the supplied function.
     Params:
@@ -162,7 +162,8 @@ def nonuniform_window_aggregator(func: Callable):
         Callable: function with signature (indices, arr)
     """
     @jit
-    def windows_loop(indices: np.ndarray, arr: np.ndarray, min_window_len=1):
+    def windows_loop(indices: np.ndarray, arr: np.ndarray,
+                     min_window_len=1) -> np.ndarray:
         """ Apply the '{}' function to windows with known indices
         Params:
             indices (np.ndarray[2, n]): Int array of start and end indices
@@ -185,7 +186,7 @@ def nonuniform_window_aggregator(func: Callable):
 
 
 def get_indices(index: np.ndarray, wsize: np.timedelta64,
-                wstep: np.timedelta64):
+                wstep: np.timedelta64) -> np.ndarray:
     """ Find the start and end indices of windows of a given step and size
     Params:
         index (np.ndarray[n]): Index of the array
@@ -201,7 +202,7 @@ def get_indices(index: np.ndarray, wsize: np.timedelta64,
 
 
 @singledispatch
-def nonuniform_rolling_window(func: Callable, min_window: int = 1):
+def nonuniform_rolling_window(func: Callable, min_window: int = 1) -> Callable:
     """ Create a moving window aggregation function from a function
     This function is designed for moving windows with a non-uniform index,
     particularly datetime indices. The returned function will aggregate windows
@@ -219,7 +220,7 @@ def nonuniform_rolling_window(func: Callable, min_window: int = 1):
                       arr: np.ndarray,
                       wsize: np.timedelta64,
                       wstep: np.timedelta64,
-                      min_window: int = min_window):
+                      min_window: int = min_window) -> np.ndarray:
         """ Aggregate windows with the '{}' function
         Params:
             index (np.ndarray): Index of the array
@@ -234,7 +235,8 @@ def nonuniform_rolling_window(func: Callable, min_window: int = 1):
         return out
 
     @moving_window.register(pd.DataFrame)
-    def _(df, wsize, wstep, min_window=min_window):
+    def _(df: pd.DataFrame, wsize, wstep,
+          min_window=min_window) -> pd.DataFrame:
         indices = get_indices(df.index.values, wsize, wstep)
         aggs = {c + '_' + func.__name__: f(indices, df[c].values, min_window)
                 for c in df.columns}
@@ -248,11 +250,12 @@ def nonuniform_rolling_window(func: Callable, min_window: int = 1):
 
 
 @nonuniform_rolling_window.register(list)
-def _(funcs: List[Callable], min_window_len: int = 1, method='uniform'):
+def _(funcs: List[Callable], min_window_len: int = 1) -> Callable:
     funcs = [nonuniform_window_aggregator(f) for f in funcs]
 
     @singledispatch
-    def moving_window(index, arr, wsize, wstep):
+    def moving_window(index: np.ndarary, arr: np.ndarray,
+                      wsize, wstep) -> List[np.ndarray]:
         indices = get_indices(index, wsize, wstep)
         out = [] * len(funcs)
         for i, f in enumerate(funcs):
@@ -260,7 +263,7 @@ def _(funcs: List[Callable], min_window_len: int = 1, method='uniform'):
         return out
 
     @moving_window.register(pd.DataFrame)
-    def _(df, wsize, wstep):
+    def _(df: pd.DataFrame, wsize, wstep) -> pd.DataFrame:
         indices = get_indices(df.index.values, wsize, wstep)
         aggs = {c + '_' + f.__name__:
                     f(indices, df[c].values, min_window_len)
@@ -273,11 +276,12 @@ def _(funcs: List[Callable], min_window_len: int = 1, method='uniform'):
 
 
 @nonuniform_rolling_window.register(dict)
-def _(funcs: Dict[str, Callable], min_window_len: int = 1, method='uniform'):
+def _(funcs: Dict[str, Callable], min_window_len: int = 1) -> Callable:
     funcs = {k: nonuniform_window_aggregator(f) for k, f in funcs.items()}
 
     @singledispatch
-    def moving_window(index, arr, wsize, wstep):
+    def moving_window(index: np.ndarray, arr: np.ndarray,
+                      wsize, wstep) -> Dict[str, np.ndarray]:
         indices = get_indices(index, wsize, wstep)
         out = dict()
         for k, f in funcs.items():
@@ -285,7 +289,7 @@ def _(funcs: Dict[str, Callable], min_window_len: int = 1, method='uniform'):
         return out
 
     @moving_window.register(pd.DataFrame)
-    def _(df, wsize, wstep):
+    def _(df: pd.DataFrame, wsize, wstep) -> pd.DataFrame:
         indices = get_indices(df.index.values, wsize, wstep)
         aggs = {c + '_' + name:
                     f(indices, df[c].values, min_window_len)
