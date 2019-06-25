@@ -94,14 +94,13 @@ def hamilton_tompkins_detection(fecg: np.ndarray, peaks: np.ndarray,
     prev_p = 0
     Nqrs = 0
 
-    def local_maxima(p: int, lim: int) -> bool:
+    def local_maxima(p, lim):
         """ Peak is largest within 200ms
         """
         return fecg[p] >= np.max(fecg[max(0, p - lim):p + lim])
 
-    def both_gradients(p: int) -> bool:
-        """
-        If both gradients are not present around peak, assumed to be
+    def both_gradients(p):
+        """ If both gradients are not present around peak, assumed to be
         baseline drift
         """
         x = fecg[max(0, p - int(fs * 0.05)):p + int(fs * 0.05)]
@@ -116,22 +115,21 @@ def hamilton_tompkins_detection(fecg: np.ndarray, peaks: np.ndarray,
                 return True
         return False
 
-    def is_twave(p1: int, p2: int) -> bool:
-        """ Is the current peak (p2) part of a t-wave. Compare againsti
+    def is_twave(p1, p2):
+        """ Is the current peak (p2) part of a t-wave. compare against
         previous peak (p1)
         """
         lim50 = fs * 0.05
 
-        def amplitude_over_half() -> bool:
+        def amplitude_over_half():
             return (np.max(np.diff(fecg[max(0, p2 - lim50):p2 + lim50])) <
                     0.5 * np.max(np.diff(fecg[max(0, p1 - lim50):p1 + lim50])))
 
         return p1 and p2 - p1 < (fs * 0.36) and amplitude_over_half()
 
     def sufficient_time_since_rr(p1, p2):
-        """ If 1.5 * avg RR interval has elapsed, only 0.5*threshold
-        needs to be reached
-        """
+        """ If 1.5 * avg RR interval has elapsed, only threshold/2
+        needs to be reached """
         avg_rr = np.mean(np.diff(np.sort(buf_qrs)))
         return Nqrs > 1 and fecg[p2] > 0.5 * dth and p2 - p1 >= 1.5 * avg_rr
 
