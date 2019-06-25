@@ -1,7 +1,7 @@
 """ Generic time-domain features
 """
 from functools import singledispatch
-from typing import List
+from typing import List, Union, Tuple
 import numpy as np
 from numpy.lib.stride_tricks import as_strided
 from numpy import polyfit
@@ -9,7 +9,7 @@ from numba import jit, guvectorize
 
 
 @jit
-def zero_crossings(x, th=0):
+def zero_crossings(x: np.ndarray, th: Union[float, int] = 0) -> np.ndarray:
     """ Indices of zero-crossings in the input signal
     Params:
         x (np.ndarray): Signal
@@ -23,7 +23,7 @@ def zero_crossings(x, th=0):
     return np.bitwise_xor(pos[:-1], pos[1:])
 
 
-def zero_crossing_count(x, th=0):
+def zero_crossing_count(x: np.ndarray, th: Union[float, int] = 0) -> int:
     """ Number of zero-crossings in the input signal
     Params:
         x (np.ndarray): Signal
@@ -34,7 +34,7 @@ def zero_crossing_count(x, th=0):
     return zero_crossings(x, th=th).sum()
 
 
-def hjorth_activity(x):
+def hjorth_activity(x: np.ndarray) -> float:
     """ Hjorth activity
     The variance of the input signal
     Params:
@@ -45,7 +45,7 @@ def hjorth_activity(x):
     return np.var(x)
 
 
-def hjorth_mobility(x):
+def hjorth_mobility(x: np.ndarray) -> float:
     """ Hjorth mobility
     sqrt of the variance of the first derivative of the signal divided by
     the variance of the signal
@@ -58,7 +58,7 @@ def hjorth_mobility(x):
     return np.sqrt(np.var(deriv) / np.var(x))
 
 
-def hjorth_mobility_derivative(x, deriv):
+def hjorth_mobility_derivative(x: np.ndarray, deriv: np.ndarray) -> float:
     """ Hjorth mobility with precomputed first derivitive
     sqrt of the variance of the first derivative of the signal divided by
     the variance of the signal
@@ -71,7 +71,7 @@ def hjorth_mobility_derivative(x, deriv):
     return np.sqrt(np.var(deriv) / np.var(x))
 
 
-def hjorth_complexity(x):
+def hjorth_complexity(x: np.ndarray) -> float:
     """ Hjorth complexity
     Hjorth mobility of the first derivitive divided by the hjorth mobility
     of the signal
@@ -84,7 +84,8 @@ def hjorth_complexity(x):
     return hjorth_mobility(deriv1) / hjorth_mobility_derivative(x, deriv1)
 
 
-def hjorth_complexity_derivatives(x, deriv1, deriv2):
+def hjorth_complexity_derivatives(x: np.ndarray, deriv1: np.ndarray,
+                                  deriv2: np.ndarray) -> float:
     """ Hjorth complexity with precomputed first and second derivitives
     Hjorth mobility of the first derivitive divided by the hjorth mobility
     of the signal
@@ -99,7 +100,7 @@ def hjorth_complexity_derivatives(x, deriv1, deriv2):
             hjorth_mobility_derivative(x, deriv1))
 
 
-def hjorth_parameters(x):
+def hjorth_parameters(x: np.ndarray) -> Tuple[float, float, float]:
     """ Calculate all Hjorth parameters of a signal.
     doi:10.1016/0013-4694(70)90143-4
     Params:
@@ -158,7 +159,7 @@ def dfa(x: np.ndarray, windows: List[int], o: int = 1, overlap: float = 0):
 
 
 @singledispatch
-def hurst(x, lags):
+def hurst(x: np.ndarray, lags: List[int]):
     """ Hurst exponent of a signal.
     A test for mean-reversion / trend
     H < 0.5 - mean reversion
@@ -172,12 +173,12 @@ def hurst(x, lags):
     """
     x = np.array(x)
     lags = np.array(lags)
-    return np_hurst(x, lags)
+    return nb_hurst(x, lags)
 
 
 @hurst.register(np.ndarray)
 @jit
-def np_hurst(x: np.ndarray, lags: np.ndarray = np.arange(2, 64)):
+def nb_hurst(x: np.ndarray, lags: np.ndarray = np.arange(2, 64)):
     """ Hurst exponent of a signal.
     A test for mean-reversion / trend
     H < 0.5 - mean reversion
@@ -197,7 +198,7 @@ def np_hurst(x: np.ndarray, lags: np.ndarray = np.arange(2, 64)):
 
 
 @jit
-def o1fit(x, y):
+def o1fit(x: np.ndarray, y: np.ndarray) -> Tuple[float, float]:
     n = len(x)
     sumx = np.sum(x)
     b = (((n * np.sum(x * y)) - (sumx * np.sum(y))) /
@@ -206,7 +207,7 @@ def o1fit(x, y):
     return (A, b)
 
 
-def o1fit_vec(x, ys):
+def o1fit_vec(x: np.ndarray, ys: np.ndarray) -> np.ndarray:
     @guvectorize(["void(float64[:], float64[:], float64[:, :], float64[:, :])"],
                  "(t),(n),(n,m)->(t,m)")
     def o1fit_vector(two, x, ys, res):

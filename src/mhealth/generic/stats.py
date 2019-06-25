@@ -9,12 +9,13 @@ from numba import jit
 
 
 @jit(nopython=True)
-def minmax(x):
+def minmax(x: np.ndarray):
     """ Minimum and maximum of an array looping once
     Params:
-        x (np.ndarray[float/int]): Array
+        x (np.ndarray[Any]): Array with elements that can be compared
+            with > and <.
     Returns:
-        (float/int, float/int): Tuple of minimum and maximum
+        (Any, Any) input array dtype: Tuple of minimum and maximum
     """
     x = x.ravel()
     minimum = x[0]
@@ -27,18 +28,18 @@ def minmax(x):
     return (minimum, maximum)
 
 
-def drange(x):
+def drange(x: np.ndarray):
     """ Range of data
     Params:
         x (np.ndarray[float/int])
     Returns
-        float/int: max(x) - min(x)
+        input array type: max(x) - min(x)
     """
     minimum, maximum = minmax(x)
     return maximum - minimum
 
 
-def interquartile_range(x):
+def interquartile_range(x: np.ndarray):
     """ Interquartile range
     Params:
         x (np.ndarray[float/int])
@@ -49,7 +50,7 @@ def interquartile_range(x):
 
 
 @jit(nopython=True)
-def skewness(x):
+def skewness(x: np.ndarray) -> float:
     """ Skewness (third-moment) of a distribution
     Params:
         x (np.ndarray): Distribution to find skew of
@@ -63,7 +64,7 @@ def skewness(x):
 
 
 @jit(nopython=True)
-def kurtosis(x):
+def kurtosis(x: np.ndarray) -> float:
     """ Kurtosis B2 = mu_4 / mu_2^2
     Params:
         x (np.ndarray): Distribution to find kurtosis of
@@ -76,7 +77,7 @@ def kurtosis(x):
     return np.sum(((x - np.mean(x))**4) / len(x)) / (v**2)
 
 
-def kurtosis_excess(x):
+def kurtosis_excess(x: np.ndarray) -> float:
     """ Kurtosis excess is the kurtosis - 3
     Params:
         x (np.ndarray): Distribution to find kurtosis excess of

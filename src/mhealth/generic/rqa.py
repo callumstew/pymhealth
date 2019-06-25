@@ -141,4 +141,3 @@ def _dlen_counts(dlens: np.ndarray, minlen: int, N: int) -> np.ndarray:
     for v in dlens:
         out[v] += 1
     return out[minlen:]
-
