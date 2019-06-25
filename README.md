@@ -9,10 +9,6 @@ with the standard python data science stack.
 
 
 ## Package structure
-There are two main subpackages: processing and features, for processing and
-extracting features from mHealth data respectively. Each contains submodules
-corresponding to common mHealth data streams (accelerometer, eda, telephony,
-etc).
-
-Documentation is provided at
+---
+Documentation is provided at # OUTDATED
 [callumstew.github.io/pymhealth](https://callumstew.github.io/pymhealth/)
