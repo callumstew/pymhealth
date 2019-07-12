@@ -4,10 +4,12 @@
 from typing import Optional, List, Union, Tuple
 from functools import singledispatch
 import numpy as np
+from numba import jit
 from ..util.deps import pd
 from ..generic.filters import butterworth
 
 
+@jit(nopython=True)
 @singledispatch
 def roll(y, z):
     """ Estimate angular roll from gravitational acceleration
@@ -34,6 +36,7 @@ def _df_roll(df: pd.DataFrame, ycol: str = 'y', zcol: str = 'z'):
     return out
 
 
+@jit(nopython=True)
 @singledispatch
 def pitch(x, y, z):
     """ Estimate angular pitch from gravitational acceleration
@@ -163,6 +166,7 @@ def _df_gravity_filter(df: pd.DataFrame, freq: float,
 
 
 @singledispatch
+@jit(nopython=True)
 def magnitude(x: float, y: float, z: float) -> float:
     """ Magnitude of x, y, z acceleration √(x²+y²+z²)
 
@@ -183,6 +187,30 @@ def magnitude(x: float, y: float, z: float) -> float:
 @magnitude.register(pd.DataFrame)
 def _pd_magnitude(df, xcol: str = 'x',
                   ycol: str = 'y', zcol: str = 'z') -> pd.DataFrame:
-    out = magnitude(df['x'], df['y'], df['z'])
+    out = magnitude(df[xcol], df[ycol], df[zcol])
     out.name = 'magnitude'
     return out
+
+
+@singledispatch
+@jit(nopython=True)
+def magnitude_dot(x: np.ndarray, y: np.ndarray, z: np.ndarray) -> float:
+    """ Magnitude of x, y, z acceleration arrays √(x²+y²+z²) using dot product for squares
+
+    Params <float>:
+        x, y, z (np.ndarray): Axes of acceleration
+    Returns:
+        float: Magnitude of acceleration
+
+    Params <pd.Dataframe>:
+        df (pd.DataFrame): Dataframe containing acceleration columns
+        xcol, ycol, zcol (str): Column names. Default: 'x', 'y', 'z'
+    Returns:
+        float: Magnitude of acceleration
+    """
+    return np.sqrt(np.dot(x,x) + np.dot(y,y) + np.dot(z,z))
+
+@magnitude_dot.register(pd.DataFrame)
+def _pd_magnitude_dot(df, xcol: str = 'x',
+                  ycol: str = 'y', zcol: str = 'z') -> float:
+    return magnitude_dot(df[xcol], df[ycol], df[zcol])

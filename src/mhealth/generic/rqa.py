@@ -2,6 +2,7 @@
 """
 import numpy as np
 from numba import jit
+from scipy.spatial.distance import pdist, squareform
 from .information import entropy
 
 
@@ -23,6 +24,20 @@ def rq(x: np.ndarray, radius: float = 0.) -> np.ndarray:
         for j in range(n):
             out[i, j] = np.abs(x[i] - x[j]) <= radius
     return out
+
+def rq2(x: np.ndarray, radius: float = 0.) -> np.ndarray:
+    """ Recurrence matrix; can handle multi-column input (observations=vectors), but is not jit-able
+    Params:
+        x (np.ndarray): signal
+        radius (int/float): Difference in values must be within the radius
+            to count as a recurrence. Default = 0
+    Returns:
+        np.ndarray[bool, bool]: N*N boolean matrix where True corresponds to
+            a recurrence, N = len(x)
+    return np.abs(np.subtract.outer(x, x)) <= radius
+    """
+    DD = squareform(pdist(x))
+    return DD <= radius
 
 
 @jit

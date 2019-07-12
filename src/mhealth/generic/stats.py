@@ -87,10 +87,22 @@ def kurtosis_excess(x: np.ndarray) -> float:
     return kurtosis(x) - 3
 
 
+@jit(nopython=True)
+def variation(x: np.ndarray) -> float:
+    """ Compute the coefficient of variation, the ratio of the biased standard deviation to the mean.
+    Params:
+        x (np.ndarray): input array
+    Returns:
+        float: coefficient of variation
+    """
+    return np.std(x)/np.mean(x)
+
+
+absolute = np.absolute
 mean = np.mean
 median = np.median
 std = np.std
 var = np.var
 dmin = np.min
 dmax = np.max
-percetile = np.percentile
+percentile = np.percentile
