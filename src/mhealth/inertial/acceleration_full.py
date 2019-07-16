@@ -6,6 +6,7 @@ from itertools import count
 from .accelerometer import *
 from ..generic.stats import *
 from ..generic.timedom import *
+from ..generic.information import *
 from ..generic.rqa import *
 
 def acc_timedom_feat(in_vec: np.ndarray, fs: float) -> np.ndarray:
@@ -140,22 +141,41 @@ def acc_freqdom_feat(in_vec: np.ndarray, fs: float) -> np.ndarray:
     ampSpectY[0] = 0
     ampSpectZ[0] = 0
 
-    powSpectX = ((2*ampSpectX)**2/N)[:round(len(powSpectX)/2)]
-    powSpectY = ((2*ampSpectY)**2/N)[:round(len(powSpectX)/2)]
-    powSpectZ = ((2*ampSpectZ)**2/N)[:round(len(powSpectX)/2)]
+    powSpectX = ((2*ampSpectX)**2/N)[:round(len(ampSpectX)/2)]
+    powSpectY = ((2*ampSpectY)**2/N)[:round(len(ampSpectX)/2)]
+    powSpectZ = ((2*ampSpectZ)**2/N)[:round(len(ampSpectX)/2)]
 
     # signal power
     out_vec[next(ix)] = sum(powSpectX)
     out_vec[next(ix)] = sum(powSpectY)
     out_vec[next(ix)] = sum(powSpectZ)
 
+    freq = freq[:round(len(ampSpectX)/2)]
     # signal power (low)
+    ind = np.argwhere((freq>0) & (freq<=0.75)).flatten()
+    out_vec[next(ix)] = sum(powSpectX[ind])
+    out_vec[next(ix)] = sum(powSpectY[ind])
+    out_vec[next(ix)] = sum(powSpectZ[ind])
 
     # signal power (high)
+    ind = np.argwhere((freq>0.75) & (freq<=10)).flatten()
+    out_vec[next(ix)] = sum(powSpectX[ind])
+    out_vec[next(ix)] = sum(powSpectY[ind])
+    out_vec[next(ix)] = sum(powSpectZ[ind])
 
     # entropy
+    out_vec[next(ix)] = entropy(powSpectX[:int(N/2)])
+    out_vec[next(ix)] = entropy(powSpectY[:int(N/2)])
+    out_vec[next(ix)] = entropy(powSpectZ[:int(N/2)])
 
     # fft main peak
+    ind = np.argwhere((freq>=0.1) & (freq<=10)).flatten()
+    out_vec[next(ix)] = freq[np.argmax(powSpectX[ind])]
+    out_vec[next(ix)] = freq[np.argmax(powSpectY[ind])]
+    out_vec[next(ix)] = freq[np.argmax(powSpectZ[ind])]
+    out_vec[next(ix)] = np.amax(powSpectX[ind])
+    out_vec[next(ix)] = np.amax(powSpectY[ind])
+    out_vec[next(ix)] = np.amax(powSpectZ[ind])
 
     return out_vec[:next(ix)]
 
