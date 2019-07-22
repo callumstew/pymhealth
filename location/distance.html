@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Location &#8212; pymhealth 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="location">
+<h1>Location<a class="headerlink" href="#location" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="distance">
+<h2>Distance<a class="headerlink" href="#distance" title="Permalink to this headline">¶</a></h2>
+<p>Distance formula between latitude and longitude points given in decimal degrees. Additionally, vectorised JIT compiled functions are provided:</p>
+<ul class="simple">
+<li><p>elementwise: elementwise distance between latitude and longitude vectors</p></li>
+<li><p>vector: distance between a single fixed location and vectors for compared latitudes and longitudes</p></li>
+<li><p>outer_product: The distance outer product between two sets of latitude/longitude vectors</p></li>
+</ul>
+<p>Metrics:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#haversine">Haversine</a></p></li>
+<li><p>Karney TODO</p></li>
+</ul>
+<div class="section" id="haversine">
+<h3>Haversine<a class="headerlink" href="#haversine" title="Permalink to this headline">¶</a></h3>
+<p>Haversine gives the great-circle distance between two points on a sphere.</p>
+<p><span class="math notranslate nohighlight">\(d = 2r \cdot \arcsin (\sqrt{\sin^2(\frac{\phi_2 - \phi_1}{2}) + \cos(\phi_1) \cdot \cos(\phi_2) \cdot \sin^2(\frac{\lambda_2 - \lambda_1}{2})})\)</span></p>
+<p>The radius of the earth varies, so the mean radius is used (6371.009 km - same as geopy). The calculated distance should be accurate within ~0.5%</p>
+<dl class="function">
+<dt>
+<code class="sig-name descname">haversine</code><span class="sig-paren">(</span><em class="sig-param">lat1</em>, <em class="sig-param">lon1</em>, <em class="sig-param">lat2</em>, <em class="sig-param">lon2</em><span class="sig-paren">)</span></dt>
+<dt>
+<code class="sig-name descname">Find the haversine distance in kilometers between the points</code></dt>
+<dt>
+<code class="sig-name descname">(lat1, lon1) and (lat2, lon2) given in degrees.</code></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lat1</strong> (<em>float</em>) – latitude of first point</p></li>
+<li><p><strong>lon1</strong> (<em>float</em>) – longitude of first point</p></li>
+<li><p><strong>lat2</strong> (<em>float</em>) – latitude of second point</p></li>
+<li><p><strong>lon2</strong> (<em>float</em>) – longitude of second point</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float64</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Example:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mhealth.processing.location.distance</span> <span class="k">import</span> <span class="n">haversine</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">haversine</span><span class="p">(</span><span class="mf">41.507483</span><span class="p">,</span> <span class="o">-</span><span class="mf">99.436554</span><span class="p">,</span> <span class="mf">38.504048</span><span class="p">,</span> <span class="o">-</span><span class="mf">98.315949</span><span class="p">)</span>
+<span class="go">347.32834803942626</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">london</span> <span class="o">=</span> <span class="p">(</span><span class="mf">51.5074</span><span class="p">,</span> <span class="mf">0.1278</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">paris</span> <span class="o">=</span> <span class="p">(</span><span class="mf">48.8566</span><span class="p">,</span> <span class="mf">2.3522</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">haversine</span><span class="p">(</span><span class="o">*</span><span class="n">london</span><span class="p">,</span> <span class="o">*</span><span class="n">paris</span><span class="p">)</span>
+<span class="go">334.57613798049994</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<dl class="function">
+<dt id="haversine_elementwise">
+<code class="sig-name descname">haversine_elementwise</code><span class="sig-paren">(</span><em class="sig-param">lat1</em>, <em class="sig-param">lon1</em>, <em class="sig-param">lat2</em>, <em class="sig-param">lon2</em><span class="sig-paren">)</span><a class="headerlink" href="#haversine_elementwise" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">The haversine elementwise distance between two sets of</code></dt>
+<dt>
+<code class="sig-name descname">latitude and longitude vectors.</code></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lat1</strong> (<em>float64</em><em>[</em><em>n</em><em>]</em>) – vector of latitudes</p></li>
+<li><p><strong>lon1</strong> (<em>float64</em><em>[</em><em>n</em><em>]</em>) – vector of longitudes</p></li>
+<li><p><strong>lat2</strong> (<em>float64</em><em>[</em><em>n</em><em>]</em>) – vector of latitudes</p></li>
+<li><p><strong>lon2</strong> (<em>float64</em><em>[</em><em>n</em><em>]</em>) – vector of longitudes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float64[n]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>For example, to find the distance between successive points:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mhealth.processing.location.distance</span> <span class="k">import</span> <span class="n">haversine_elementwise</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lats</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.123</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.23</span><span class="p">,</span> <span class="mf">88.09</span><span class="p">,</span> <span class="mf">51.23</span><span class="p">]</span> <span class="c1"># (It is preferable to provide numpy arrays.)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lons</span> <span class="o">=</span> <span class="p">[</span><span class="mf">160.1</span><span class="p">,</span> <span class="mf">99.12</span><span class="p">,</span> <span class="mf">1.12</span><span class="p">,</span> <span class="o">-</span><span class="mf">20.1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">haversine_elementwise</span><span class="p">(</span><span class="n">lats</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">lons</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">lats</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">lons</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="go">array([ 7715.92891568, 14840.77608768,  4113.65086425])</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<dl class="function">
+<dt id="haversine_vector">
+<code class="sig-name descname">haversine_vector</code><span class="sig-paren">(</span><em class="sig-param">lat1</em>, <em class="sig-param">lon1</em>, <em class="sig-param">latcol</em>, <em class="sig-param">loncol</em><span class="sig-paren">)</span><a class="headerlink" href="#haversine_vector" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">The haversine distance between a fixed point and a set of</code></dt>
+<dt>
+<code class="sig-name descname">latitude / longitude vectors</code></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lat1</strong> (<em>float64</em>) – fixed latitude</p></li>
+<li><p><strong>lon1</strong> (<em>float64</em>) – fixed longitude</p></li>
+<li><p><strong>latcol</strong> (<em>float64</em><em>[</em><em>n</em><em>]</em>) – latitude vector</p></li>
+<li><p><strong>loncol</strong> (<em>float64</em><em>[</em><em>n</em><em>]</em>) – longitude vector</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float64[n]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Example:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mhealth.processing.location.distance</span> <span class="k">import</span> <span class="n">haversine_vector</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lats</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.123</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.23</span><span class="p">,</span> <span class="mf">88.09</span><span class="p">,</span> <span class="mf">51.23</span><span class="p">]</span> <span class="c1"># (It is preferable to provide numpy arrays.)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lons</span> <span class="o">=</span> <span class="p">[</span><span class="mf">160.1</span><span class="p">,</span> <span class="mf">99.12</span><span class="p">,</span> <span class="mf">1.12</span><span class="p">,</span> <span class="o">-</span><span class="mf">20.1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">haversine_vector</span><span class="p">(</span><span class="n">lats</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lons</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lats</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">lons</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+<span class="go">array([ 7715.92891568, 10192.11206194, 14304.8626077 ])</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<dl class="function">
+<dt id="haversine_outer_product">
+<code class="sig-name descname">haversine_outer_product</code><span class="sig-paren">(</span><em class="sig-param">lat1</em>, <em class="sig-param">lon1</em>, <em class="sig-param">lat2</em>, <em class="sig-param">lon2</em><span class="sig-paren">)</span><a class="headerlink" href="#haversine_outer_product" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">The haversine distance between every element of two sets of</code></dt>
+<dt>
+<code class="sig-name descname">latitude/longitude vectors</code></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lat1</strong> (<em>float64</em><em>[</em><em>n</em><em>]</em>) – latitude vector</p></li>
+<li><p><strong>lon1</strong> (<em>float64</em><em>[</em><em>n</em><em>]</em>) – longitude vector</p></li>
+<li><p><strong>lat2</strong> (<em>float64</em><em>[</em><em>m</em><em>]</em>) – latitude vector</p></li>
+<li><p><strong>lon2</strong> (<em>float64</em><em>[</em><em>m</em><em>]</em>) – longitude vector</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float64[n,m]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>For example, to find the pairwise distance of a list of points:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mhealth.processing.location.distance</span> <span class="k">import</span> <span class="n">haversine_outer_product</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.123</span><span class="p">,</span> <span class="mf">21.432</span><span class="p">],</span> <span class="p">[</span><span class="mf">54.54</span><span class="p">,</span> <span class="mf">65.6</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">5.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">haversine_outer_product</span><span class="p">(</span><span class="n">points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="go">array([[   0.        , 7260.9522096 , 3536.83264235],</span>
+<span class="go">       [7260.9522096 ,    0.        , 9543.74292632],</span>
+<span class="go">       [3536.83264235, 9543.74292632,    0.        ]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">pymhealth</a></h1>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=callumstew&repo=pymhealth&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Callum L Stewart.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/location/distance.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
