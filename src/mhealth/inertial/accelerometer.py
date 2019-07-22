@@ -8,9 +8,11 @@ from numba import jit
 from ..util.deps import pd
 from ..generic.filters import butterworth
 
+NUMERIC = [np.float32, np.float64, np.int32, np.int64]
 
-@jit(nopython=True)
+
 @singledispatch
+@jit(nopython=True)
 def roll(y, z):
     """ Estimate angular roll from gravitational acceleration
     Params:
@@ -27,17 +29,16 @@ def _df_roll(df: pd.DataFrame, ycol: str = 'y', zcol: str = 'z'):
     accelerometer data.
     Params:
         df (pd.DataFrame): accelerometer dataframe
-        xcol, ycol, zcol (str): column names for x, y, and z acceleration
+        ycol, zcol (str): column names for y and z acceleration
     Returns:
         pd.Series: roll
     """
-    out = roll(df[ycol], df[zcol])
-    out.name = 'roll'
+    out = pd.Series(roll(df[ycol].values, df[zcol].values), name='roll')
     return out
 
 
-@jit(nopython=True)
 @singledispatch
+@jit(nopython=True)
 def pitch(x, y, z):
     """ Estimate angular pitch from gravitational acceleration
     Params:
@@ -59,8 +60,8 @@ def _df_pitch(df: pd.DataFrame, xcol: str = 'x',
     Returns:
         pd.Series: pitch
     """
-    out = pitch(df[xcol], df[ycol], df[zcol])
-    out.name = 'pitch'
+    out = pd.Series(pitch(df[xcol].values, df[ycol].values, df[zcol].values),
+                    name='pitch')
     return out
 
 
@@ -113,7 +114,7 @@ def _df_linear_filter(df: pd.DataFrame,
     if columns:
         out = df[columns].copy()
     else:
-        out = df.select_dtypes(include=[float, int]).copy()
+        out = df.select_dtypes(include=NUMERIC).copy()
     out[:] = linear_filter(out.values, freq, cutoff, order)
     return out
 
@@ -160,7 +161,7 @@ def _df_gravity_filter(df: pd.DataFrame, freq: float,
     if columns:
         out = df[columns].copy()
     else:
-        out = df.select_dtypes(include=[float, int]).copy()
+        out = df.select_dtypes(include=NUMERIC).copy()
     out[:] = gravity_filter(out.values, freq, cutoff, order)
     return out
 
@@ -187,15 +188,16 @@ def magnitude(x: float, y: float, z: float) -> float:
 @magnitude.register(pd.DataFrame)
 def _pd_magnitude(df, xcol: str = 'x',
                   ycol: str = 'y', zcol: str = 'z') -> pd.DataFrame:
-    out = magnitude(df[xcol], df[ycol], df[zcol])
-    out.name = 'magnitude'
+    out = pd.Series(magnitude(df[xcol].values, df[ycol].values,
+                              df[zcol].values), name='magnitude')
     return out
 
 
 @singledispatch
 @jit(nopython=True)
 def magnitude_dot(x: np.ndarray, y: np.ndarray, z: np.ndarray) -> float:
-    """ Magnitude of x, y, z acceleration arrays √(x²+y²+z²) using dot product for squares
+    """ Magnitude of x, y, z acceleration arrays √(x²+y²+z²) using dot product
+        for squares.
 
     Params <float>:
         x, y, z (np.ndarray): Axes of acceleration
@@ -208,9 +210,10 @@ def magnitude_dot(x: np.ndarray, y: np.ndarray, z: np.ndarray) -> float:
     Returns:
         float: Magnitude of acceleration
     """
-    return np.sqrt(np.dot(x,x) + np.dot(y,y) + np.dot(z,z))
+    return np.sqrt(np.dot(x, x) + np.dot(y, y) + np.dot(z, z))
+
 
 @magnitude_dot.register(pd.DataFrame)
 def _pd_magnitude_dot(df, xcol: str = 'x',
-                  ycol: str = 'y', zcol: str = 'z') -> float:
+                      ycol: str = 'y', zcol: str = 'z') -> float:
     return magnitude_dot(df[xcol], df[ycol], df[zcol])

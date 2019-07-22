@@ -177,7 +177,7 @@ def nonuniform_window_aggregator(func: Callable) -> Callable:
             si = indices[0, i]
             ei = indices[1, i]
             if ei - si >= min_window_len:
-                out[i] = func(arr[indices[0, i]:indices[1, i]])
+                out[i] = func(arr[si:ei])
             else:
                 out[i] = np.nan
         return out

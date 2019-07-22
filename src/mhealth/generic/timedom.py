@@ -9,6 +9,16 @@ from numba import jit, guvectorize
 
 
 @jit
+def gradient(x):
+    out = np.zeros(len(x))
+    out[0] = x[1] - x[0]
+    out[-1] = x[-1] - x[-2]
+    for i in range(1, len(x)-1):
+        out[i] = (x[i+1] - x[i-1]) / 2
+    return out
+
+
+@jit
 def zero_crossings(x: np.ndarray, th: Union[float, int] = 0) -> np.ndarray:
     """ Indices of zero-crossings in the input signal
     Params:
@@ -23,6 +33,7 @@ def zero_crossings(x: np.ndarray, th: Union[float, int] = 0) -> np.ndarray:
     return np.bitwise_xor(pos[:-1], pos[1:])
 
 
+@jit
 def zero_crossing_count(x: np.ndarray, th: Union[float, int] = 0) -> int:
     """ Number of zero-crossings in the input signal
     Params:
@@ -34,6 +45,18 @@ def zero_crossing_count(x: np.ndarray, th: Union[float, int] = 0) -> int:
     return zero_crossings(x, th=th).sum()
 
 
+@jit
+def line_length(x: np.ndarray) -> float:
+    """ Sum of absolute differences between points in an array.
+    Params:
+        x (np.ndarray): Signal
+    Returns:
+        float
+    """
+    return np.sum(np.abs(np.diff(x)))
+
+
+@jit
 def hjorth_activity(x: np.ndarray) -> float:
     """ Hjorth activity
     The variance of the input signal
@@ -45,6 +68,7 @@ def hjorth_activity(x: np.ndarray) -> float:
     return np.var(x)
 
 
+@jit
 def hjorth_mobility(x: np.ndarray) -> float:
     """ Hjorth mobility
     sqrt of the variance of the first derivative of the signal divided by
@@ -54,10 +78,11 @@ def hjorth_mobility(x: np.ndarray) -> float:
     Returns:
         float: Hjorth mobility of signal
     """
-    deriv = np.gradient(x)
+    deriv = gradient(x)
     return np.sqrt(np.var(deriv) / np.var(x))
 
 
+@jit
 def hjorth_mobility_derivative(x: np.ndarray, deriv: np.ndarray) -> float:
     """ Hjorth mobility with precomputed first derivitive
     sqrt of the variance of the first derivative of the signal divided by
@@ -71,6 +96,7 @@ def hjorth_mobility_derivative(x: np.ndarray, deriv: np.ndarray) -> float:
     return np.sqrt(np.var(deriv) / np.var(x))
 
 
+@jit
 def hjorth_complexity(x: np.ndarray) -> float:
     """ Hjorth complexity
     Hjorth mobility of the first derivitive divided by the hjorth mobility
@@ -80,10 +106,11 @@ def hjorth_complexity(x: np.ndarray) -> float:
     Returns:
         float: Hjorth complexity of signal
     """
-    deriv1 = np.gradient(x)
+    deriv1 = gradient(x)
     return hjorth_mobility(deriv1) / hjorth_mobility_derivative(x, deriv1)
 
 
+@jit
 def hjorth_complexity_derivatives(x: np.ndarray, deriv1: np.ndarray,
                                   deriv2: np.ndarray) -> float:
     """ Hjorth complexity with precomputed first and second derivitives
@@ -100,6 +127,7 @@ def hjorth_complexity_derivatives(x: np.ndarray, deriv1: np.ndarray,
             hjorth_mobility_derivative(x, deriv1))
 
 
+@jit
 def hjorth_parameters(x: np.ndarray) -> Tuple[float, float, float]:
     """ Calculate all Hjorth parameters of a signal.
     doi:10.1016/0013-4694(70)90143-4
@@ -108,8 +136,8 @@ def hjorth_parameters(x: np.ndarray) -> Tuple[float, float, float]:
     Returns
         (float, float, float): Tuple of activity, mobility, complexity.
     """
-    deriv1 = np.gradient(x)
-    deriv2 = np.gradient(deriv1)
+    deriv1 = gradient(x)
+    deriv2 = gradient(deriv1)
     activity = hjorth_activity(x)
     mobility = hjorth_mobility_derivative(x, deriv1)
     complexity = hjorth_complexity_derivatives(x, deriv1, deriv2)
@@ -158,27 +186,8 @@ def dfa(x: np.ndarray, windows: List[int], o: int = 1, overlap: float = 0):
     return scaling_exponent
 
 
-@singledispatch
-def hurst(x: np.ndarray, lags: List[int]):
-    """ Hurst exponent of a signal.
-    A test for mean-reversion / trend
-    H < 0.5 - mean reversion
-    H = 0.5 - random walk
-    H > 0.5 - trending
-    Params:
-        x (np.ndarray[int/float]): Signal to calculate hurst exponent on
-        lags (np.ndarray[int]): Time-lags to calculate. Default = 2..64
-    Returns:
-        float: Hurst exponent
-    """
-    x = np.array(x)
-    lags = np.array(lags)
-    return nb_hurst(x, lags)
-
-
-@hurst.register(np.ndarray)
 @jit
-def nb_hurst(x: np.ndarray, lags: np.ndarray = np.arange(2, 64)):
+def hurst(x: np.ndarray, lags: np.ndarray = np.arange(2, 64)):
     """ Hurst exponent of a signal.
     A test for mean-reversion / trend
     H < 0.5 - mean reversion

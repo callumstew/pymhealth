@@ -1,10 +1,12 @@
 """ ECG QRS-complex and R-peak detection algorithms
 """
-from typing import Callable
+from typing import Callable, Optional
+from functools import singledispatch
 import numpy as np
 from numba import jit
 from ..generic.filters import butterworth
 from ..util.windows import view
+from ..util.deps import pd
 
 
 def pt_differentiate(x: np.ndarray) -> np.ndarray:
@@ -54,10 +56,52 @@ def pan_tompkins_filter(ecg: np.ndarray, fs: float) -> np.ndarray:
     return moving_average(ecg, window)
 
 
+@singledispatch
 def hamilton_tompkins(ecg: np.ndarray, fs: float) -> np.ndarray:
+    """
+    Uses Hamilton-Tompkins algorithm to detect R-peaks in an ECG signal.
+
+
+    Params <np.ndarray>:
+        ecg (np.ndarray[float]): ECG signal array
+        fs (float): ECG sampling frequency
+    Returns:
+        np.ndarray: index of peaks
+
+
+    Params <pd.DataFrame>:
+        ecg (pd.DataFrame): Dataframe with ECG signal as one of the columns
+        fs (float) (optional): Sampling frequency. If not given, uses index
+        column (str) (optional): Column name of ECG signal. If not given, uses
+            first column.
+    Returns:
+        pd.DataFrame: index of peaks
+
+
+    See also:
+        doi: 10.1109/TBME.1986.325695
+
+        Hamilton, Patrick S. "Open source ECG analysis software documentation."
+        Computers in cardiology 2002 (2002): 101-104.
+    """
+    ecg = np.array(ecg)
+    return _np_hamilton_tompkins(ecg, fs)
+
+
+@hamilton_tompkins.register(np.ndarray)
+def _np_hamilton_tompkins(ecg: np.ndarray, fs: float) -> np.ndarray:
     fecg = hamilton_tompkins_filter(ecg, fs)
     peaks = find_peaks(fecg)
     return hamilton_tompkins_detection(fecg, peaks, fs)
+
+
+@hamilton_tompkins.register(pd.DataFrame)
+def _df_hamilton_tompkins(ecg: pd.DataFrame, fs: Optional[float] = None,
+                          column: Optional[str] = None) -> pd.DataFrame:
+    column = column if column else ecg.columns[0]
+    fs = fs if fs else (1e9 / (ecg.index[1]-ecg.index[0]).value)
+    vals = _np_hamilton_tompkins(ecg[column].values, fs)
+    return pd.DataFrame(vals, index=ecg.index[vals])
 
 
 def hamilton_tompkins_filter(ecg: np.ndarray, fs: float) -> np.ndarray:
@@ -69,7 +113,7 @@ def hamilton_tompkins_filter(ecg: np.ndarray, fs: float) -> np.ndarray:
     return moving_average(ecg, window)
 
 
-@jit
+@jit(nopython=True)
 def hamilton_tompkins_detection(fecg: np.ndarray, peaks: np.ndarray,
                                 fs: float, buf: int = 8,
                                 th: float = 0.3125) -> np.ndarray:
@@ -154,12 +198,21 @@ def hamilton_tompkins_detection(fecg: np.ndarray, peaks: np.ndarray,
 
 
 def find_peaks(x: np.ndarray, comp: Callable = np.greater) -> np.ndarray:
+    """ Find indices of peaks in an array.
+    A peak is identified where the comparison function returns true
+    comparing x_i to x_i-1 and x_i to x_i+1.
+    Params:
+        x (np.ndarray): Array to find peaks in
+        comp (Callable): Comparison function to determine peak. Default: gt
+    Returns:
+        np.ndarray[int]: Indices of peaks
+    """
     x = view(x, 3, 1)
     barr = np.logical_and(comp(x[:, 1], x[:, 0]), comp(x[:, 1], x[:, 2]))
     return np.where(barr)[0] + 1
 
 
-@jit
+@jit(nopython=True)
 def nb_find_peaks(x: np.ndarray) -> np.ndarray:
     peaks = np.zeros(len(x), np.bool_)
     for i in range(1, len(x)-1):
