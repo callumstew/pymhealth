@@ -8,6 +8,9 @@ from ..util.deps import pd
 from ..generic.filters import butterworth
 
 
+NUMERIC = [np.float32, np.float64, np.int32, np.int64]
+
+
 @singledispatch
 def roll(y, z):
     """ Estimate angular roll from gravitational acceleration
@@ -25,7 +28,7 @@ def _df_roll(df: pd.DataFrame, ycol: str = 'y', zcol: str = 'z'):
     accelerometer data.
     Params:
         df (pd.DataFrame): accelerometer dataframe
-        xcol, ycol, zcol (str): column names for x, y, and z acceleration
+        ycol, zcol (str): column names for y and z acceleration
     Returns:
         pd.Series: roll
     """
@@ -110,7 +113,7 @@ def _df_linear_filter(df: pd.DataFrame,
     if columns:
         out = df[columns].copy()
     else:
-        out = df.select_dtypes(include=[float, int]).copy()
+        out = df.select_dtypes(include=NUMERIC).copy()
     out[:] = linear_filter(out.values, freq, cutoff, order)
     return out
 
@@ -157,7 +160,7 @@ def _df_gravity_filter(df: pd.DataFrame, freq: float,
     if columns:
         out = df[columns].copy()
     else:
-        out = df.select_dtypes(include=[float, int]).copy()
+        out = df.select_dtypes(include=NUMERIC).copy()
     out[:] = gravity_filter(out.values, freq, cutoff, order)
     return out
 
@@ -183,6 +186,6 @@ def magnitude(x: float, y: float, z: float) -> float:
 @magnitude.register(pd.DataFrame)
 def _pd_magnitude(df, xcol: str = 'x',
                   ycol: str = 'y', zcol: str = 'z') -> pd.DataFrame:
-    out = magnitude(df['x'], df['y'], df['z'])
+    out = magnitude(df[xcol], df[ycol], df[zcol])
     out.name = 'magnitude'
     return out
