@@ -1,5 +1,14 @@
-mhealth
-_______
+mhealth package
+===============
+
+.. automodule:: mhealth
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Subpackages
+-----------
+
 .. toctree::
 
    mhealth.generic
@@ -8,14 +17,11 @@ _______
    mhealth.location
    mhealth.smartphone
    mhealth.util
+
+Submodules
+----------
+
+.. toctree::
+
    mhealth.eda
    mhealth.emg
-
-
-Module contents
----------------
-
-.. automodule:: mhealth
-   :members:
-   :undoc-members:
-   :show-inheritance:

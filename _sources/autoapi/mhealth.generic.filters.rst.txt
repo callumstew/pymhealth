@@ -1,6 +1,3 @@
-mhealth.generic.filters module
-==============================
-
 .. automodule:: mhealth.generic.filters
    :members:
    :undoc-members:

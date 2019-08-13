@@ -1,6 +1,11 @@
 mhealth.generic package
 =======================
 
+.. automodule:: mhealth.generic
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -12,11 +17,3 @@ Submodules
    mhealth.generic.rqa
    mhealth.generic.stats
    mhealth.generic.timedom
-
-Module contents
----------------
-
-.. automodule:: mhealth.generic
-   :members:
-   :undoc-members:
-   :show-inheritance:

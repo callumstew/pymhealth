@@ -1,6 +1,3 @@
-mhealth.inertial.accelerometer module
-=====================================
-
 .. automodule:: mhealth.inertial.accelerometer
    :members:
    :undoc-members:

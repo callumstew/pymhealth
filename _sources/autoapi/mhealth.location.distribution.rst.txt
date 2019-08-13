@@ -1,6 +1,3 @@
-mhealth.location.distribution module
-====================================
-
 .. automodule:: mhealth.location.distribution
    :members:
    :undoc-members:

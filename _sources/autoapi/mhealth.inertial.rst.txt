@@ -1,17 +1,14 @@
 mhealth.inertial package
 ========================
 
+.. automodule:: mhealth.inertial
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
 .. toctree::
 
    mhealth.inertial.accelerometer
-
-Module contents
----------------
-
-.. automodule:: mhealth.inertial
-   :members:
-   :undoc-members:
-   :show-inheritance:

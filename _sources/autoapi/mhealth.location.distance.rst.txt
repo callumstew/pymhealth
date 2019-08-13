@@ -1,6 +1,3 @@
-mhealth.location.distance module
-================================
-
 .. automodule:: mhealth.location.distance
    :members:
    :undoc-members:

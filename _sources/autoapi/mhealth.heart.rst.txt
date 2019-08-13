@@ -1,6 +1,11 @@
 mhealth.heart package
 =====================
 
+.. automodule:: mhealth.heart
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -8,11 +13,3 @@ Submodules
 
    mhealth.heart.hrv
    mhealth.heart.qrs
-
-Module contents
----------------
-
-.. automodule:: mhealth.heart
-   :members:
-   :undoc-members:
-   :show-inheritance:

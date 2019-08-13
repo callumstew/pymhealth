@@ -1,6 +1,3 @@
-mhealth.eda module
-==================
-
 .. automodule:: mhealth.eda
    :members:
    :undoc-members:

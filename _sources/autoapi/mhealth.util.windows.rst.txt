@@ -1,6 +1,3 @@
-mhealth.util.windows module
-===========================
-
 .. automodule:: mhealth.util.windows
    :members:
    :undoc-members:

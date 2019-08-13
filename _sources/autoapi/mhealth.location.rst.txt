@@ -1,6 +1,11 @@
 mhealth.location package
 ========================
 
+.. automodule:: mhealth.location
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -9,11 +14,3 @@ Submodules
    mhealth.location.distance
    mhealth.location.distribution
    mhealth.location.features
-
-Module contents
----------------
-
-.. automodule:: mhealth.location
-   :members:
-   :undoc-members:
-   :show-inheritance:

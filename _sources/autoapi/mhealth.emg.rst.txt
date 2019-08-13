@@ -1,6 +1,3 @@
-mhealth.emg module
-==================
-
 .. automodule:: mhealth.emg
    :members:
    :undoc-members:

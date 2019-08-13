@@ -1,6 +1,11 @@
 mhealth.util package
 ====================
 
+.. automodule:: mhealth.util
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -8,11 +13,3 @@ Submodules
 
    mhealth.util.deps
    mhealth.util.windows
-
-Module contents
----------------
-
-.. automodule:: mhealth.util
-   :members:
-   :undoc-members:
-   :show-inheritance:
