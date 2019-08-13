@@ -125,7 +125,8 @@ def gravity_filter(acc: np.ndarray, freq: float,
     """ Filters acceleration with a two-pass Butterworth filter,
     returning the gravitational component
 
-    Params <np.ndarray[float]>:
+    Dispatch <np.ndarray[float]>
+    Args:
         acc (np.ndarray[float]): A vector or array of acceleration values
             If multiple vectors are given in a 2d array, the 2nd dimension
             seperates vectors. i.e acc[m, n] where n is the dimension of
@@ -136,7 +137,8 @@ def gravity_filter(acc: np.ndarray, freq: float,
     Returns:
         np.ndarray[float]: Gravitational component of acceleration
 
-    Params <pd.DataFrame>:
+    Dispatch <pd.DataFrame>
+    Params:
         df (pd.DataFrame): Dataframe containing acceleration
         freq (float): Sampling frequency
         cutoff (float): Low-pass cut-off frequency. Default: 0.5

@@ -37,34 +37,26 @@ Tutorials and examples
 --------------------
 API documentation
 --------------------
-* Processing
-    - :doc:`processing/accelerometer`
-    - battery
-    - eda
-    - :doc:`processing/generic`
-    - gyroscope
-    - heart
-    - light
-    - :doc:`processing/location`
-    - magnetometer
-    - smartphone
-    - steps
-    - telephony
-    - temperature
-* Features
-    - accelerometer
-    - battery
-    - ecg
-    - generic
-    - gyroscope
-    - heart
-    - light
-    - location
-    - magnetometer
-    - smartphone
-    - steps
-    - telephony
-    - temperature
+
+* Generic
+  - :doc:`generic/filters`
+  - information TODO
+  - nufft TODO
+  - rqa TODO
+  - stats TODO
+  - stats TODO
+* Inertial
+  - :doc:`inertial/accelerometer`
+* Heart
+  - HRV TODO
+  - QRS TODO
+* Location
+  - :doc:`location/distance`
+* Smartphone
+* Util
+  - deps TODO
+  - windows TODO
+
 
 ------------------
 
