@@ -2,7 +2,9 @@
 API Reference
 ==========
 
-.. automodule:: mhealth.inertial.accelerometer
-    :members:
-    :private-members:
-    :special-members:
+.. toctree::
+    :maxdepth: 3
+    :caption: API Reference
+
+    api/inertial/accelerometer
+
