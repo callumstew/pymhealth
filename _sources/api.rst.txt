@@ -1,3 +1,7 @@
+==========
+API Reference
+==========
+
 .. automodule:: mhealth
     :members:
     :private-members:
