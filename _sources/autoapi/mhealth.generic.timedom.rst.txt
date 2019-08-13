@@ -1,4 +1,0 @@
-.. automodule:: mhealth.generic.timedom
-   :members:
-   :undoc-members:
-   :show-inheritance:

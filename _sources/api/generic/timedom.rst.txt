@@ -3,7 +3,6 @@ Timedom
 =======
 
 .. automodule:: mhealth.generic.timedom
-    :autosummary:
     :members:
     :private-members:
     :special-members:

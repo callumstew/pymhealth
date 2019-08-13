@@ -15,17 +15,11 @@ Pymhealth is in development and the API/package structure is likely to change.
     intro
 
 .. toctree::
-    :maxdepth: 6
+    :maxdepth: 3
     :caption: API Reference
 
-    api/inertial
+    api
 
-.. toctree::
-    :maxdepth: 6
-    :caption: Auto API
-
-    autoapi
-    
 ------------------
 Indices and tables
 ------------------

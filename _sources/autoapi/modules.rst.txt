@@ -1,7 +1,0 @@
-mhealth
-=======
-
-.. toctree::
-   :maxdepth: 6
-
-   mhealth

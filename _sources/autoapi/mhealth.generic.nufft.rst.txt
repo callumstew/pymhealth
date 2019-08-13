@@ -1,4 +1,0 @@
-.. automodule:: mhealth.generic.nufft
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -1,10 +1,9 @@
-==========
-API Reference
-==========
-
+=======
+mhealth
+=======
 .. toctree::
-    :maxdepth: 4
-    :caption: API Reference
+    :maxdepth: 6
 
+    api/generic
     api/inertial
-
+    api/heart

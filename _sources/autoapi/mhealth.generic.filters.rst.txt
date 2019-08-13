@@ -1,4 +1,0 @@
-.. automodule:: mhealth.generic.filters
-   :members:
-   :undoc-members:
-   :show-inheritance:

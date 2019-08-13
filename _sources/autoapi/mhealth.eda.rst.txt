@@ -1,4 +1,0 @@
-.. automodule:: mhealth.eda
-   :members:
-   :undoc-members:
-   :show-inheritance:

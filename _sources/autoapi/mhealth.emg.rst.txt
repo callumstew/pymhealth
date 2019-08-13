@@ -1,4 +1,0 @@
-.. automodule:: mhealth.emg
-   :members:
-   :undoc-members:
-   :show-inheritance:

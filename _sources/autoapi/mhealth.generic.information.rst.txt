@@ -1,4 +1,0 @@
-.. automodule:: mhealth.generic.information
-   :members:
-   :undoc-members:
-   :show-inheritance:

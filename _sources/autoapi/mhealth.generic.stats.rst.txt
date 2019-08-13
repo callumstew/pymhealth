@@ -1,4 +1,0 @@
-.. automodule:: mhealth.generic.stats
-   :members:
-   :undoc-members:
-   :show-inheritance:

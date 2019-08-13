@@ -1,4 +1,0 @@
-.. automodule:: mhealth.inertial.accelerometer
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="rqa" href="rqa.html" />
+    <link rel="prev" title="Generic" href="../generic.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -84,8 +86,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../inertial.html">Inertial</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">mhealth</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../generic.html">Generic</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rqa.html">rqa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stats.html">stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timedom.html">Timedom</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../inertial.html">Inertial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../heart.html">Heart</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -131,6 +144,10 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
+          <li><a href="../../api.html">mhealth</a> &raquo;</li>
+        
+          <li><a href="../generic.html">Generic</a> &raquo;</li>
+        
       <li>Filters</li>
     
     
@@ -150,8 +167,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="filters">
-<h1>Filters<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-mhealth.generic.filters">
+<span id="filters"></span><h1>Filters<a class="headerlink" href="#module-mhealth.generic.filters" title="Permalink to this headline">¶</a></h1>
+<p>Generic convenience functions around scipy signal filters</p>
+<dl class="function">
+<dt id="mhealth.generic.filters.butterworth">
+<code class="sig-prename descclassname">mhealth.generic.filters.</code><code class="sig-name descname">butterworth</code><span class="sig-paren">(</span><em class="sig-param">arr: numpy.ndarray, cutoff: Union[float, Tuple[float, float]], freq: float, order: int = 5, ftype: str = 'highpass'</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#mhealth.generic.filters.butterworth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Butterworth filters the array through a highpass butterworth filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arr</strong> (<em>list</em><em> or </em><em>numpy.array</em>) – The timeseries array
+on which the filter is applied</p></li>
+<li><p><strong>cutoff</strong> (<em>scalar</em><em> or </em><em>len-2 sequence</em>) – The critical frequencies for the
+Butterworth filter. The point at which the gain drops to 1/sqrt(2)
+of the passband. Must be length-2 sequence for a bandpass filter
+giving [low, high]. Or else the scalar cutoff frequency for either
+a low-pass’ or ‘highpass’ filter.</p></li>
+<li><p><strong>freq</strong> (<em>float</em>) – The frequency (Hz) of the input array</p></li>
+<li><p><strong>order</strong> (<em>int</em>) – The order of the filter.</p></li>
+<li><p><strong>ftype</strong> (<em>str - {'highpass'</em><em>, </em><em>'lowpass'</em><em>, </em><em>'bandpass'}</em>) – The filter type. Default is ‘highpass’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Filtered input signal</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 
@@ -159,6 +205,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rqa.html" class="btn btn-neutral float-right" title="rqa" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../generic.html" class="btn btn-neutral float-left" title="Generic" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

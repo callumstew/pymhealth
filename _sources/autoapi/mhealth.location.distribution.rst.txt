@@ -1,4 +1,0 @@
-.. automodule:: mhealth.location.distribution
-   :members:
-   :undoc-members:
-   :show-inheritance:

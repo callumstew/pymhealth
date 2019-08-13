@@ -1,4 +1,0 @@
-.. automodule:: mhealth.generic.rqa
-   :members:
-   :undoc-members:
-   :show-inheritance:

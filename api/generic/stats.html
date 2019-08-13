@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Stats &mdash; pymhealth 0.0.3 documentation</title>
+  <title>stats &mdash; pymhealth 0.0.3 documentation</title>
   
 
   
@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Timedom" href="timedom.html" />
+    <link rel="prev" title="rqa" href="rqa.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -84,8 +86,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../inertial.html">Inertial</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">mhealth</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../generic.html">Generic</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="filters.html">Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rqa.html">rqa</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timedom.html">Timedom</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../inertial.html">Inertial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../heart.html">Heart</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -131,7 +144,11 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-      <li>Stats</li>
+          <li><a href="../../api.html">mhealth</a> &raquo;</li>
+        
+          <li><a href="../generic.html">Generic</a> &raquo;</li>
+        
+      <li>stats</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -151,7 +168,162 @@
            <div itemprop="articleBody">
             
   <div class="section" id="stats">
-<h1>Stats<a class="headerlink" href="#stats" title="Permalink to this headline">¶</a></h1>
+<h1>stats<a class="headerlink" href="#stats" title="Permalink to this headline">¶</a></h1>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mhealth.generic.stats.drange" title="mhealth.generic.stats.drange"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mhealth.generic.stats.drange</span></code></a>(x)</p></td>
+<td><p>Range of data Params:     x (np.ndarray[float/int]) Returns     input array type: max(x) - min(x)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mhealth.generic.stats.interquartile_range" title="mhealth.generic.stats.interquartile_range"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mhealth.generic.stats.interquartile_range</span></code></a>(x)</p></td>
+<td><p>Interquartile range Params:     x (np.ndarray[float/int]) Returns     float/int: 75th percentile - 25th percentile</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mhealth.generic.stats.kurtosis" title="mhealth.generic.stats.kurtosis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mhealth.generic.stats.kurtosis</span></code></a></p></td>
+<td><p>Kurtosis B2 = mu_4 / mu_2^2 Params:     x (np.ndarray): Distribution to find kurtosis of :returns: kurtosis :rtype: float</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mhealth.generic.stats.kurtosis_excess" title="mhealth.generic.stats.kurtosis_excess"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mhealth.generic.stats.kurtosis_excess</span></code></a>(x)</p></td>
+<td><p>Kurtosis excess is the kurtosis - 3 Params:     x (np.ndarray): Distribution to find kurtosis excess of :returns: kurtosis excess :rtype: float</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mhealth.generic.stats.minmax" title="mhealth.generic.stats.minmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mhealth.generic.stats.minmax</span></code></a></p></td>
+<td><p>Minimum and maximum of an array looping once Params:     x (np.ndarray[Any]): Array with elements that can be compared         with &gt; and &lt;.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mhealth.generic.stats.skewness" title="mhealth.generic.stats.skewness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mhealth.generic.stats.skewness</span></code></a></p></td>
+<td><p>Skewness (third-moment) of a distribution Params:     x (np.ndarray): Distribution to find skew of :returns: skewness :rtype: float</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mhealth.generic.stats.variation" title="mhealth.generic.stats.variation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mhealth.generic.stats.variation</span></code></a></p></td>
+<td><p>Compute the coefficient of variation, the ratio of the biased standard deviation to the mean.</p></td>
+</tr>
+</tbody>
+</table>
+<span class="target" id="module-mhealth.generic.stats"></span><p>Generic statistical features
+These functions are more rigid than their scipy counter-parts, but
+the intention is that (using numba) they are faster.
+However, scipy has a greater selection of statistical features and
+may be preferable.</p>
+<dl class="function">
+<dt id="mhealth.generic.stats.drange">
+<code class="sig-prename descclassname">mhealth.generic.stats.</code><code class="sig-name descname">drange</code><span class="sig-paren">(</span><em class="sig-param">x: numpy.ndarray</em><span class="sig-paren">)</span><a class="headerlink" href="#mhealth.generic.stats.drange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Range of data
+Params:</p>
+<blockquote>
+<div><p>x (np.ndarray[float/int])</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns</dt><dd><p>input array type: max(x) - min(x)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="mhealth.generic.stats.interquartile_range">
+<code class="sig-prename descclassname">mhealth.generic.stats.</code><code class="sig-name descname">interquartile_range</code><span class="sig-paren">(</span><em class="sig-param">x: numpy.ndarray</em><span class="sig-paren">)</span><a class="headerlink" href="#mhealth.generic.stats.interquartile_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interquartile range
+Params:</p>
+<blockquote>
+<div><p>x (np.ndarray[float/int])</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns</dt><dd><p>float/int: 75th percentile - 25th percentile</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mhealth.generic.stats.kurtosis">
+<code class="sig-prename descclassname">mhealth.generic.stats.</code><code class="sig-name descname">kurtosis</code><a class="headerlink" href="#mhealth.generic.stats.kurtosis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kurtosis B2 = mu_4 / mu_2^2
+Params:</p>
+<blockquote>
+<div><p>x (np.ndarray): Distribution to find kurtosis of</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>kurtosis</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="mhealth.generic.stats.kurtosis_excess">
+<code class="sig-prename descclassname">mhealth.generic.stats.</code><code class="sig-name descname">kurtosis_excess</code><span class="sig-paren">(</span><em class="sig-param">x: numpy.ndarray</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#mhealth.generic.stats.kurtosis_excess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kurtosis excess is the kurtosis - 3
+Params:</p>
+<blockquote>
+<div><p>x (np.ndarray): Distribution to find kurtosis excess of</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>kurtosis excess</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mhealth.generic.stats.minmax">
+<code class="sig-prename descclassname">mhealth.generic.stats.</code><code class="sig-name descname">minmax</code><a class="headerlink" href="#mhealth.generic.stats.minmax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Minimum and maximum of an array looping once
+Params:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>x (np.ndarray[Any]): Array with elements that can be compared</dt><dd><p>with &gt; and &lt;.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Tuple of minimum and maximum</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(Any, Any) input array dtype</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mhealth.generic.stats.skewness">
+<code class="sig-prename descclassname">mhealth.generic.stats.</code><code class="sig-name descname">skewness</code><a class="headerlink" href="#mhealth.generic.stats.skewness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Skewness (third-moment) of a distribution
+Params:</p>
+<blockquote>
+<div><p>x (np.ndarray): Distribution to find skew of</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>skewness</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mhealth.generic.stats.variation">
+<code class="sig-prename descclassname">mhealth.generic.stats.</code><code class="sig-name descname">variation</code><a class="headerlink" href="#mhealth.generic.stats.variation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the coefficient of variation, the ratio of the biased standard deviation to the mean.
+Params:</p>
+<blockquote>
+<div><p>x (np.ndarray): input array</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>coefficient of variation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 
@@ -159,6 +331,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="timedom.html" class="btn btn-neutral float-right" title="Timedom" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="rqa.html" class="btn btn-neutral float-left" title="rqa" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
