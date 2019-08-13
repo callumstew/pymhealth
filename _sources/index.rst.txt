@@ -24,7 +24,7 @@ Pymhealth is in development and the API/package structure is likely to change.
     :maxdepth: 6
     :caption: Auto API
 
-    autoapi/modules
+    autoapi
     
 ------------------
 Indices and tables
