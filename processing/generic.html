@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Generic &#8212; pymhealth 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -42,27 +40,23 @@
 <h3>Butterworth<a class="headerlink" href="#butterworth" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt>
-<code class="descname">butterworth</code><span class="sig-paren">(</span><em>arr</em>, <em>cutoff</em>, <em>freq</em>, <em>order=5</em>, <em>ftype='highpass'</em><span class="sig-paren">)</span></dt>
+<code class="sig-name descname">butterworth</code><span class="sig-paren">(</span><em class="sig-param">arr</em>, <em class="sig-param">cutoff</em>, <em class="sig-param">freq</em>, <em class="sig-param">order=5</em>, <em class="sig-param">ftype='highpass'</em><span class="sig-paren">)</span></dt>
 <dt>
-<code class="descname">Generic Butterworth function</code></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>acc</strong> (<em>float</em><em>[</em><em>n</em><em>]</em>) – Signal vector</li>
-<li><strong>cutoff</strong> (<em>float</em><em> or </em><em>(</em><em>float</em><em>, </em><em>float</em><em>)</em>) – Cutoff value(s)</li>
-<li><strong>freq</strong> (<em>float</em>) – Sampling frequency of signal</li>
-<li><strong>order</strong> (<em>int</em>) – Order of Butterworth filter. Default - 5</li>
-<li><strong>ftype</strong> (<em>str</em>) – Filter type {‘highpass’, ‘lowpass’, ‘bandpass’} Default - ‘highpass’</li>
+<code class="sig-name descname">Generic Butterworth function</code></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>acc</strong> (<em>float</em><em>[</em><em>n</em><em>]</em>) – Signal vector</p></li>
+<li><p><strong>cutoff</strong> (<em>float</em><em> or </em><em>(</em><em>float</em><em>, </em><em>float</em><em>)</em>) – Cutoff value(s)</p></li>
+<li><p><strong>freq</strong> (<em>float</em>) – Sampling frequency of signal</p></li>
+<li><p><strong>order</strong> (<em>int</em>) – Order of Butterworth filter. Default - 5</p></li>
+<li><p><strong>ftype</strong> (<em>str</em>) – Filter type {‘highpass’, ‘lowpass’, ‘bandpass’} Default - ‘highpass’</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float[n]</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float[n]</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -102,13 +96,11 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -129,7 +121,7 @@
       &copy;2019, Callum L Stewart.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

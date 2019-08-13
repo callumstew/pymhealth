@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Accelerometer &#8212; pymhealth 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -43,28 +41,24 @@
 <p>Filter out the linear component of acceleration from a raw accelerometer signal.</p>
 <dl class="function">
 <dt id="acc_linear">
-<code class="descname">acc_linear</code><span class="sig-paren">(</span><em>acc</em>, <em>freq</em>, <em>cutoff</em>, <em>order</em><span class="sig-paren">)</span><a class="headerlink" href="#acc_linear" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">acc_linear</code><span class="sig-paren">(</span><em class="sig-param">acc</em>, <em class="sig-param">freq</em>, <em class="sig-param">cutoff</em>, <em class="sig-param">order</em><span class="sig-paren">)</span><a class="headerlink" href="#acc_linear" title="Permalink to this definition">¶</a></dt>
 <dt>
-<code class="descname">Estimate linear acceleration using a high-pass Butterworth filter.</code></dt>
+<code class="sig-name descname">Estimate linear acceleration using a high-pass Butterworth filter.</code></dt>
 <dt>
-<code class="descname">Optionally, you can specify a low-pass cutoff to perform a band-pass filter by passing two values to cutoff.</code></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>acc</strong> (<em>float</em><em>[</em><em>n</em><em>,</em><em>m</em><em>]</em>) – acceleration vector or matrix. If a matrix, columns correspond to dimension in space</li>
-<li><strong>freq</strong> (<em>float</em>) – Sampling frequency of acceleration</li>
-<li><strong>cutoff</strong> (<em>float</em><em> or </em><em>(</em><em>float</em><em>, </em><em>float</em><em>)</em>) – Cutoff value(s) for highpass or bandpass filter</li>
-<li><strong>order</strong> (<em>int</em>) – Order of Butterworth filter</li>
+<code class="sig-name descname">Optionally, you can specify a low-pass cutoff to perform a band-pass filter by passing two values to cutoff.</code></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>acc</strong> (<em>float</em><em>[</em><em>n</em><em>,</em><em>m</em><em>]</em>) – acceleration vector or matrix. If a matrix, columns correspond to dimension in space</p></li>
+<li><p><strong>freq</strong> (<em>float</em>) – Sampling frequency of acceleration</p></li>
+<li><p><strong>cutoff</strong> (<em>float</em><em> or </em><em>(</em><em>float</em><em>, </em><em>float</em><em>)</em>) – Cutoff value(s) for highpass or bandpass filter</p></li>
+<li><p><strong>order</strong> (<em>int</em>) – Order of Butterworth filter</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float[n,m]</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float[n,m]</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -73,27 +67,23 @@
 <p>Filter out the gravitational component of acceleration from a raw accelerometer signal.</p>
 <dl class="function">
 <dt id="acc_gravity">
-<code class="descname">acc_gravity</code><span class="sig-paren">(</span><em>acc</em>, <em>freq</em>, <em>cutoff</em>, <em>order</em><span class="sig-paren">)</span><a class="headerlink" href="#acc_gravity" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">acc_gravity</code><span class="sig-paren">(</span><em class="sig-param">acc</em>, <em class="sig-param">freq</em>, <em class="sig-param">cutoff</em>, <em class="sig-param">order</em><span class="sig-paren">)</span><a class="headerlink" href="#acc_gravity" title="Permalink to this definition">¶</a></dt>
 <dt>
-<code class="descname">Estimate gravitational component of acceleration using a low-pass Butterworth filter.</code></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>acc</strong> (<em>float</em><em>[</em><em>n</em><em>,</em><em>m</em><em>]</em>) – acceleration vector or matrix.
-If a matrix, columns correspond to dimension in space</li>
-<li><strong>freq</strong> (<em>float</em>) – Sampling frequency of acceleration</li>
-<li><strong>cutoff</strong> (<em>float</em>) – Low-pass cutoff value(s)</li>
-<li><strong>order</strong> (<em>int</em>) – Order of Butterworth filter</li>
+<code class="sig-name descname">Estimate gravitational component of acceleration using a low-pass Butterworth filter.</code></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>acc</strong> (<em>float</em><em>[</em><em>n</em><em>,</em><em>m</em><em>]</em>) – acceleration vector or matrix.
+If a matrix, columns correspond to dimension in space</p></li>
+<li><p><strong>freq</strong> (<em>float</em>) – Sampling frequency of acceleration</p></li>
+<li><p><strong>cutoff</strong> (<em>float</em>) – Low-pass cutoff value(s)</p></li>
+<li><p><strong>order</strong> (<em>int</em>) – Order of Butterworth filter</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float[n,m]</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float[n,m]</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -133,13 +123,11 @@ If a matrix, columns correspond to dimension in space</li>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -160,7 +148,7 @@ If a matrix, columns correspond to dimension in space</li>
       &copy;2019, Callum L Stewart.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Accelerometer &#8212; pymhealth 0.0.1 documentation</title>
+    <title>Accelerometer &#8212; pymhealth 0.0.3 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -46,17 +46,53 @@
 <code class="sig-name descname">Estimate linear acceleration using a high-pass Butterworth filter.</code></dt>
 <dt>
 <code class="sig-name descname">Optionally, you can specify a low-pass cutoff to perform a band-pass filter by passing two values to cutoff.</code></dt>
-<dd><dl class="field-list simple">
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="mhealth.inertial.accelerometer.linear_filter">
+<code class="sig-prename descclassname">mhealth.inertial.accelerometer.</code><code class="sig-name descname">linear_filter</code><span class="sig-paren">(</span><em class="sig-param">acc: numpy.ndarray</em>, <em class="sig-param">freq: float</em>, <em class="sig-param">cutoff: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.5</em>, <em class="sig-param">order: int = 5</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#mhealth.inertial.accelerometer.linear_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the non-gravitational acceleration using a high-pass filter.</p>
+<p>Filters input with a two-pass butterworth filter, returning the linear
+component of acceleration.
+To also de-noising using a bandpass filter, provide a both the
+low-pass and high-pass cutoff. e.g. (0.5, 10) to bandpass between
+0.5Hz and 10Hz</p>
+<p>Dispatch &lt;np.ndarray[float]&gt;</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>acc</strong> (<em>float</em><em>[</em><em>n</em><em>,</em><em>m</em><em>]</em>) – acceleration vector or matrix. If a matrix, columns correspond to dimension in space</p></li>
-<li><p><strong>freq</strong> (<em>float</em>) – Sampling frequency of acceleration</p></li>
-<li><p><strong>cutoff</strong> (<em>float</em><em> or </em><em>(</em><em>float</em><em>, </em><em>float</em><em>)</em>) – Cutoff value(s) for highpass or bandpass filter</p></li>
-<li><p><strong>order</strong> (<em>int</em>) – Order of Butterworth filter</p></li>
+<li><p><strong>acc</strong> (<em>np.ndarray</em><em>[</em><em>float</em><em>]</em>) – A vector or array of acceleration values
+If multiple vectors are given in a 2d array, the 2nd dimension
+seperates vectors. i.e acc[m, n] where n is the dimension of
+acceleration.</p></li>
+<li><p><strong>freq</strong> (<em>float</em>) – Sampling frequency</p></li>
+<li><p><strong>cutoff</strong> (<em>float</em><em>, </em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em>) – Cut-off frequency. Default: 0.5</p></li>
+<li><p><strong>order</strong> (<em>int</em>) – Order of the filter. Default: 5</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>float[n,m]</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Linear acceleration (above cut-off frequency)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray[float]</p>
+</dd>
+</dl>
+<p>Dispatch &lt;pd.DataFrame&gt;</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Dataframe containing acceleration</p></li>
+<li><p><strong>freq</strong> (<em>float</em>) – Sampling frequency</p></li>
+<li><p><strong>cutoff</strong> (<em>float</em><em>, </em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em>) – Cut-off frequency. Default: 0.5</p></li>
+<li><p><strong>order</strong> (<em>int</em>) – Order of filter. Default: 5</p></li>
+<li><p><strong>columns</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – List of column names. Optional</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>DataFrame containing filtered columns</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -66,22 +102,47 @@
 <h3>Gravitational component<a class="headerlink" href="#gravitational-component" title="Permalink to this headline">¶</a></h3>
 <p>Filter out the gravitational component of acceleration from a raw accelerometer signal.</p>
 <dl class="function">
-<dt id="acc_gravity">
-<code class="sig-name descname">acc_gravity</code><span class="sig-paren">(</span><em class="sig-param">acc</em>, <em class="sig-param">freq</em>, <em class="sig-param">cutoff</em>, <em class="sig-param">order</em><span class="sig-paren">)</span><a class="headerlink" href="#acc_gravity" title="Permalink to this definition">¶</a></dt>
-<dt>
-<code class="sig-name descname">Estimate gravitational component of acceleration using a low-pass Butterworth filter.</code></dt>
-<dd><dl class="field-list simple">
+<dt id="mhealth.inertial.accelerometer.gravity_filter">
+<code class="sig-prename descclassname">mhealth.inertial.accelerometer.</code><code class="sig-name descname">gravity_filter</code><span class="sig-paren">(</span><em class="sig-param">acc: numpy.ndarray</em>, <em class="sig-param">freq: float</em>, <em class="sig-param">cutoff: float = 0.5</em>, <em class="sig-param">order: int = 5</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#mhealth.inertial.accelerometer.gravity_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find gravitational acceleration using a low-pass filter.</p>
+<p>Filters acceleration with a two-pass Butterworth filter,
+returning the gravitational component</p>
+<p>Dispatch &lt;np.ndarray[float]&gt;</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>acc</strong> (<em>float</em><em>[</em><em>n</em><em>,</em><em>m</em><em>]</em>) – acceleration vector or matrix.
-If a matrix, columns correspond to dimension in space</p></li>
-<li><p><strong>freq</strong> (<em>float</em>) – Sampling frequency of acceleration</p></li>
-<li><p><strong>cutoff</strong> (<em>float</em>) – Low-pass cutoff value(s)</p></li>
-<li><p><strong>order</strong> (<em>int</em>) – Order of Butterworth filter</p></li>
+<li><p><strong>acc</strong> (<em>np.ndarray</em><em>[</em><em>float</em><em>]</em>) – A vector or array of acceleration values
+If multiple vectors are given in a 2d array, the 2nd dimension
+seperates vectors. i.e acc[m, n] where n is the dimension of
+acceleration.</p></li>
+<li><p><strong>freq</strong> (<em>float</em>) – Sampling frequency</p></li>
+<li><p><strong>cutoff</strong> (<em>float</em>) – Cut-off frequency (Hz). Default: 0.5</p></li>
+<li><p><strong>order</strong> (<em>int</em>) – Order of the filter. Default: 5</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>float[n,m]</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Gravitational component of acceleration</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray[float]</p>
+</dd>
+</dl>
+<p>Dispatch &lt;pd.DataFrame&gt;</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Dataframe containing acceleration</p></li>
+<li><p><strong>freq</strong> (<em>float</em>) – Sampling frequency</p></li>
+<li><p><strong>cutoff</strong> (<em>float</em>) – Low-pass cut-off frequency. Default: 0.5</p></li>
+<li><p><strong>order</strong> (<em>int</em>) – Order of filter. Default: 5</p></li>
+<li><p><strong>columns</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – List of column names. Optional</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>DataFrame containing filtered columns</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
