@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="mhealth.location package" href="mhealth.location.html" />
-    <link rel="prev" title="mhealth.heart package" href="mhealth.heart.html" /> 
+    <link rel="next" title="mhealth.inertial.accelerometer module" href="mhealth.inertial.accelerometer.html" />
+    <link rel="prev" title="mhealth.heart.qrs module" href="mhealth.heart.qrs.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -103,8 +103,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="mhealth.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="mhealth.html#module-mhealth.eda">mhealth.eda module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="mhealth.html#module-mhealth.emg">mhealth.emg module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="mhealth.html#module-mhealth">Module contents</a></li>
 </ul>
 </li>
@@ -182,214 +180,11 @@
 <h1>mhealth.inertial package<a class="headerlink" href="#mhealth-inertial-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="mhealth.inertial.accelerometer.html">mhealth.inertial.accelerometer module</a></li>
+</ul>
 </div>
-<div class="section" id="module-mhealth.inertial.accelerometer">
-<span id="mhealth-inertial-accelerometer-module"></span><h2>mhealth.inertial.accelerometer module<a class="headerlink" href="#module-mhealth.inertial.accelerometer" title="Permalink to this headline">¶</a></h2>
-<p>Functions for use with acceleration data.</p>
-<dl class="function">
-<dt id="mhealth.inertial.accelerometer.gravity_filter">
-<code class="sig-prename descclassname">mhealth.inertial.accelerometer.</code><code class="sig-name descname">gravity_filter</code><span class="sig-paren">(</span><em class="sig-param">acc: numpy.ndarray</em>, <em class="sig-param">freq: float</em>, <em class="sig-param">cutoff: float = 0.5</em>, <em class="sig-param">order: int = 5</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#mhealth.inertial.accelerometer.gravity_filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find gravitational acceleration using a low-pass filter.</p>
-<p>Filters acceleration with a two-pass Butterworth filter,
-returning the gravitational component</p>
-<p>Dispatch &lt;np.ndarray[float]&gt;</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>acc</strong> (<em>np.ndarray</em><em>[</em><em>float</em><em>]</em>) – A vector or array of acceleration values
-If multiple vectors are given in a 2d array, the 2nd dimension
-seperates vectors. i.e acc[m, n] where n is the dimension of
-acceleration.</p></li>
-<li><p><strong>freq</strong> (<em>float</em>) – Sampling frequency</p></li>
-<li><p><strong>cutoff</strong> (<em>float</em>) – Cut-off frequency (Hz). Default: 0.5</p></li>
-<li><p><strong>order</strong> (<em>int</em>) – Order of the filter. Default: 5</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Gravitational component of acceleration</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>np.ndarray[float]</p>
-</dd>
-</dl>
-<p>Dispatch &lt;pd.DataFrame&gt;</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<a class="reference internal" href="mhealth.util.html#mhealth.util.deps.pd.DataFrame" title="mhealth.util.deps.pd.DataFrame"><em>pd.DataFrame</em></a>) – Dataframe containing acceleration</p></li>
-<li><p><strong>freq</strong> (<em>float</em>) – Sampling frequency</p></li>
-<li><p><strong>cutoff</strong> (<em>float</em>) – Low-pass cut-off frequency. Default: 0.5</p></li>
-<li><p><strong>order</strong> (<em>int</em>) – Order of filter. Default: 5</p></li>
-<li><p><strong>columns</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – List of column names. Optional</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>DataFrame containing filtered columns</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="mhealth.util.html#mhealth.util.deps.pd.DataFrame" title="mhealth.util.deps.pd.DataFrame">pd.DataFrame</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="mhealth.inertial.accelerometer.linear_filter">
-<code class="sig-prename descclassname">mhealth.inertial.accelerometer.</code><code class="sig-name descname">linear_filter</code><span class="sig-paren">(</span><em class="sig-param">acc: numpy.ndarray</em>, <em class="sig-param">freq: float</em>, <em class="sig-param">cutoff: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.5</em>, <em class="sig-param">order: int = 5</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#mhealth.inertial.accelerometer.linear_filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find the non-gravitational acceleration using a high-pass filter.</p>
-<p>Filters input with a two-pass butterworth filter, returning the linear
-component of acceleration.
-To also de-noising using a bandpass filter, provide a both the
-low-pass and high-pass cutoff. e.g. (0.5, 10) to bandpass between
-0.5Hz and 10Hz</p>
-<p>Dispatch &lt;np.ndarray[float]&gt;</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>acc</strong> (<em>np.ndarray</em><em>[</em><em>float</em><em>]</em>) – A vector or array of acceleration values
-If multiple vectors are given in a 2d array, the 2nd dimension
-seperates vectors. i.e acc[m, n] where n is the dimension of
-acceleration.</p></li>
-<li><p><strong>freq</strong> (<em>float</em>) – Sampling frequency</p></li>
-<li><p><strong>cutoff</strong> (<em>float</em><em>, </em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em>) – Cut-off frequency. Default: 0.5</p></li>
-<li><p><strong>order</strong> (<em>int</em>) – Order of the filter. Default: 5</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Linear acceleration (above cut-off frequency)</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>np.ndarray[float]</p>
-</dd>
-</dl>
-<p>Dispatch &lt;pd.DataFrame&gt;</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<a class="reference internal" href="mhealth.util.html#mhealth.util.deps.pd.DataFrame" title="mhealth.util.deps.pd.DataFrame"><em>pd.DataFrame</em></a>) – Dataframe containing acceleration</p></li>
-<li><p><strong>freq</strong> (<em>float</em>) – Sampling frequency</p></li>
-<li><p><strong>cutoff</strong> (<em>float</em><em>, </em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em>) – Cut-off frequency. Default: 0.5</p></li>
-<li><p><strong>order</strong> (<em>int</em>) – Order of filter. Default: 5</p></li>
-<li><p><strong>columns</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – List of column names. Optional</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>DataFrame containing filtered columns</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="mhealth.util.html#mhealth.util.deps.pd.DataFrame" title="mhealth.util.deps.pd.DataFrame">pd.DataFrame</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="mhealth.inertial.accelerometer.magnitude">
-<code class="sig-prename descclassname">mhealth.inertial.accelerometer.</code><code class="sig-name descname">magnitude</code><span class="sig-paren">(</span><em class="sig-param">x: float</em>, <em class="sig-param">y: float</em>, <em class="sig-param">z: float</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#mhealth.inertial.accelerometer.magnitude" title="Permalink to this definition">¶</a></dt>
-<dd><p>Magnitude of x, y, z acceleration √(x²+y²+z²)</p>
-<p>Dispatch &lt;float&gt;</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>float</em>) – X-axis of acceleration</p></li>
-<li><p><strong>y</strong> (<em>float</em>) – Y-axis of acceleration</p></li>
-<li><p><strong>z</strong> (<em>float</em>) – Z-axis of acceleration</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Magnitude of acceleration</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-<p>Dispatch &lt;pd.DataFrame&gt;</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<a class="reference internal" href="mhealth.util.html#mhealth.util.deps.pd.DataFrame" title="mhealth.util.deps.pd.DataFrame"><em>pd.DataFrame</em></a>) – Dataframe containing acceleration columns</p></li>
-<li><p><strong>xcol</strong> (<em>str</em>) – X-axis column name, default ‘x’</p></li>
-<li><p><strong>ycol</strong> (<em>str</em>) – Y-axis column name, default ‘y’</p></li>
-<li><p><strong>zcol</strong> (<em>str</em>) – Z-axis column name, default ‘z’</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Magnitude of acceleration</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="mhealth.inertial.accelerometer.magnitude_dot">
-<code class="sig-prename descclassname">mhealth.inertial.accelerometer.</code><code class="sig-name descname">magnitude_dot</code><span class="sig-paren">(</span><em class="sig-param">x: numpy.ndarray</em>, <em class="sig-param">y: numpy.ndarray</em>, <em class="sig-param">z: numpy.ndarray</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#mhealth.inertial.accelerometer.magnitude_dot" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Magnitude of x, y, z acceleration arrays √(x²+y²+z²) using dot product</dt><dd><p>for squares.</p>
-</dd>
-</dl>
-<p>Dispatch &lt;float&gt;</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>y</strong><strong>, </strong><strong>z</strong> (<em>x</em><em>,</em>) – Axes of acceleration</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Magnitude of acceleration</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-<p>Dispatch &lt;pd.DataFrame&gt;</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<a class="reference internal" href="mhealth.util.html#mhealth.util.deps.pd.DataFrame" title="mhealth.util.deps.pd.DataFrame"><em>pd.DataFrame</em></a>) – Dataframe containing acceleration columns</p></li>
-<li><p><strong>ycol</strong><strong>, </strong><strong>zcol</strong> (<em>xcol</em><em>,</em>) – Column names. Default: ‘x’, ‘y’, ‘z’</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Magnitude of acceleration</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="mhealth.inertial.accelerometer.pitch">
-<code class="sig-prename descclassname">mhealth.inertial.accelerometer.</code><code class="sig-name descname">pitch</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">z</em><span class="sig-paren">)</span><a class="headerlink" href="#mhealth.inertial.accelerometer.pitch" title="Permalink to this definition">¶</a></dt>
-<dd><p>Estimate angular pitch from gravitational acceleration</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>y</strong><strong>, </strong><strong>z</strong> (<em>x</em><em>,</em>) – x, y, and z acceleration</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>pitch</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(float, int, array-like)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="mhealth.inertial.accelerometer.roll">
-<code class="sig-prename descclassname">mhealth.inertial.accelerometer.</code><code class="sig-name descname">roll</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">z</em><span class="sig-paren">)</span><a class="headerlink" href="#mhealth.inertial.accelerometer.roll" title="Permalink to this definition">¶</a></dt>
-<dd><p>Estimate angular roll from gravitational acceleration.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>z</strong> (<em>y</em><em>,</em>) – y, and z acceleration</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>roll</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(float, int, array-like)</p>
-</dd>
-</dl>
-</dd></dl>
-
 </div>
 <div class="section" id="module-mhealth.inertial">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-mhealth.inertial" title="Permalink to this headline">¶</a></h2>
@@ -404,10 +199,10 @@ acceleration.</p></li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="mhealth.location.html" class="btn btn-neutral float-right" title="mhealth.location package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="mhealth.inertial.accelerometer.html" class="btn btn-neutral float-right" title="mhealth.inertial.accelerometer module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="mhealth.heart.html" class="btn btn-neutral float-left" title="mhealth.heart package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="mhealth.heart.qrs.html" class="btn btn-neutral float-left" title="mhealth.heart.qrs module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

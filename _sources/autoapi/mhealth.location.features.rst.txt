@@ -1,0 +1,7 @@
+mhealth.location.features module
+================================
+
+.. automodule:: mhealth.location.features
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -16,22 +16,10 @@ Subpackages
 Submodules
 ----------
 
-mhealth.eda module
-------------------
+.. toctree::
 
-.. automodule:: mhealth.eda
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-mhealth.emg module
-------------------
-
-.. automodule:: mhealth.emg
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
+   mhealth.eda
+   mhealth.emg
 
 Module contents
 ---------------

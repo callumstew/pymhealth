@@ -1,0 +1,7 @@
+mhealth.generic.stats module
+============================
+
+.. automodule:: mhealth.generic.stats
+   :members:
+   :undoc-members:
+   :show-inheritance:

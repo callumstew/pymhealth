@@ -1,0 +1,7 @@
+mhealth.generic.nufft module
+============================
+
+.. automodule:: mhealth.generic.nufft
+   :members:
+   :undoc-members:
+   :show-inheritance:

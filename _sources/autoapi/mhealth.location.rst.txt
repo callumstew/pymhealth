@@ -4,30 +4,11 @@ mhealth.location package
 Submodules
 ----------
 
-mhealth.location.distance module
---------------------------------
+.. toctree::
 
-.. automodule:: mhealth.location.distance
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-mhealth.location.distribution module
-------------------------------------
-
-.. automodule:: mhealth.location.distribution
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-mhealth.location.features module
---------------------------------
-
-.. automodule:: mhealth.location.features
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
+   mhealth.location.distance
+   mhealth.location.distribution
+   mhealth.location.features
 
 Module contents
 ---------------

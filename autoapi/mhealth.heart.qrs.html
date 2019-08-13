@@ -1,0 +1,377 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mhealth.heart.qrs module &mdash; pymhealth 0.0.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="mhealth.inertial package" href="mhealth.inertial.html" />
+    <link rel="prev" title="mhealth.heart.hrv module" href="mhealth.heart.hrv.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pymhealth
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">mHealth</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/inertial.html">Inertial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Auto API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">mhealth</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="mhealth.html">mhealth package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="mhealth.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="mhealth.generic.html">mhealth.generic package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="mhealth.heart.html">mhealth.heart package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mhealth.inertial.html">mhealth.inertial package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mhealth.location.html">mhealth.location package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mhealth.smartphone.html">mhealth.smartphone package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mhealth.util.html">mhealth.util package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mhealth.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mhealth.html#module-mhealth">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pymhealth</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">mhealth</a> &raquo;</li>
+        
+          <li><a href="mhealth.html">mhealth package</a> &raquo;</li>
+        
+          <li><a href="mhealth.heart.html">mhealth.heart package</a> &raquo;</li>
+        
+      <li>mhealth.heart.qrs module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/autoapi/mhealth.heart.qrs.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-mhealth.heart.qrs">
+<span id="mhealth-heart-qrs-module"></span><h1>mhealth.heart.qrs module<a class="headerlink" href="#module-mhealth.heart.qrs" title="Permalink to this headline">¶</a></h1>
+<p>ECG QRS-complex and R-peak detection algorithms</p>
+<dl class="function">
+<dt id="mhealth.heart.qrs.bandpass">
+<code class="sig-prename descclassname">mhealth.heart.qrs.</code><code class="sig-name descname">bandpass</code><span class="sig-paren">(</span><em class="sig-param">ecg: numpy.ndarray</em>, <em class="sig-param">fs: float</em>, <em class="sig-param">low: int = 5</em>, <em class="sig-param">high: int = 15</em>, <em class="sig-param">order: int = 5</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#mhealth.heart.qrs.bandpass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bandpass filter for ECG
+Params:</p>
+<blockquote>
+<div><p>ecg (np.ndarray[float]): ECG signal array
+fs (float): Sampling frequency
+low (float): Low-frequency cutoff. Default 5
+high (float): High-frequency cutoff. Default 15
+order (int): Order of filter. Default 5</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Filtered ECG signal</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.ndarray[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="mhealth.heart.qrs.find_peaks">
+<code class="sig-prename descclassname">mhealth.heart.qrs.</code><code class="sig-name descname">find_peaks</code><span class="sig-paren">(</span><em class="sig-param">x: numpy.ndarray</em>, <em class="sig-param">comp: Callable = &lt;ufunc 'greater'&gt;</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#mhealth.heart.qrs.find_peaks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find indices of peaks in an array.
+A peak is identified where the comparison function returns true
+comparing x_i to x_i-1 and x_i to x_i+1.
+Params:</p>
+<blockquote>
+<div><p>x (np.ndarray): Array to find peaks in
+comp (Callable): Comparison function to determine peak. Default: gt</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Indices of peaks</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.ndarray[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="mhealth.heart.qrs.hamilton_tompkins">
+<code class="sig-prename descclassname">mhealth.heart.qrs.</code><code class="sig-name descname">hamilton_tompkins</code><span class="sig-paren">(</span><em class="sig-param">ecg: numpy.ndarray</em>, <em class="sig-param">fs: float</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#mhealth.heart.qrs.hamilton_tompkins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses Hamilton-Tompkins algorithm to detect R-peaks in an ECG signal.</p>
+<dl class="simple">
+<dt>Params &lt;np.ndarray&gt;:</dt><dd><p>ecg (np.ndarray[float]): ECG signal array
+fs (float): ECG sampling frequency</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>index of peaks</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+</dl>
+<dl>
+<dt>Params &lt;pd.DataFrame&gt;:</dt><dd><p>ecg (pd.DataFrame): Dataframe with ECG signal as one of the columns
+fs (float) (optional): Sampling frequency. If not given, uses index
+column (str) (optional): Column name of ECG signal. If not given, uses</p>
+<blockquote>
+<div><p>first column.</p>
+</div></blockquote>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>index of peaks</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="mhealth.util.deps.html#mhealth.util.deps.pd.DataFrame" title="mhealth.util.deps.pd.DataFrame">pd.DataFrame</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>doi: 10.1109/TBME.1986.325695</p>
+<p>Hamilton, Patrick S. “Open source ECG analysis software documentation.”
+Computers in cardiology 2002 (2002): 101-104.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mhealth.heart.qrs.hamilton_tompkins_detection">
+<code class="sig-prename descclassname">mhealth.heart.qrs.</code><code class="sig-name descname">hamilton_tompkins_detection</code><a class="headerlink" href="#mhealth.heart.qrs.hamilton_tompkins_detection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filters the given peaks according to Hamilton and Tompkins method</p>
+<p>Hamilton, Patrick S., and Willis J. Tompkins. “Quantitative investigation
+of QRS detection rules using the MIT/BIH arrhythmia database.”
+IEEE transactions on biomedical engineering 12 (1986): 1157-1165.
+doi: 10.1109/TBME.1986.325695</p>
+<p>Hamilton, Patrick S. “Open source ECG analysis software documentation.”
+Computers in cardiology 2002 (2002): 101-104.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="mhealth.heart.qrs.hamilton_tompkins_filter">
+<code class="sig-prename descclassname">mhealth.heart.qrs.</code><code class="sig-name descname">hamilton_tompkins_filter</code><span class="sig-paren">(</span><em class="sig-param">ecg: numpy.ndarray</em>, <em class="sig-param">fs: float</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#mhealth.heart.qrs.hamilton_tompkins_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="http://www.eplimited.com/osea13.pdf">http://www.eplimited.com/osea13.pdf</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="mhealth.heart.qrs.moving_average">
+<code class="sig-prename descclassname">mhealth.heart.qrs.</code><code class="sig-name descname">moving_average</code><span class="sig-paren">(</span><em class="sig-param">x: numpy.ndarray</em>, <em class="sig-param">window: int</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#mhealth.heart.qrs.moving_average" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moving average filter to integrate signal</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mhealth.heart.qrs.nb_find_peaks">
+<code class="sig-prename descclassname">mhealth.heart.qrs.</code><code class="sig-name descname">nb_find_peaks</code><a class="headerlink" href="#mhealth.heart.qrs.nb_find_peaks" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="mhealth.heart.qrs.pan_tompkins_filter">
+<code class="sig-prename descclassname">mhealth.heart.qrs.</code><code class="sig-name descname">pan_tompkins_filter</code><span class="sig-paren">(</span><em class="sig-param">ecg: numpy.ndarray</em>, <em class="sig-param">fs: float</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#mhealth.heart.qrs.pan_tompkins_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pan, J., &amp; Tompkins, W. J. (1985). A real-time QRS detection
+algorithm. IEEE Trans. Biomed. Eng, 32(3), 230-236.
+DOI: 10.1109/TBME.1985.325532
+Params:</p>
+<blockquote>
+<div><p>ecg (np.array): Input ECG signal
+fs (float): Frequency of ECG signal.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Filtered ECG</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="mhealth.heart.qrs.pt_differentiate">
+<code class="sig-prename descclassname">mhealth.heart.qrs.</code><code class="sig-name descname">pt_differentiate</code><span class="sig-paren">(</span><em class="sig-param">x: numpy.ndarray</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#mhealth.heart.qrs.pt_differentiate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Five-point derivative with transfer function
+H(z) = 1/8T ( -z^-2 - -2z^-1 + 2z + z^2 )</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="mhealth.inertial.html" class="btn btn-neutral float-right" title="mhealth.inertial package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mhealth.heart.hrv.html" class="btn btn-neutral float-left" title="mhealth.heart.hrv module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Callum L Stewart
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

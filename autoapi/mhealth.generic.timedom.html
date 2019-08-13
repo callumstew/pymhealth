@@ -1,0 +1,457 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mhealth.generic.timedom module &mdash; pymhealth 0.0.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="mhealth.heart package" href="mhealth.heart.html" />
+    <link rel="prev" title="mhealth.generic.stats module" href="mhealth.generic.stats.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pymhealth
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">mHealth</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/inertial.html">Inertial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Auto API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">mhealth</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="mhealth.html">mhealth package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="mhealth.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="mhealth.generic.html">mhealth.generic package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mhealth.heart.html">mhealth.heart package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mhealth.inertial.html">mhealth.inertial package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mhealth.location.html">mhealth.location package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mhealth.smartphone.html">mhealth.smartphone package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mhealth.util.html">mhealth.util package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mhealth.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mhealth.html#module-mhealth">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pymhealth</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">mhealth</a> &raquo;</li>
+        
+          <li><a href="mhealth.html">mhealth package</a> &raquo;</li>
+        
+          <li><a href="mhealth.generic.html">mhealth.generic package</a> &raquo;</li>
+        
+      <li>mhealth.generic.timedom module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/autoapi/mhealth.generic.timedom.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-mhealth.generic.timedom">
+<span id="mhealth-generic-timedom-module"></span><h1>mhealth.generic.timedom module<a class="headerlink" href="#module-mhealth.generic.timedom" title="Permalink to this headline">¶</a></h1>
+<p>Generic time-domain features</p>
+<dl class="function">
+<dt id="mhealth.generic.timedom.dfa">
+<code class="sig-prename descclassname">mhealth.generic.timedom.</code><code class="sig-name descname">dfa</code><span class="sig-paren">(</span><em class="sig-param">x: numpy.ndarray, windows: List[int], o: int = 1, overlap: float = 0</em><span class="sig-paren">)</span><a class="headerlink" href="#mhealth.generic.timedom.dfa" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detrended fluctuation analysis
+Params:</p>
+<blockquote>
+<div><p>x (np.ndarray): Signal
+windows (List[int]): List of window sizes
+o (int): Order of the polynomial to fit. Default 1
+overlap (float/int): Percentage overlap between windows. Default 0%</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>scaling exponent</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mhealth.generic.timedom.gradient">
+<code class="sig-prename descclassname">mhealth.generic.timedom.</code><code class="sig-name descname">gradient</code><a class="headerlink" href="#mhealth.generic.timedom.gradient" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mhealth.generic.timedom.hjorth_activity">
+<code class="sig-prename descclassname">mhealth.generic.timedom.</code><code class="sig-name descname">hjorth_activity</code><a class="headerlink" href="#mhealth.generic.timedom.hjorth_activity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hjorth activity
+The variance of the input signal
+Params:</p>
+<blockquote>
+<div><p>x (np.ndarray): Signal</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns</dt><dd><p>float: Hjorth activity (variance)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mhealth.generic.timedom.hjorth_complexity">
+<code class="sig-prename descclassname">mhealth.generic.timedom.</code><code class="sig-name descname">hjorth_complexity</code><a class="headerlink" href="#mhealth.generic.timedom.hjorth_complexity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hjorth complexity
+Hjorth mobility of the first derivitive divided by the hjorth mobility
+of the signal
+Params:</p>
+<blockquote>
+<div><p>x (np.ndarray): Signal</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Hjorth complexity of signal</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mhealth.generic.timedom.hjorth_complexity_derivatives">
+<code class="sig-prename descclassname">mhealth.generic.timedom.</code><code class="sig-name descname">hjorth_complexity_derivatives</code><a class="headerlink" href="#mhealth.generic.timedom.hjorth_complexity_derivatives" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hjorth complexity with precomputed first and second derivitives
+Hjorth mobility of the first derivitive divided by the hjorth mobility
+of the signal
+Params:</p>
+<blockquote>
+<div><p>x (np.ndarray): Signal
+deriv1 (np.ndarray): First derivative of the signal
+deriv2 (np.ndarray): Second derivative of the signal</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Hjorth complexity of signal</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mhealth.generic.timedom.hjorth_mobility">
+<code class="sig-prename descclassname">mhealth.generic.timedom.</code><code class="sig-name descname">hjorth_mobility</code><a class="headerlink" href="#mhealth.generic.timedom.hjorth_mobility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hjorth mobility
+sqrt of the variance of the first derivative of the signal divided by
+the variance of the signal
+Params:</p>
+<blockquote>
+<div><p>x (np.ndarray): Signal</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Hjorth mobility of signal</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mhealth.generic.timedom.hjorth_mobility_derivative">
+<code class="sig-prename descclassname">mhealth.generic.timedom.</code><code class="sig-name descname">hjorth_mobility_derivative</code><a class="headerlink" href="#mhealth.generic.timedom.hjorth_mobility_derivative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hjorth mobility with precomputed first derivitive
+sqrt of the variance of the first derivative of the signal divided by
+the variance of the signal
+Params:</p>
+<blockquote>
+<div><p>x (np.ndarray): Signal
+deriv (np.ndarray): First derivative of the signal</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Hjorth mobility of signal</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mhealth.generic.timedom.hjorth_parameters">
+<code class="sig-prename descclassname">mhealth.generic.timedom.</code><code class="sig-name descname">hjorth_parameters</code><a class="headerlink" href="#mhealth.generic.timedom.hjorth_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate all Hjorth parameters of a signal.
+doi:10.1016/0013-4694(70)90143-4
+Params:</p>
+<blockquote>
+<div><p>x (np.ndarray): Signal in time domain</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns</dt><dd><p>(float, float, float): Tuple of activity, mobility, complexity.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mhealth.generic.timedom.hurst">
+<code class="sig-prename descclassname">mhealth.generic.timedom.</code><code class="sig-name descname">hurst</code><a class="headerlink" href="#mhealth.generic.timedom.hurst" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hurst exponent of a signal.
+A test for mean-reversion / trend
+H &lt; 0.5 - mean reversion
+H = 0.5 - random walk
+H &gt; 0.5 - trending
+Params:</p>
+<blockquote>
+<div><p>x (np.ndarray[int/float]): Signal to calculate hurst exponent on
+lags (np.ndarray[int]): Time-lags to calculate. Default = 2..64</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Hurst exponent</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mhealth.generic.timedom.line_length">
+<code class="sig-prename descclassname">mhealth.generic.timedom.</code><code class="sig-name descname">line_length</code><a class="headerlink" href="#mhealth.generic.timedom.line_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sum of absolute differences between points in an array.
+Params:</p>
+<blockquote>
+<div><p>x (np.ndarray): Signal</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mhealth.generic.timedom.o1fit">
+<code class="sig-prename descclassname">mhealth.generic.timedom.</code><code class="sig-name descname">o1fit</code><a class="headerlink" href="#mhealth.generic.timedom.o1fit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="mhealth.generic.timedom.o1fit_vec">
+<code class="sig-prename descclassname">mhealth.generic.timedom.</code><code class="sig-name descname">o1fit_vec</code><span class="sig-paren">(</span><em class="sig-param">x: numpy.ndarray</em>, <em class="sig-param">ys: numpy.ndarray</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#mhealth.generic.timedom.o1fit_vec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mhealth.generic.timedom.zero_crossing_count">
+<code class="sig-prename descclassname">mhealth.generic.timedom.</code><code class="sig-name descname">zero_crossing_count</code><a class="headerlink" href="#mhealth.generic.timedom.zero_crossing_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of zero-crossings in the input signal
+Params:</p>
+<blockquote>
+<div><p>x (np.ndarray): Signal
+th (float/int): Threshold for zero crossing</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mhealth.generic.timedom.zero_crossings">
+<code class="sig-prename descclassname">mhealth.generic.timedom.</code><code class="sig-name descname">zero_crossings</code><a class="headerlink" href="#mhealth.generic.timedom.zero_crossings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indices of zero-crossings in the input signal
+Params:</p>
+<blockquote>
+<div><p>x (np.ndarray): Signal
+th (float/int): Threshold for zero crossing</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether there was a zero crossing at the index</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.ndarray[bool]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="mhealth.heart.html" class="btn btn-neutral float-right" title="mhealth.heart package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mhealth.generic.stats.html" class="btn btn-neutral float-left" title="mhealth.generic.stats module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Callum L Stewart
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

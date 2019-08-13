@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>mhealth.smartphone package &mdash; pymhealth 0.0.3 documentation</title>
+  <title>mhealth.generic.filters module &mdash; pymhealth 0.0.3 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="mhealth.util package" href="mhealth.util.html" />
-    <link rel="prev" title="mhealth.location.features module" href="mhealth.location.features.html" /> 
+    <link rel="next" title="mhealth.generic.information module" href="mhealth.generic.information.html" />
+    <link rel="prev" title="mhealth.generic package" href="mhealth.generic.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -94,11 +94,11 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">mhealth</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="mhealth.html">mhealth package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="mhealth.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="mhealth.generic.html">mhealth.generic package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="mhealth.generic.html">mhealth.generic package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="mhealth.heart.html">mhealth.heart package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="mhealth.inertial.html">mhealth.inertial package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="mhealth.location.html">mhealth.location package</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">mhealth.smartphone package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mhealth.smartphone.html">mhealth.smartphone package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="mhealth.util.html">mhealth.util package</a></li>
 </ul>
 </li>
@@ -157,13 +157,15 @@
         
           <li><a href="mhealth.html">mhealth package</a> &raquo;</li>
         
-      <li>mhealth.smartphone package</li>
+          <li><a href="mhealth.generic.html">mhealth.generic package</a> &raquo;</li>
+        
+      <li>mhealth.generic.filters module</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/autoapi/mhealth.smartphone.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/autoapi/mhealth.generic.filters.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -176,11 +178,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="mhealth-smartphone-package">
-<h1>mhealth.smartphone package<a class="headerlink" href="#mhealth-smartphone-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-mhealth.smartphone">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-mhealth.smartphone" title="Permalink to this headline">¶</a></h2>
-</div>
+  <div class="section" id="module-mhealth.generic.filters">
+<span id="mhealth-generic-filters-module"></span><h1>mhealth.generic.filters module<a class="headerlink" href="#module-mhealth.generic.filters" title="Permalink to this headline">¶</a></h1>
+<p>Generic convenience functions around scipy signal filters</p>
+<dl class="function">
+<dt id="mhealth.generic.filters.butterworth">
+<code class="sig-prename descclassname">mhealth.generic.filters.</code><code class="sig-name descname">butterworth</code><span class="sig-paren">(</span><em class="sig-param">arr: numpy.ndarray, cutoff: Union[float, Tuple[float, float]], freq: float, order: int = 5, ftype: str = 'highpass'</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#mhealth.generic.filters.butterworth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Butterworth filters the array through a highpass butterworth filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arr</strong> (<em>list</em><em> or </em><em>numpy.array</em>) – The timeseries array
+on which the filter is applied</p></li>
+<li><p><strong>cutoff</strong> (<em>scalar</em><em> or </em><em>len-2 sequence</em>) – The critical frequencies for the
+Butterworth filter. The point at which the gain drops to 1/sqrt(2)
+of the passband. Must be length-2 sequence for a bandpass filter
+giving [low, high]. Or else the scalar cutoff frequency for either
+a low-pass’ or ‘highpass’ filter.</p></li>
+<li><p><strong>freq</strong> (<em>float</em>) – The frequency (Hz) of the input array</p></li>
+<li><p><strong>order</strong> (<em>int</em>) – The order of the filter.</p></li>
+<li><p><strong>ftype</strong> (<em>str - {'highpass'</em><em>, </em><em>'lowpass'</em><em>, </em><em>'bandpass'}</em>) – The filter type. Default is ‘highpass’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Filtered input signal</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 
@@ -191,10 +219,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="mhealth.util.html" class="btn btn-neutral float-right" title="mhealth.util package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="mhealth.generic.information.html" class="btn btn-neutral float-right" title="mhealth.generic.information module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="mhealth.location.features.html" class="btn btn-neutral float-left" title="mhealth.location.features module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="mhealth.generic.html" class="btn btn-neutral float-left" title="mhealth.generic package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="mhealth.util.deps module" href="mhealth.util.deps.html" />
     <link rel="prev" title="mhealth.smartphone package" href="mhealth.smartphone.html" /> 
 </head>
 
@@ -102,8 +103,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="mhealth.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="mhealth.html#module-mhealth.eda">mhealth.eda module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="mhealth.html#module-mhealth.emg">mhealth.emg module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="mhealth.html#module-mhealth">Module contents</a></li>
 </ul>
 </li>
@@ -181,156 +180,12 @@
 <h1>mhealth.util package<a class="headerlink" href="#mhealth-util-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="mhealth.util.deps.html">mhealth.util.deps module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mhealth.util.windows.html">mhealth.util.windows module</a></li>
+</ul>
 </div>
-<div class="section" id="module-mhealth.util.deps">
-<span id="mhealth-util-deps-module"></span><h2>mhealth.util.deps module<a class="headerlink" href="#module-mhealth.util.deps" title="Permalink to this headline">¶</a></h2>
-<p>Optional dependencies. If not available, a fake is used to
-allow for singledispatch in other modules</p>
-<dl class="class">
-<dt id="mhealth.util.deps.pd">
-<em class="property">class </em><code class="sig-prename descclassname">mhealth.util.deps.</code><code class="sig-name descname">pd</code><a class="headerlink" href="#mhealth.util.deps.pd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="class">
-<dt id="mhealth.util.deps.pd.DataFrame">
-<em class="property">class </em><code class="sig-name descname">DataFrame</code><a class="headerlink" href="#mhealth.util.deps.pd.DataFrame" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-mhealth.util.windows">
-<span id="mhealth-util-windows-module"></span><h2>mhealth.util.windows module<a class="headerlink" href="#module-mhealth.util.windows" title="Permalink to this headline">¶</a></h2>
-<p>Moving window operations</p>
-<dl class="function">
-<dt id="mhealth.util.windows.get_indices">
-<code class="sig-prename descclassname">mhealth.util.windows.</code><code class="sig-name descname">get_indices</code><span class="sig-paren">(</span><em class="sig-param">index: numpy.ndarray</em>, <em class="sig-param">wsize: numpy.timedelta64</em>, <em class="sig-param">wstep: numpy.timedelta64</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#mhealth.util.windows.get_indices" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find the start and end indices of windows of a given step and size
-Params:</p>
-<blockquote>
-<div><p>index (np.ndarray[n]): Index of the array
-wsize (np.timedelta64): Length of window
-wstep (np.timedelta64): Length of step</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Start ([0, :]) and end ([1, :]) indices</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>np.ndarray[2, n]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="mhealth.util.windows.nonuniform_rolling_window">
-<code class="sig-prename descclassname">mhealth.util.windows.</code><code class="sig-name descname">nonuniform_rolling_window</code><span class="sig-paren">(</span><em class="sig-param">func: Callable</em>, <em class="sig-param">min_window: int = 1</em><span class="sig-paren">)</span> &#x2192; Callable<a class="headerlink" href="#mhealth.util.windows.nonuniform_rolling_window" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a moving window aggregation function from a function
-This function is designed for moving windows with a non-uniform index,
-particularly datetime indices. The returned function will aggregate windows
-of a specified size and stride.</p>
-<dl>
-<dt>Params:</dt><dd><p>func (Callable): A function which will be applied to each window
-min_window (int): The minimum length of a window to aggregate.</p>
-<blockquote>
-<div><p>Windows under this length will return nan.</p>
-</div></blockquote>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A function with the signature (index, arr, wsize, wstep).</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Callable</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mhealth.util.windows.nonuniform_window_aggregator">
-<code class="sig-prename descclassname">mhealth.util.windows.</code><code class="sig-name descname">nonuniform_window_aggregator</code><a class="headerlink" href="#mhealth.util.windows.nonuniform_window_aggregator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a function to loop through known window indices and
-apply the supplied function.
-Params:</p>
-<blockquote>
-<div><p>func (Callable): The aggregation function to use</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>function with signature (indices, arr)</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Callable</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mhealth.util.windows.rolling_apply">
-<code class="sig-prename descclassname">mhealth.util.windows.</code><code class="sig-name descname">rolling_apply</code><a class="headerlink" href="#mhealth.util.windows.rolling_apply" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a function to loop through an evenly-sampled array
-and apply the supplied function. Additional kwargs are optional
-and will be passed as the default value to the resulting function
-Params:</p>
-<blockquote>
-<div><p>func (Callable): Function to apply to each window
-wsize (int): Size of window
-wstep (int): Size of step between windows
-shape (Tuple[int]): Shape of output of func. Default: (1,)
-dtype (type): dtype of the output</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Function that will apply func to windows in a given array</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Callable</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="mhealth.util.windows.rolling_window">
-<code class="sig-prename descclassname">mhealth.util.windows.</code><code class="sig-name descname">rolling_window</code><span class="sig-paren">(</span><em class="sig-param">func: Callable</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span> &#x2192; Callable<a class="headerlink" href="#mhealth.util.windows.rolling_window" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a function to loop through an evenly-sampled array
-and apply the supplied function. Additional args/kwargs are optional
-and will be passed as the default value to the resulting function
-Params:</p>
-<blockquote>
-<div><p>func (Callable): Function to apply to each window
-wsize (int): Size of window
-wstep (int): Size of step between windows
-shape (Tuple[int]): Shape of output of func. Default: (1,)
-dtype (type): dtype of the output</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Function that will apply func to windows in a given array</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Callable</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="mhealth.util.windows.view">
-<code class="sig-prename descclassname">mhealth.util.windows.</code><code class="sig-name descname">view</code><span class="sig-paren">(</span><em class="sig-param">x: numpy.ndarray</em>, <em class="sig-param">w: int</em>, <em class="sig-param">s: int</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#mhealth.util.windows.view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Strided window view of array
-Params:</p>
-<blockquote>
-<div><p>x (np.ndarray): Array to make window views of
-w (int): Window size
-s (int): Step size</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>np.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
 </div>
 <div class="section" id="module-mhealth.util">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-mhealth.util" title="Permalink to this headline">¶</a></h2>
@@ -344,6 +199,8 @@ s (int): Step size</p>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="mhealth.util.deps.html" class="btn btn-neutral float-right" title="mhealth.util.deps module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="mhealth.smartphone.html" class="btn btn-neutral float-left" title="mhealth.smartphone package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

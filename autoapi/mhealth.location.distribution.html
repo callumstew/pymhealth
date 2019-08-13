@@ -1,0 +1,366 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mhealth.location.distribution module &mdash; pymhealth 0.0.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="mhealth.location.features module" href="mhealth.location.features.html" />
+    <link rel="prev" title="mhealth.location.distance module" href="mhealth.location.distance.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pymhealth
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">mHealth</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/inertial.html">Inertial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Auto API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">mhealth</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="mhealth.html">mhealth package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="mhealth.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="mhealth.generic.html">mhealth.generic package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mhealth.heart.html">mhealth.heart package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mhealth.inertial.html">mhealth.inertial package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="mhealth.location.html">mhealth.location package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mhealth.smartphone.html">mhealth.smartphone package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mhealth.util.html">mhealth.util package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mhealth.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mhealth.html#module-mhealth">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pymhealth</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">mhealth</a> &raquo;</li>
+        
+          <li><a href="mhealth.html">mhealth package</a> &raquo;</li>
+        
+          <li><a href="mhealth.location.html">mhealth.location package</a> &raquo;</li>
+        
+      <li>mhealth.location.distribution module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/autoapi/mhealth.location.distribution.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-mhealth.location.distribution">
+<span id="mhealth-location-distribution-module"></span><h1>mhealth.location.distribution module<a class="headerlink" href="#module-mhealth.location.distribution" title="Permalink to this headline">¶</a></h1>
+<p>Calculate location distribution-based features
+Typically each feature has two functions - one that takes a
+dataframe and the other that takes numpy ndarrays.
+The dataframe is assumed to have a datetime index and a latitude and
+longitude column, each measured in degrees.
+Cluster labels should be integers from 0 upwards. Non-clustered points
+should be labelled -1.</p>
+<dl class="attribute">
+<dt id="mhealth.location.distribution.arr_location_variance">
+<code class="sig-prename descclassname">mhealth.location.distribution.</code><code class="sig-name descname">arr_location_variance</code><a class="headerlink" href="#mhealth.location.distribution.arr_location_variance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variance in locations
+Defined as the log of the sum of the variances of latitude and longitude.
+log(var(latitude) + var(longitude))
+:param latitude: Array of latitudes in degrees
+:type latitude: np.ndarray[float]
+:param longitude: Array of longitudes in degrees
+:type longitude: np.ndarray[float]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>location variance</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="mhealth.location.distribution.cluster_entropy">
+<code class="sig-prename descclassname">mhealth.location.distribution.</code><code class="sig-name descname">cluster_entropy</code><span class="sig-paren">(</span><em class="sig-param">cluster_labels</em><span class="sig-paren">)</span><a class="headerlink" href="#mhealth.location.distribution.cluster_entropy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Entropy of location clusters
+:param cluster_labels: Cluster labels
+:type cluster_labels: list/np.ndarray</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Shannon entropy</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="mhealth.location.distribution.cluster_locations">
+<code class="sig-prename descclassname">mhealth.location.distribution.</code><code class="sig-name descname">cluster_locations</code><span class="sig-paren">(</span><em class="sig-param">df</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mhealth.location.distribution.cluster_locations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cluster locations with HDBSCAN
+:param df: RADAR android_phone_location dataframe
+:type df: pandas.DataFrame
+:param min_samples: Minimum number of samples to form a cluster</p>
+<blockquote>
+<div><p>Default = N/20</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – Key-word arguments to provide HDBSCAN</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Cluster labels</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="mhealth.location.distribution.cluster_totals">
+<code class="sig-prename descclassname">mhealth.location.distribution.</code><code class="sig-name descname">cluster_totals</code><span class="sig-paren">(</span><em class="sig-param">cluster_labels</em><span class="sig-paren">)</span><a class="headerlink" href="#mhealth.location.distribution.cluster_totals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Occurences in each cluster
+:param cluster_labels: Cluster labels
+:type cluster_labels: list/np.ndarray</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>cluster label key with number of occurences as value</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="mhealth.location.distribution.location_variance">
+<code class="sig-prename descclassname">mhealth.location.distribution.</code><code class="sig-name descname">location_variance</code><span class="sig-paren">(</span><em class="sig-param">df</em><span class="sig-paren">)</span><a class="headerlink" href="#mhealth.location.distribution.location_variance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variance in locations
+Defined as the log of the sum of the variances of latitude and longitude.
+var(latitude) + var(longitude)
+:param df: RADAR android_phone_location dataframe
+:type df: pandas.DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>location variance</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="mhealth.location.distribution.normalized_cluster_entropy">
+<code class="sig-prename descclassname">mhealth.location.distribution.</code><code class="sig-name descname">normalized_cluster_entropy</code><span class="sig-paren">(</span><em class="sig-param">cluster_labels</em>, <em class="sig-param">n_clusters=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mhealth.location.distribution.normalized_cluster_entropy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cluster entropy normalized by the log of the number of clusters.
+:param cluster_labels: Cluster labels
+:type cluster_labels: list/np.ndarray</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Shannon entropy / log(n_clusters)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="mhealth.location.distribution.num_clusters">
+<code class="sig-prename descclassname">mhealth.location.distribution.</code><code class="sig-name descname">num_clusters</code><span class="sig-paren">(</span><em class="sig-param">cluster_labels</em><span class="sig-paren">)</span><a class="headerlink" href="#mhealth.location.distribution.num_clusters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of unique labels
+:param cluster_labels: Cluster labels
+:type cluster_labels: list/np.ndarray</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>number of unique labels</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="mhealth.location.features.html" class="btn btn-neutral float-right" title="mhealth.location.features module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mhealth.location.distance.html" class="btn btn-neutral float-left" title="mhealth.location.distance module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Callum L Stewart
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

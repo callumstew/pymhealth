@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>mhealth &mdash; pymhealth 0.0.3 documentation</title>
+  <title>mhealth.eda module &mdash; pymhealth 0.0.3 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="mhealth package" href="mhealth.html" />
-    <link rel="prev" title="Accelerometer" href="../api/inertial/accelerometer.html" /> 
+    <link rel="next" title="mhealth.emg module" href="mhealth.emg.html" />
+    <link rel="prev" title="mhealth.util.windows module" href="mhealth.util.windows.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -91,8 +91,17 @@
 </ul>
 <p class="caption"><span class="caption-text">Auto API</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">mhealth</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="mhealth.html">mhealth package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">mhealth</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="mhealth.html">mhealth package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="mhealth.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="mhealth.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">mhealth.eda module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mhealth.emg.html">mhealth.emg module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mhealth.html#module-mhealth">Module contents</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -140,13 +149,17 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>mhealth</li>
+          <li><a href="modules.html">mhealth</a> &raquo;</li>
+        
+          <li><a href="mhealth.html">mhealth package</a> &raquo;</li>
+        
+      <li>mhealth.eda module</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/autoapi/modules.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/autoapi/mhealth.eda.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -159,53 +172,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="mhealth">
-<h1>mhealth<a class="headerlink" href="#mhealth" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="mhealth.html">mhealth package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="mhealth.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="mhealth.generic.html">mhealth.generic package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="mhealth.generic.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="mhealth.generic.html#module-mhealth.generic">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="mhealth.heart.html">mhealth.heart package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="mhealth.heart.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="mhealth.heart.html#module-mhealth.heart">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="mhealth.inertial.html">mhealth.inertial package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="mhealth.inertial.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="mhealth.inertial.html#module-mhealth.inertial">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="mhealth.location.html">mhealth.location package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="mhealth.location.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="mhealth.location.html#module-mhealth.location">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="mhealth.smartphone.html">mhealth.smartphone package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="mhealth.smartphone.html#module-mhealth.smartphone">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="mhealth.util.html">mhealth.util package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="mhealth.util.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="mhealth.util.html#module-mhealth.util">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="mhealth.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="mhealth.eda.html">mhealth.eda module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="mhealth.emg.html">mhealth.emg module</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="mhealth.html#module-mhealth">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</div>
+  <div class="section" id="module-mhealth.eda">
+<span id="mhealth-eda-module"></span><h1>mhealth.eda module<a class="headerlink" href="#module-mhealth.eda" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -216,10 +184,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="mhealth.html" class="btn btn-neutral float-right" title="mhealth package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="mhealth.emg.html" class="btn btn-neutral float-right" title="mhealth.emg module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../api/inertial/accelerometer.html" class="btn btn-neutral float-left" title="Accelerometer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="mhealth.util.windows.html" class="btn btn-neutral float-left" title="mhealth.util.windows module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

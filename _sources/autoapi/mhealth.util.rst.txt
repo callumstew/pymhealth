@@ -4,22 +4,10 @@ mhealth.util package
 Submodules
 ----------
 
-mhealth.util.deps module
-------------------------
+.. toctree::
 
-.. automodule:: mhealth.util.deps
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-mhealth.util.windows module
----------------------------
-
-.. automodule:: mhealth.util.windows
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
+   mhealth.util.deps
+   mhealth.util.windows
 
 Module contents
 ---------------

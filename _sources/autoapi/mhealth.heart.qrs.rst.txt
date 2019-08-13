@@ -1,0 +1,7 @@
+mhealth.heart.qrs module
+========================
+
+.. automodule:: mhealth.heart.qrs
+   :members:
+   :undoc-members:
+   :show-inheritance:

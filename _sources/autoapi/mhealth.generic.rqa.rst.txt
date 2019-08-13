@@ -1,0 +1,7 @@
+mhealth.generic.rqa module
+==========================
+
+.. automodule:: mhealth.generic.rqa
+   :members:
+   :undoc-members:
+   :show-inheritance:

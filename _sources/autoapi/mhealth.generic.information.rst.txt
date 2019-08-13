@@ -1,0 +1,7 @@
+mhealth.generic.information module
+==================================
+
+.. automodule:: mhealth.generic.information
+   :members:
+   :undoc-members:
+   :show-inheritance:
