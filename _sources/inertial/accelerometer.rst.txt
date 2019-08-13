@@ -3,8 +3,15 @@
 Accelerometer
 =============
 
-.. toctree::
-   :maxdepth: 2
+This module contains processing functions and features specific to accelerometery signals.
+
+--------
+Contents
+--------
+
+.. contents::
+   :depth: 3
+   
 
 -------
 Filters
@@ -14,7 +21,6 @@ Convenience functions around scipy.signal for filtering accelerometer data, usin
 Linear acceleration
 -------------------
 Filter out the linear component of acceleration from a raw accelerometer signal.
-
 
 .. autofunction:: mhealth.inertial.accelerometer.linear_filter
 

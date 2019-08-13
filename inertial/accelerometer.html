@@ -32,14 +32,32 @@
           <div class="body" role="main">
             
   <div class="section" id="accelerometer">
-<h1>Accelerometer<a class="headerlink" href="#accelerometer" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
+<h1><a class="toc-backref" href="#id2">Accelerometer</a><a class="headerlink" href="#accelerometer" title="Permalink to this headline">¶</a></h1>
+<p>This module contains processing functions and features specific to accelerometery signals.</p>
+<div class="section" id="contents">
+<h2><a class="toc-backref" href="#id3">Contents</a><a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="contents topic" id="id1">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#accelerometer" id="id2">Accelerometer</a></p>
+<ul>
+<li><p><a class="reference internal" href="#contents" id="id3">Contents</a></p></li>
+<li><p><a class="reference internal" href="#filters" id="id4">Filters</a></p>
+<ul>
+<li><p><a class="reference internal" href="#linear-acceleration" id="id5">Linear acceleration</a></p></li>
+<li><p><a class="reference internal" href="#gravitational-component" id="id6">Gravitational component</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div class="section" id="filters">
-<h2>Filters<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Filters</a><a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h2>
 <p>Convenience functions around scipy.signal for filtering accelerometer data, using a 5th order Butterworth filter.</p>
 <div class="section" id="linear-acceleration">
-<h3>Linear acceleration<a class="headerlink" href="#linear-acceleration" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id5">Linear acceleration</a><a class="headerlink" href="#linear-acceleration" title="Permalink to this headline">¶</a></h3>
 <p>Filter out the linear component of acceleration from a raw accelerometer signal.</p>
 <dl class="function">
 <dt id="mhealth.inertial.accelerometer.linear_filter">
@@ -92,7 +110,7 @@ acceleration.</p></li>
 
 </div>
 <div class="section" id="gravitational-component">
-<h3>Gravitational component<a class="headerlink" href="#gravitational-component" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id6">Gravitational component</a><a class="headerlink" href="#gravitational-component" title="Permalink to this headline">¶</a></h3>
 <p>Filter out the gravitational component of acceleration from a raw accelerometer signal.</p>
 <dl class="function">
 <dt id="mhealth.inertial.accelerometer.gravity_filter">
