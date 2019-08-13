@@ -2,9 +2,12 @@
 Accelerometer
 =======
 
-.. contents:: :local:
+Accelerometer specific functions
 
 .. automodule:: mhealth.inertial.accelerometer
     :members:
     :private-members:
     :special-members:
+
+
+.. contents:: :local:
