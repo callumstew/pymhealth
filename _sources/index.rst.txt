@@ -39,12 +39,12 @@ API documentation
 --------------------
 
 * Generic
-  - :doc:`generic/filters`
-  - information TODO
-  - nufft TODO
-  - rqa TODO
-  - stats TODO
-  - stats TODO
+    * :doc:`generic/filters`
+    * information TODO
+    * nufft TODO
+    * rqa TODO
+    * stats TODO
+    * stats TODO
 * Inertial
   - :doc:`inertial/accelerometer`
 * Heart
