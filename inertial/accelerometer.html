@@ -33,21 +33,14 @@
             
   <div class="section" id="accelerometer">
 <h1>Accelerometer<a class="headerlink" href="#accelerometer" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
 <div class="section" id="filters">
 <h2>Filters<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h2>
 <p>Convenience functions around scipy.signal for filtering accelerometer data, using a 5th order Butterworth filter.</p>
 <div class="section" id="linear-acceleration">
 <h3>Linear acceleration<a class="headerlink" href="#linear-acceleration" title="Permalink to this headline">¶</a></h3>
 <p>Filter out the linear component of acceleration from a raw accelerometer signal.</p>
-<dl class="function">
-<dt id="acc_linear">
-<code class="sig-name descname">acc_linear</code><span class="sig-paren">(</span><em class="sig-param">acc</em>, <em class="sig-param">freq</em>, <em class="sig-param">cutoff</em>, <em class="sig-param">order</em><span class="sig-paren">)</span><a class="headerlink" href="#acc_linear" title="Permalink to this definition">¶</a></dt>
-<dt>
-<code class="sig-name descname">Estimate linear acceleration using a high-pass Butterworth filter.</code></dt>
-<dt>
-<code class="sig-name descname">Optionally, you can specify a low-pass cutoff to perform a band-pass filter by passing two values to cutoff.</code></dt>
-<dd></dd></dl>
-
 <dl class="function">
 <dt id="mhealth.inertial.accelerometer.linear_filter">
 <code class="sig-prename descclassname">mhealth.inertial.accelerometer.</code><code class="sig-name descname">linear_filter</code><span class="sig-paren">(</span><em class="sig-param">acc: numpy.ndarray</em>, <em class="sig-param">freq: float</em>, <em class="sig-param">cutoff: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.5</em>, <em class="sig-param">order: int = 5</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#mhealth.inertial.accelerometer.linear_filter" title="Permalink to this definition">¶</a></dt>
