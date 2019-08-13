@@ -1,0 +1,62 @@
+mhealth.generic package
+=======================
+
+Submodules
+----------
+
+mhealth.generic.filters module
+------------------------------
+
+.. automodule:: mhealth.generic.filters
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mhealth.generic.information module
+----------------------------------
+
+.. automodule:: mhealth.generic.information
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mhealth.generic.nufft module
+----------------------------
+
+.. automodule:: mhealth.generic.nufft
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mhealth.generic.rqa module
+--------------------------
+
+.. automodule:: mhealth.generic.rqa
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mhealth.generic.stats module
+----------------------------
+
+.. automodule:: mhealth.generic.stats
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mhealth.generic.timedom module
+------------------------------
+
+.. automodule:: mhealth.generic.timedom
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: mhealth.generic
+   :members:
+   :undoc-members:
+   :show-inheritance:

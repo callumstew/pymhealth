@@ -1,0 +1,42 @@
+mhealth package
+===============
+
+Subpackages
+-----------
+
+.. toctree::
+
+   mhealth.generic
+   mhealth.heart
+   mhealth.inertial
+   mhealth.location
+   mhealth.smartphone
+   mhealth.util
+
+Submodules
+----------
+
+mhealth.eda module
+------------------
+
+.. automodule:: mhealth.eda
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mhealth.emg module
+------------------
+
+.. automodule:: mhealth.emg
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: mhealth
+   :members:
+   :undoc-members:
+   :show-inheritance:

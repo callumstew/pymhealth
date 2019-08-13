@@ -1,0 +1,10 @@
+mhealth.smartphone package
+==========================
+
+Module contents
+---------------
+
+.. automodule:: mhealth.smartphone
+   :members:
+   :undoc-members:
+   :show-inheritance:

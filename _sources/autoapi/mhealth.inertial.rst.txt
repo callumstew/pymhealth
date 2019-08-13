@@ -1,0 +1,22 @@
+mhealth.inertial package
+========================
+
+Submodules
+----------
+
+mhealth.inertial.accelerometer module
+-------------------------------------
+
+.. automodule:: mhealth.inertial.accelerometer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: mhealth.inertial
+   :members:
+   :undoc-members:
+   :show-inheritance:

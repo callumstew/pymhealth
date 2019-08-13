@@ -87,6 +87,10 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../inertial.html">Inertial</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Auto API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/modules.html">mhealth</a></li>
+</ul>
 
             
           
@@ -150,173 +154,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-mhealth.generic.stats">
-<span id="stats"></span><h1>Stats<a class="headerlink" href="#module-mhealth.generic.stats" title="Permalink to this headline">¶</a></h1>
-<p>Generic statistical features
-These functions are more rigid than their scipy counter-parts, but
-the intention is that (using numba) they are faster.
-However, scipy has a greater selection of statistical features and
-may be preferable.</p>
-<p><strong>Functions</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#mhealth.generic.stats.drange" title="mhealth.generic.stats.drange"><code class="xref py py-obj docutils literal notranslate"><span class="pre">drange</span></code></a>(x)</p></td>
-<td><p>Range of data</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#mhealth.generic.stats.interquartile_range" title="mhealth.generic.stats.interquartile_range"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interquartile_range</span></code></a>(x)</p></td>
-<td><p>Interquartile range</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#mhealth.generic.stats.kurtosis_excess" title="mhealth.generic.stats.kurtosis_excess"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kurtosis_excess</span></code></a>(x)</p></td>
-<td><p>Kurtosis excess is the kurtosis - 3</p></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Miscallaneous</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#mhealth.generic.stats.kurtosis" title="mhealth.generic.stats.kurtosis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kurtosis</span></code></a>(*args, **kwargs)</p></td>
-<td><p>Kurtosis B2 = mu_4 / mu_2^2</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#mhealth.generic.stats.minmax" title="mhealth.generic.stats.minmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minmax</span></code></a>(*args, **kwargs)</p></td>
-<td><p>Minimum and maximum of an array looping once Params:     x (np.ndarray[Any]): Array with elements that can be compared         with &gt; and &lt;.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#mhealth.generic.stats.skewness" title="mhealth.generic.stats.skewness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">skewness</span></code></a>(*args, **kwargs)</p></td>
-<td><p>Skewness (third-moment) of a distribution</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#mhealth.generic.stats.variation" title="mhealth.generic.stats.variation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">variation</span></code></a>(*args, **kwargs)</p></td>
-<td><p>Compute the coefficient of variation, the ratio of the biased standard deviation to the mean.</p></td>
-</tr>
-</tbody>
-</table>
-<dl class="function">
-<dt id="mhealth.generic.stats.drange">
-<code class="sig-prename descclassname">mhealth.generic.stats.</code><code class="sig-name descname">drange</code><span class="sig-paren">(</span><em class="sig-param">x: numpy.ndarray</em><span class="sig-paren">)</span><a class="headerlink" href="#mhealth.generic.stats.drange" title="Permalink to this definition">¶</a></dt>
-<dd><p>Range of data
-Params:</p>
-<blockquote>
-<div><p>x (np.ndarray[float/int])</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Returns</dt><dd><p>input array type: max(x) - min(x)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="mhealth.generic.stats.interquartile_range">
-<code class="sig-prename descclassname">mhealth.generic.stats.</code><code class="sig-name descname">interquartile_range</code><span class="sig-paren">(</span><em class="sig-param">x: numpy.ndarray</em><span class="sig-paren">)</span><a class="headerlink" href="#mhealth.generic.stats.interquartile_range" title="Permalink to this definition">¶</a></dt>
-<dd><p>Interquartile range
-Params:</p>
-<blockquote>
-<div><p>x (np.ndarray[float/int])</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Returns</dt><dd><p>float/int: 75th percentile - 25th percentile</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mhealth.generic.stats.kurtosis">
-<code class="sig-prename descclassname">mhealth.generic.stats.</code><code class="sig-name descname">kurtosis</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mhealth.generic.stats.kurtosis" title="Permalink to this definition">¶</a></dt>
-<dd><p>Kurtosis B2 = mu_4 / mu_2^2
-Params:</p>
-<blockquote>
-<div><p>x (np.ndarray): Distribution to find kurtosis of</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>kurtosis</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="mhealth.generic.stats.kurtosis_excess">
-<code class="sig-prename descclassname">mhealth.generic.stats.</code><code class="sig-name descname">kurtosis_excess</code><span class="sig-paren">(</span><em class="sig-param">x: numpy.ndarray</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#mhealth.generic.stats.kurtosis_excess" title="Permalink to this definition">¶</a></dt>
-<dd><p>Kurtosis excess is the kurtosis - 3
-Params:</p>
-<blockquote>
-<div><p>x (np.ndarray): Distribution to find kurtosis excess of</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>kurtosis excess</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mhealth.generic.stats.minmax">
-<code class="sig-prename descclassname">mhealth.generic.stats.</code><code class="sig-name descname">minmax</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mhealth.generic.stats.minmax" title="Permalink to this definition">¶</a></dt>
-<dd><p>Minimum and maximum of an array looping once
-Params:</p>
-<blockquote>
-<div><dl class="simple">
-<dt>x (np.ndarray[Any]): Array with elements that can be compared</dt><dd><p>with &gt; and &lt;.</p>
-</dd>
-</dl>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Tuple of minimum and maximum</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>(Any, Any) input array dtype</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mhealth.generic.stats.skewness">
-<code class="sig-prename descclassname">mhealth.generic.stats.</code><code class="sig-name descname">skewness</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mhealth.generic.stats.skewness" title="Permalink to this definition">¶</a></dt>
-<dd><p>Skewness (third-moment) of a distribution
-Params:</p>
-<blockquote>
-<div><p>x (np.ndarray): Distribution to find skew of</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>skewness</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mhealth.generic.stats.variation">
-<code class="sig-prename descclassname">mhealth.generic.stats.</code><code class="sig-name descname">variation</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mhealth.generic.stats.variation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the coefficient of variation, the ratio of the biased standard deviation to the mean.
-Params:</p>
-<blockquote>
-<div><p>x (np.ndarray): input array</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>coefficient of variation</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
+  <div class="section" id="stats">
+<h1>Stats<a class="headerlink" href="#stats" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
