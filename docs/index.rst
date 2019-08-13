@@ -9,57 +9,18 @@ and common wearable devices.
 Pymhealth is in development and the API/package structure is likely to change.
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+    :maxdepth: 2
+    :caption: mHealth
 
--------
-General
--------
-* :doc:`intro`
+    intro
 
+.. toctree::
+    :maxdepth: 3
+    :caption: API Reference
 
----------------
-Getting started
----------------
-* None
-* None
-
-
-
-----------------------
-Tutorials and examples
-----------------------
-* None
-* None
-
-
-
---------------------
-API documentation
---------------------
-
-* Generic
-  - :doc:`generic/filters`
-  - information TODO
-  - nufft TODO
-  - rqa TODO
-  - stats TODO
-  - stats TODO
-* Inertial
-  - :doc:`inertial/accelerometer`
-* Heart
-  - HRV TODO
-  - QRS TODO
-* Location
-  - :doc:`location/distance`
-* Smartphone
-* Util
-  - deps TODO
-  - windows TODO
-
+    api
 
 ------------------
-
 Indices and tables
 ------------------
 
