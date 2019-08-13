@@ -173,15 +173,18 @@
 <dl class="attribute">
 <dt id="mhealth.generic.rqa.determinism">
 <code class="sig-prename descclassname">mhealth.generic.rqa.</code><code class="sig-name descname">determinism</code><a class="headerlink" href="#mhealth.generic.rqa.determinism" title="Permalink to this definition">¶</a></dt>
-<dd><p>Determinism - proportion of recurrence points forming diagonal lines
-at least 2 points long.
-Params:</p>
-<blockquote>
-<div><p>r (np.ndarray[bool, bool]): Recurrence matrix</p>
-</div></blockquote>
+<dd><p>Calculate determinism of RQ matrix.</p>
+<p>Proportion of recurrence points forming diagonal lines at
+least 2 points long.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>float (0-1)</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>r</strong> (<em>np.ndarray</em><em>[</em><em>bool</em><em>, </em><em>bool</em><em>]</em>) – Recurrence matrix</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(0-1)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -189,19 +192,20 @@ Params:</p>
 <dl class="attribute">
 <dt id="mhealth.generic.rqa.diagonal_lengths">
 <code class="sig-prename descclassname">mhealth.generic.rqa.</code><code class="sig-name descname">diagonal_lengths</code><a class="headerlink" href="#mhealth.generic.rqa.diagonal_lengths" title="Permalink to this definition">¶</a></dt>
-<dd><p>The lengths of the contiguous diagonal lines
-Slower than simply counting points as in determinism.
-Params:</p>
-<blockquote>
-<div><p>r (np.ndarray[bool, bool]): Recurrence matrix
-minlen (int): Minimum length of a line</p>
-</div></blockquote>
+<dd><p>Calculate lengths of contiguous diagonal lines in RQ matrix.</p>
+<p>Slower than simply counting points as in determinism.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Lengths of diagonal lines greater than the minlen</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r</strong> (<em>np.ndarray</em><em>[</em><em>bool</em><em>, </em><em>bool</em><em>]</em>) – Recurrence matrix</p></li>
+<li><p><strong>minlen</strong> (<em>int</em>) – Minimum length of a line</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>np.ndarray[int]</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Lengths of diagonal lines greater than the minlen</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray[int]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -209,15 +213,18 @@ minlen (int): Minimum length of a line</p>
 <dl class="attribute">
 <dt id="mhealth.generic.rqa.laminarity">
 <code class="sig-prename descclassname">mhealth.generic.rqa.</code><code class="sig-name descname">laminarity</code><a class="headerlink" href="#mhealth.generic.rqa.laminarity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Laminarity - proportion of recurrence points forming vertical lines
-at least 2 points long.
-Params:</p>
-<blockquote>
-<div><p>r (np.ndarray[bool, bool]): Recurrence matrix</p>
-</div></blockquote>
+<dd><p>Laminarity of RQ matrix.</p>
+<p>Proportion of recurrence points forming vertical lines
+at least 2 points long.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>float (0-1)</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>r</strong> (<em>np.ndarray</em><em>[</em><em>bool</em><em>, </em><em>bool</em><em>]</em>) – Recurrence matrix</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(0-1)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -225,18 +232,19 @@ Params:</p>
 <dl class="attribute">
 <dt id="mhealth.generic.rqa.length_entropy">
 <code class="sig-prename descclassname">mhealth.generic.rqa.</code><code class="sig-name descname">length_entropy</code><a class="headerlink" href="#mhealth.generic.rqa.length_entropy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Entropy of the segment lengths (e.g. diagonals)
-Params:</p>
-<blockquote>
-<div><p>r (np.ndarray[bool, bool]): Recurrence matrix
-minlen (int): Minimum length of a line</p>
-</div></blockquote>
+<dd><p>Calculate entropy of diagonal lengths in RQ matrix.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Shannon entropy of distribution of segment lengths</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r</strong> (<em>np.ndarray</em><em>[</em><em>bool</em><em>, </em><em>bool</em><em>]</em>) – Recurrence matrix</p></li>
+<li><p><strong>minlen</strong> (<em>int</em>) – Minimum length of a line</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>float</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Shannon entropy of distribution of segment lengths</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -244,13 +252,15 @@ minlen (int): Minimum length of a line</p>
 <dl class="attribute">
 <dt id="mhealth.generic.rqa.recurrence_rate">
 <code class="sig-prename descclassname">mhealth.generic.rqa.</code><code class="sig-name descname">recurrence_rate</code><a class="headerlink" href="#mhealth.generic.rqa.recurrence_rate" title="Permalink to this definition">¶</a></dt>
-<dd><p>The proportion of recurrence points in a recurrence matrix
-Params:</p>
-<blockquote>
-<div><p>r (np.ndarray[bool, bool]): Recurrence matrix</p>
-</div></blockquote>
+<dd><p>Calculate proportion of recurrent points in RQ matrix.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>r</strong> (<em>np.ndarray</em><em>[</em><em>bool</em><em>, </em><em>bool</em><em>]</em>) – Recurrence matrix</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(0-1)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -259,73 +269,71 @@ Params:</p>
 <dl class="attribute">
 <dt id="mhealth.generic.rqa.rq">
 <code class="sig-prename descclassname">mhealth.generic.rqa.</code><code class="sig-name descname">rq</code><a class="headerlink" href="#mhealth.generic.rqa.rq" title="Permalink to this definition">¶</a></dt>
-<dd><p>Recurrence matrix
-Params:</p>
-<blockquote>
-<div><p>x (np.ndarray): signal
-radius (int/float): Difference in values must be within the radius</p>
-<blockquote>
-<div><p>to count as a recurrence. Default = 0</p>
-</div></blockquote>
-</div></blockquote>
+<dd><p>Recurrence matrix.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><dl class="simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em>) – signal</p></li>
+<li><p><strong>radius</strong> (<em>int/float</em>) – Difference in values must be within the radius
+to count as a recurrence. Default = 0</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
 <dt>N*N boolean matrix where True corresponds to</dt><dd><p>a recurrence, N = len(x)</p>
 </dd>
 </dl>
 </p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>np.ndarray[bool, bool]</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray[bool, bool]</p>
 </dd>
 </dl>
-<p>return np.abs(np.subtract.outer(x, x)) &lt;= radius</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="mhealth.generic.rqa.rq2">
 <code class="sig-prename descclassname">mhealth.generic.rqa.</code><code class="sig-name descname">rq2</code><span class="sig-paren">(</span><em class="sig-param">x: numpy.ndarray</em>, <em class="sig-param">radius: float = 0.0</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#mhealth.generic.rqa.rq2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Recurrence matrix; can handle multi-column input (observations=vectors), but is not jit-able
-Params:</p>
-<blockquote>
-<div><p>x (np.ndarray): signal
-radius (int/float): Difference in values must be within the radius</p>
-<blockquote>
-<div><p>to count as a recurrence. Default = 0</p>
-</div></blockquote>
-</div></blockquote>
+<dd><p>Recurrence matrix multi-column.</p>
+<p>Can handle multi-column input (observations=vectors), but is not jit-able</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><dl class="simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em>) – signal</p></li>
+<li><p><strong>radius</strong> (<em>int/float</em>) – Difference in values must be within the radius
+to count as a recurrence. Default = 0</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
 <dt>N*N boolean matrix where True corresponds to</dt><dd><p>a recurrence, N = len(x)</p>
 </dd>
 </dl>
 </p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>np.ndarray[bool, bool]</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray[bool, bool]</p>
 </dd>
 </dl>
-<p>return np.abs(np.subtract.outer(x, x)) &lt;= radius</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mhealth.generic.rqa.vertical_lengths">
 <code class="sig-prename descclassname">mhealth.generic.rqa.</code><code class="sig-name descname">vertical_lengths</code><a class="headerlink" href="#mhealth.generic.rqa.vertical_lengths" title="Permalink to this definition">¶</a></dt>
-<dd><p>The lengths of the contiguous vertical lines
-Slower than simply counting points as in laminarity.
-Params:</p>
-<blockquote>
-<div><p>r (np.ndarray[bool, bool]): Recurrence matrix
-minlen (int): Minimum length of a line</p>
-</div></blockquote>
+<dd><p>Calculate lengths of contiguous vertical lines in RQ matrix.</p>
+<p>Slower than simply counting points as in laminarity.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Lengths of vertical lines greater than the minlen</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r</strong> (<em>np.ndarray</em><em>[</em><em>bool</em><em>, </em><em>bool</em><em>]</em>) – Recurrence matrix</p></li>
+<li><p><strong>minlen</strong> (<em>int</em>) – Minimum length of a line</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>np.ndarray[int]</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Lengths of vertical lines greater than the minlen</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray[int]</p>
 </dd>
 </dl>
 </dd></dl>
