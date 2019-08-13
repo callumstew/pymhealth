@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="API Reference" href="../../api.html" /> 
+    <link rel="prev" title="Functions concerning interial sensors - e.g. accelerometers, gyroscopes." href="../inertial.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,7 +87,10 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Accelerometer</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../inertial.html">Functions concerning interial sensors - e.g. accelerometers, gyroscopes.</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Accelerometer</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -137,6 +140,8 @@
         
           <li><a href="../../api.html">API Reference</a> &raquo;</li>
         
+          <li><a href="../inertial.html">Functions concerning interial sensors - e.g. accelerometers, gyroscopes.</a> &raquo;</li>
+        
       <li>Accelerometer</li>
     
     
@@ -160,6 +165,39 @@
 <h1>Accelerometer<a class="headerlink" href="#accelerometer" title="Permalink to this headline">¶</a></h1>
 <p>Accelerometer specific functions</p>
 <span class="target" id="module-mhealth.inertial.accelerometer"></span><p>Functions for use with acceleration data.</p>
+<p><strong>Functions</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mhealth.inertial.accelerometer._df_pitch" title="mhealth.inertial.accelerometer._df_pitch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_df_pitch</span></code></a>(df, xcol, ycol, zcol)</p></td>
+<td><p>Find angular pitch for each row in an accelerometer dataframe.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mhealth.inertial.accelerometer._df_roll" title="mhealth.inertial.accelerometer._df_roll"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_df_roll</span></code></a>(df, ycol, zcol)</p></td>
+<td><p>Find angular roll in an accelerometer dataframe.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../inertial/accelerometer.html#mhealth.inertial.accelerometer.gravity_filter" title="mhealth.inertial.accelerometer.gravity_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gravity_filter</span></code></a>(acc, freq, cutoff, order)</p></td>
+<td><p>Find gravitational acceleration using a low-pass filter.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../../inertial/accelerometer.html#mhealth.inertial.accelerometer.linear_filter" title="mhealth.inertial.accelerometer.linear_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear_filter</span></code></a>(acc, freq, cutoff, …)</p></td>
+<td><p>Find the non-gravitational acceleration using a high-pass filter.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mhealth.inertial.accelerometer.magnitude" title="mhealth.inertial.accelerometer.magnitude"><code class="xref py py-obj docutils literal notranslate"><span class="pre">magnitude</span></code></a>(x, y, z)</p></td>
+<td><p>Magnitude of x, y, z acceleration √(x²+y²+z²)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mhealth.inertial.accelerometer.magnitude_dot" title="mhealth.inertial.accelerometer.magnitude_dot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">magnitude_dot</span></code></a>(x, y, z)</p></td>
+<td><p>Magnitude of x, y, z acceleration arrays √(x²+y²+z²) using dot product     for squares.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mhealth.inertial.accelerometer.pitch" title="mhealth.inertial.accelerometer.pitch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pitch</span></code></a>(x, y, z)</p></td>
+<td><p>Estimate angular pitch from gravitational acceleration</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mhealth.inertial.accelerometer.roll" title="mhealth.inertial.accelerometer.roll"><code class="xref py py-obj docutils literal notranslate"><span class="pre">roll</span></code></a>(y, z)</p></td>
+<td><p>Estimate angular roll from gravitational acceleration.</p></td>
+</tr>
+</tbody>
+</table>
 <dl class="function">
 <dt id="mhealth.inertial.accelerometer._df_pitch">
 <code class="sig-prename descclassname">mhealth.inertial.accelerometer.</code><code class="sig-name descname">_df_pitch</code><span class="sig-paren">(</span><em class="sig-param">df: mhealth.util.deps.pd.DataFrame</em>, <em class="sig-param">xcol: str = 'x'</em>, <em class="sig-param">ycol: str = 'y'</em>, <em class="sig-param">zcol: str = 'z'</em><span class="sig-paren">)</span><a class="headerlink" href="#mhealth.inertial.accelerometer._df_pitch" title="Permalink to this definition">¶</a></dt>
@@ -415,7 +453,7 @@ acceleration.</p></li>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="../../api.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../inertial.html" class="btn btn-neutral float-left" title="Functions concerning interial sensors - e.g. accelerometers, gyroscopes." accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
