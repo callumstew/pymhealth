@@ -1,9 +1,5 @@
-mhealth package
-===============
-
-Subpackages
------------
-
+mhealth
+_______
 .. toctree::
 
    mhealth.generic
@@ -12,14 +8,9 @@ Subpackages
    mhealth.location
    mhealth.smartphone
    mhealth.util
-
-Submodules
-----------
-
-.. toctree::
-
    mhealth.eda
    mhealth.emg
+
 
 Module contents
 ---------------
