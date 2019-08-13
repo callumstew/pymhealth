@@ -5,7 +5,7 @@ Accelerometer
 
 This module contains processing functions and features specific to accelerometery signals.
 
-.. contents:: :local:
+.. .. contents:: :local:
    
 
 -------

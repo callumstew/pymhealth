@@ -9,7 +9,7 @@ and common wearable devices.
 Pymhealth is in development and the API/package structure is likely to change.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Contents:
 
 -------
