@@ -8,18 +8,16 @@ and common wearable devices.
 
 Pymhealth is in development and the API/package structure is likely to change.
 
-.. .. toctree::
-      :maxdepth: 2
-      :caption: Getting Started
-
-..    none
-      none
-
 .. toctree::
-    :maxdepth: 4
+    :maxdepth: 2
     :caption: mHealth
 
     intro
+
+.. toctree::
+    :maxdepth: 4
+    :caption: API
+
     api
     
 ------------------
