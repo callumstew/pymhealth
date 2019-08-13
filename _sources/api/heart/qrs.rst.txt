@@ -1,0 +1,12 @@
+=======
+QRS
+=======
+
+.. automodule:: mhealth.heart.qrs
+    :autosummary:
+    :members:
+    :private-members:
+    :special-members:
+
+
+.. contents:: :local:

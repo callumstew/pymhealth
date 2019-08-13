@@ -1,0 +1,9 @@
+=======
+Information
+=======
+
+.. automodule:: mhealth.generic.information
+    :autosummary:
+    :members:
+    :private-members:
+    :special-members:

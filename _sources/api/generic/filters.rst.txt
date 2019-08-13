@@ -1,0 +1,9 @@
+=======
+Filters
+=======
+
+.. automodule:: mhealth.generic.filters
+    :autosummary:
+    :members:
+    :private-members:
+    :special-members:

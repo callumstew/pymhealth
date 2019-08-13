@@ -1,0 +1,9 @@
+=======
+RQA
+=======
+
+.. automodule:: mhealth.generic.rqa
+    :autosummary:
+    :members:
+    :private-members:
+    :special-members:

@@ -1,0 +1,10 @@
+=======
+Stats
+=======
+
+.. automodule:: mhealth.generic.stats
+    :autosummary:
+    :members:
+    :private-members:
+    :special-members:
+
