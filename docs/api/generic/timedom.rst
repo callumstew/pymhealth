@@ -1,5 +1,5 @@
 =======
-Timedom
+timedom
 =======
 
 .. automodule:: mhealth.generic.timedom

@@ -1,5 +1,5 @@
 =======
-HRV
+hrv
 =======
 
 .. automodule:: mhealth.heart.hrv
