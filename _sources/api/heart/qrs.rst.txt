@@ -1,5 +1,5 @@
 =======
-QRS
+qrs
 =======
 
 .. automodule:: mhealth.heart.qrs

@@ -1,5 +1,5 @@
 =======
-Accelerometer
+accelerometer
 =======
 
 .. automodule:: mhealth.inertial.accelerometer

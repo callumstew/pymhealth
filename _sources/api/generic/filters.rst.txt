@@ -1,5 +1,5 @@
 =======
-Filters
+filters
 =======
 
 .. automodule:: mhealth.generic.filters
