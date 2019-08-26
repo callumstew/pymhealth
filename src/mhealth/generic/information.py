@@ -1,4 +1,6 @@
 """ Generic information theory features and functions
+TODO:
+    * Sample entropy with bucket method
 """
 import numpy as np
 from numba import jit

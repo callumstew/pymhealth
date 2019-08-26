@@ -8,15 +8,17 @@ from .information import entropy
 
 @jit(nopython=True)
 def rq(x: np.ndarray, radius: float = 0.) -> np.ndarray:
-    """ Recurrence matrix
-    Params:
+    """Recurrence matrix.
+
+    Args:
         x (np.ndarray): signal
         radius (int/float): Difference in values must be within the radius
             to count as a recurrence. Default = 0
+
     Returns:
         np.ndarray[bool, bool]: N*N boolean matrix where True corresponds to
             a recurrence, N = len(x)
-    return np.abs(np.subtract.outer(x, x)) <= radius
+
     """
     n = len(x)
     out = np.zeros((n, n), dtype=np.bool_)
@@ -25,16 +27,21 @@ def rq(x: np.ndarray, radius: float = 0.) -> np.ndarray:
             out[i, j] = np.abs(x[i] - x[j]) <= radius
     return out
 
+
 def rq2(x: np.ndarray, radius: float = 0.) -> np.ndarray:
-    """ Recurrence matrix; can handle multi-column input (observations=vectors), but is not jit-able
-    Params:
+    """Recurrence matrix multi-column.
+
+    Can handle multi-column input (observations=vectors), but is not jit-able
+
+    Args:
         x (np.ndarray): signal
         radius (int/float): Difference in values must be within the radius
             to count as a recurrence. Default = 0
+
     Returns:
         np.ndarray[bool, bool]: N*N boolean matrix where True corresponds to
             a recurrence, N = len(x)
-    return np.abs(np.subtract.outer(x, x)) <= radius
+
     """
     DD = squareform(pdist(x))
     return DD <= radius
@@ -42,23 +49,31 @@ def rq2(x: np.ndarray, radius: float = 0.) -> np.ndarray:
 
 @jit
 def recurrence_rate(r: np.ndarray) -> float:
-    """ The proportion of recurrence points in a recurrence matrix
-    Params:
+    """Calculate proportion of recurrent points in RQ matrix.
+
+    Args:
         r (np.ndarray[bool, bool]): Recurrence matrix
+
     Returns:
-        float
+        float: (0-1)
+
     """
     return np.sum(r)/(r.shape[0]*r.shape[1])
 
 
 @jit(nopython=True)
 def determinism(r: np.ndarray) -> float:
-    """ Determinism - proportion of recurrence points forming diagonal lines
-    at least 2 points long.
-    Params:
+    """Calculate determinism of RQ matrix.
+
+    Proportion of recurrence points forming diagonal lines at
+    least 2 points long.
+
+    Args:
         r (np.ndarray[bool, bool]): Recurrence matrix
+
     Returns:
-        float (0-1)
+        float: (0-1)
+
     """
     out = np.zeros(r.shape, dtype=np.bool_)
     for i in range(1, r.shape[0]-1):
@@ -76,12 +91,17 @@ def determinism(r: np.ndarray) -> float:
 
 @jit(nopython=True)
 def laminarity(r: np.ndarray) -> float:
-    """ Laminarity - proportion of recurrence points forming vertical lines
+    """Laminarity of RQ matrix.
+
+    Proportion of recurrence points forming vertical lines
     at least 2 points long.
-    Params:
+
+    Args:
         r (np.ndarray[bool, bool]): Recurrence matrix
+
     Returns:
-        float (0-1)
+        float: (0-1)
+
     """
     out = np.zeros(r.shape, dtype=np.bool_)
     for i in range(r.shape[0]):
@@ -94,13 +114,17 @@ def laminarity(r: np.ndarray) -> float:
 
 @jit(nopython=True)
 def diagonal_lengths(r: np.ndarray, minlen: int = 2) -> np.ndarray:
-    """ The lengths of the contiguous diagonal lines
+    """Calculate lengths of contiguous diagonal lines in RQ matrix.
+
     Slower than simply counting points as in determinism.
-    Params:
+
+    Args:
         r (np.ndarray[bool, bool]): Recurrence matrix
         minlen (int): Minimum length of a line
+
     Returns:
         np.ndarray[int]: Lengths of diagonal lines greater than the minlen
+
     """
     out = np.zeros(r.shape, dtype=np.int32)
     for i in range(1, r.shape[0]):
@@ -115,13 +139,17 @@ def diagonal_lengths(r: np.ndarray, minlen: int = 2) -> np.ndarray:
 
 @jit(nopython=True)
 def vertical_lengths(r: np.ndarray, minlen: int = 2) -> np.ndarray:
-    """ The lengths of the contiguous vertical lines
+    """Calculate lengths of contiguous vertical lines in RQ matrix.
+
     Slower than simply counting points as in laminarity.
-    Params:
+
+    Args:
         r (np.ndarray[bool, bool]): Recurrence matrix
         minlen (int): Minimum length of a line
+
     Returns:
         np.ndarray[int]: Lengths of vertical lines greater than the minlen
+
     """
     out = np.zeros(r.shape, dtype=np.int32)
     n, m = r.shape
@@ -138,8 +166,9 @@ def vertical_lengths(r: np.ndarray, minlen: int = 2) -> np.ndarray:
 
 @jit
 def length_entropy(r: np.ndarray, minlen: int = 2) -> float:
-    """ Entropy of the segment lengths (e.g. diagonals)
-    Params:
+    """Calculate entropy of diagonal lengths in RQ matrix.
+
+    Args:
         r (np.ndarray[bool, bool]): Recurrence matrix
         minlen (int): Minimum length of a line
     Returns:

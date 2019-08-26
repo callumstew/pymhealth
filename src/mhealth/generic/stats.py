@@ -11,9 +11,11 @@ from numba import jit
 @jit(nopython=True)
 def minmax(x: np.ndarray):
     """ Minimum and maximum of an array looping once
-    Params:
+
+    Args:
         x (np.ndarray[Any]): Array with elements that can be compared
             with > and <.
+
     Returns:
         (Any, Any) input array dtype: Tuple of minimum and maximum
     """
@@ -29,9 +31,11 @@ def minmax(x: np.ndarray):
 
 
 def drange(x: np.ndarray):
-    """ Range of data
-    Params:
+    """Range of data.
+
+    Args:
         x (np.ndarray[float/int])
+
     Returns
         input array type: max(x) - min(x)
     """
@@ -40,9 +44,11 @@ def drange(x: np.ndarray):
 
 
 def interquartile_range(x: np.ndarray):
-    """ Interquartile range
-    Params:
+    """Interquartile range.
+
+    Args:
         x (np.ndarray[float/int])
+
     Returns
         float/int: 75th percentile - 25th percentile
     """
@@ -52,8 +58,10 @@ def interquartile_range(x: np.ndarray):
 @jit(nopython=True)
 def skewness(x: np.ndarray) -> float:
     """ Skewness (third-moment) of a distribution
-    Params:
+
+    Args:
         x (np.ndarray): Distribution to find skew of
+
     Returns:
         float: skewness
     """
@@ -65,9 +73,11 @@ def skewness(x: np.ndarray) -> float:
 
 @jit(nopython=True)
 def kurtosis(x: np.ndarray) -> float:
-    """ Kurtosis B2 = mu_4 / mu_2^2
-    Params:
+    """Kurtosis B2 = mu_4 / mu_2^2.
+
+    Args:
         x (np.ndarray): Distribution to find kurtosis of
+
     Returns:
         float: kurtosis
     """
@@ -78,9 +88,11 @@ def kurtosis(x: np.ndarray) -> float:
 
 
 def kurtosis_excess(x: np.ndarray) -> float:
-    """ Kurtosis excess is the kurtosis - 3
-    Params:
+    """Kurtosis excess is the kurtosis - 3.
+
+    Args:
         x (np.ndarray): Distribution to find kurtosis excess of
+
     Returns:
         float: kurtosis excess
     """
@@ -88,10 +100,13 @@ def kurtosis_excess(x: np.ndarray) -> float:
 
 
 @jit(nopython=True)
-def variation(x: np.ndarray) -> float:
-    """ Compute the coefficient of variation, the ratio of the biased standard deviation to the mean.
-    Params:
+def coeff_var(x: np.ndarray) -> float:
+    """Compute the coefficient of variation.
+    The ratio of the biased standard deviation to the mean.
+
+    Args:
         x (np.ndarray): input array
+
     Returns:
         float: coefficient of variation
     """

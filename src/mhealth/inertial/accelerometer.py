@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-""" Functions for use with acceleration data
-"""
+"""Functions for use with acceleration data."""
 from typing import Optional, List, Union, Tuple
 from functools import singledispatch
 import numpy as np
@@ -14,24 +13,29 @@ NUMERIC = [np.float32, np.float64, np.int32, np.int64]
 @singledispatch
 @jit(nopython=True)
 def roll(y, z):
-    """ Estimate angular roll from gravitational acceleration
-    Params:
+    """Estimate angular roll from gravitational acceleration.
+
+    Args:
         y, z (float, int, array-like): y, and z acceleration
+
     Returns:
         (float, int, array-like): roll
+
     """
     return np.arctan2(y, z) * 180/np.pi
 
 
 @roll.register(pd.DataFrame)
 def _df_roll(df: pd.DataFrame, ycol: str = 'y', zcol: str = 'z'):
-    """ Find angular roll for each row of a dataframe containing
-    accelerometer data.
-    Params:
+    """Find angular roll in an accelerometer dataframe.
+
+    Args:
         df (pd.DataFrame): accelerometer dataframe
         ycol, zcol (str): column names for y and z acceleration
+
     Returns:
         pd.Series: roll
+
     """
     out = pd.Series(roll(df[ycol].values, df[zcol].values), name='roll')
     return out
@@ -40,11 +44,14 @@ def _df_roll(df: pd.DataFrame, ycol: str = 'y', zcol: str = 'z'):
 @singledispatch
 @jit(nopython=True)
 def pitch(x, y, z):
-    """ Estimate angular pitch from gravitational acceleration
-    Params:
+    """Estimate angular pitch from gravitational acceleration
+
+    Args:
         x, y, z (float, int, array-like): x, y, and z acceleration
+
     Returns:
         (float, int, array-like): pitch
+
     """
     return np.arctan2(-x, np.sqrt(y*y + z*z)) * 180/np.pi
 
@@ -52,13 +59,15 @@ def pitch(x, y, z):
 @pitch.register(pd.DataFrame)
 def _df_pitch(df: pd.DataFrame, xcol: str = 'x',
               ycol: str = 'y', zcol: str = 'z'):
-    """ Find angular pitch for each row of a dataframe containing
-    accelerometer data.
-    Params:
+    """Find angular pitch for each row in an accelerometer dataframe.
+
+    Args:
         df (pd.DataFrame): accelerometer dataframe
         xcol, ycol, zcol (str): column names for x, y, and z acceleration
+
     Returns:
         pd.Series: pitch
+
     """
     out = pd.Series(pitch(df[xcol].values, df[ycol].values, df[zcol].values),
                     name='pitch')
@@ -69,13 +78,17 @@ def _df_pitch(df: pd.DataFrame, xcol: str = 'x',
 def linear_filter(acc: np.ndarray, freq: float,
                   cutoff: Union[float, Tuple[float, float]] = 0.5,
                   order: int = 5) -> np.ndarray:
-    """ Filters input with a two-pass butterworth filter, returning
-    the linear component of acceleration.
+    """Find the non-gravitational acceleration using a high-pass filter.
+
+    Filters input with a two-pass butterworth filter, returning the linear
+    component of acceleration.
     To also de-noising using a bandpass filter, provide a both the
     low-pass and high-pass cutoff. e.g. (0.5, 10) to bandpass between
     0.5Hz and 10Hz
 
-    Params <np.ndarray[float]>:
+    Dispatch <np.ndarray[float]>
+
+    Args:
         acc (np.ndarray[float]): A vector or array of acceleration values
             If multiple vectors are given in a 2d array, the 2nd dimension
             seperates vectors. i.e acc[m, n] where n is the dimension of
@@ -83,17 +96,23 @@ def linear_filter(acc: np.ndarray, freq: float,
         freq (float): Sampling frequency
         cutoff (float, Tuple[float, float]): Cut-off frequency. Default: 0.5
         order (int): Order of the filter. Default: 5
+
     Returns:
         np.ndarray[float]: Linear acceleration (above cut-off frequency)
 
-    Params <pd.DataFrame>:
+
+    Dispatch <pd.DataFrame>
+
+    Args:
         df (pd.DataFrame): Dataframe containing acceleration
         freq (float): Sampling frequency
         cutoff (float, Tuple[float, float]): Cut-off frequency. Default: 0.5
         order (int): Order of filter. Default: 5
         columns (List[str]): List of column names. Optional
+
     Returns:
         pd.DataFrame: DataFrame containing filtered columns
+
     """
     shape = acc.shape
     ftype = 'highpass' if np.shape(cutoff) == () else 'bandpass'
@@ -122,10 +141,13 @@ def _df_linear_filter(df: pd.DataFrame,
 @singledispatch
 def gravity_filter(acc: np.ndarray, freq: float,
                    cutoff: float = 0.5, order: int = 5) -> np.ndarray:
-    """ Filters acceleration with a two-pass Butterworth filter,
+    """Find gravitational acceleration using a low-pass filter.
+
+    Filters acceleration with a two-pass Butterworth filter,
     returning the gravitational component
 
     Dispatch <np.ndarray[float]>
+
     Args:
         acc (np.ndarray[float]): A vector or array of acceleration values
             If multiple vectors are given in a 2d array, the 2nd dimension
@@ -134,18 +156,23 @@ def gravity_filter(acc: np.ndarray, freq: float,
         freq (float): Sampling frequency
         cutoff (float): Cut-off frequency (Hz). Default: 0.5
         order (int): Order of the filter. Default: 5
+
     Returns:
         np.ndarray[float]: Gravitational component of acceleration
 
+
     Dispatch <pd.DataFrame>
-    Params:
+
+    Args:
         df (pd.DataFrame): Dataframe containing acceleration
         freq (float): Sampling frequency
         cutoff (float): Low-pass cut-off frequency. Default: 0.5
         order (int): Order of filter. Default: 5
         columns (List[str]): List of column names. Optional
+
     Returns:
         pd.DataFrame: DataFrame containing filtered columns
+
     """
     shape = acc.shape
     acc = acc.reshape(shape[0], 1 if len(shape) == 1 else shape[1])
@@ -173,14 +200,25 @@ def _df_gravity_filter(df: pd.DataFrame, freq: float,
 def magnitude(x: float, y: float, z: float) -> float:
     """ Magnitude of x, y, z acceleration √(x²+y²+z²)
 
-    Params <float>:
-        x, y, z (float): Axes of acceleration
+    Dispatch <float>
+
+    Args:
+        x (float): X-axis of acceleration
+        y (float): Y-axis of acceleration
+        z (float): Z-axis of acceleration
+
     Returns:
         float: Magnitude of acceleration
 
-    Params <pd.Dataframe>:
+
+    Dispatch <pd.DataFrame>
+
+    Args:
         df (pd.DataFrame): Dataframe containing acceleration columns
-        xcol, ycol, zcol (str): Column names. Default: 'x', 'y', 'z'
+        xcol (str): X-axis column name, default 'x'
+        ycol (str): Y-axis column name, default 'y'
+        zcol (str): Z-axis column name, default 'z'
+
     Returns:
         float: Magnitude of acceleration
     """
@@ -201,14 +239,20 @@ def magnitude_dot(x: np.ndarray, y: np.ndarray, z: np.ndarray) -> float:
     """ Magnitude of x, y, z acceleration arrays √(x²+y²+z²) using dot product
         for squares.
 
-    Params <float>:
+    Dispatch <float>
+
+    Args:
         x, y, z (np.ndarray): Axes of acceleration
+
     Returns:
         float: Magnitude of acceleration
 
-    Params <pd.Dataframe>:
+    Dispatch <pd.DataFrame>
+
+    Args:
         df (pd.DataFrame): Dataframe containing acceleration columns
         xcol, ycol, zcol (str): Column names. Default: 'x', 'y', 'z'
+
     Returns:
         float: Magnitude of acceleration
     """
