@@ -60,6 +60,30 @@ def interquartile_range(x: np.ndarray):
 
 
 @jit(nopython=True)
+def mode(x: np.ndarray):
+    """ Find most frequent element in array.
+
+   Args:
+        x (List or Array)
+    Returns:
+        Input array element type: Most frequent element
+    """
+    x = np.sort(x)
+    e1 = x[0]
+    c1 = 1
+    c2 = 1
+    for i in range(1, len(x)):
+        if x[i] == x[i-1]:
+            c2 += 1
+            if c2 > c1:
+                c1 = c2
+                e1 = x[i]
+        else:
+            c2 = 1
+    return e1
+
+
+@jit(nopython=True)
 def skewness(x: np.ndarray) -> float:
     """ Skewness (third-moment) of a distribution
 
