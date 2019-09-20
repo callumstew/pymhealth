@@ -6,6 +6,7 @@ may be preferable.
 """
 import numpy as np
 from numba import jit
+from numba.extending import register_jitable
 
 
 @jit(nopython=True)
@@ -30,6 +31,7 @@ def minmax(x: np.ndarray):
     return (minimum, maximum)
 
 
+@register_jitable
 def drange(x: np.ndarray):
     """Range of data.
 
@@ -43,6 +45,7 @@ def drange(x: np.ndarray):
     return maximum - minimum
 
 
+@register_jitable
 def interquartile_range(x: np.ndarray):
     """Interquartile range.
 
@@ -52,7 +55,8 @@ def interquartile_range(x: np.ndarray):
     Returns
         float/int: 75th percentile - 25th percentile
     """
-    return np.subtract(*np.percentile(x, [75, 25]))
+    a, b = np.percentile(x, [75, 25])
+    return a - b
 
 
 @jit(nopython=True)
@@ -87,6 +91,7 @@ def kurtosis(x: np.ndarray) -> float:
     return np.sum(((x - np.mean(x))**4) / len(x)) / (v**2)
 
 
+@register_jitable
 def kurtosis_excess(x: np.ndarray) -> float:
     """Kurtosis excess is the kurtosis - 3.
 
@@ -110,7 +115,7 @@ def coeff_var(x: np.ndarray) -> float:
     Returns:
         float: coefficient of variation
     """
-    return np.std(x)/np.mean(x)
+    return np.std(x) / np.mean(x)
 
 
 absolute = np.absolute
