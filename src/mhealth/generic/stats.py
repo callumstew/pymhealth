@@ -110,7 +110,7 @@ def coeff_var(x: np.ndarray) -> float:
     Returns:
         float: coefficient of variation
     """
-    return np.std(x)/np.mean(x)
+    return np.std(x) / np.mean(x)
 
 
 absolute = np.absolute

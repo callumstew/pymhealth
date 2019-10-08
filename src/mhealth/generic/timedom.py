@@ -10,6 +10,19 @@ from numba import jit, guvectorize
 
 @jit
 def gradient(x):
+    """Calculate the derivative / gradient of the input [jit].
+
+    The halved distance between x_{i-1} and x_{i+1}. The first
+    and last gradient is the distance between x_{i} and the only
+    neighbouring point.
+
+    Params:
+        x (np.ndarray)
+
+    Returns:
+        np.ndarray
+
+    """
     out = np.zeros(len(x))
     out[0] = x[1] - x[0]
     out[-1] = x[-1] - x[-2]
@@ -20,12 +33,15 @@ def gradient(x):
 
 @jit
 def zero_crossings(x: np.ndarray, th: Union[float, int] = 0) -> np.ndarray:
-    """ Indices of zero-crossings in the input signal
+    """Calculate the indices of zero-crossings in the input signal [jit].
+
     Params:
         x (np.ndarray): Signal
         th (float/int): Threshold for zero crossing
+
     Returns:
         np.ndarray[bool]: Whether there was a zero crossing at the index
+
     """
     x = x.copy()
     x[np.abs(x) <= th] = 0
@@ -35,48 +51,62 @@ def zero_crossings(x: np.ndarray, th: Union[float, int] = 0) -> np.ndarray:
 
 @jit
 def zero_crossing_count(x: np.ndarray, th: Union[float, int] = 0) -> int:
-    """ Number of zero-crossings in the input signal
+    """Calculate number of zero-crossings in the input signal [jit].
+
     Params:
         x (np.ndarray): Signal
         th (float/int): Threshold for zero crossing
+
     Returns:
         int
+
     """
     return zero_crossings(x, th=th).sum()
 
 
 @jit
 def line_length(x: np.ndarray) -> float:
-    """ Sum of absolute differences between points in an array.
+    """Sum the absolute differences between points in an array [jit].
+
     Params:
         x (np.ndarray): Signal
+
     Returns:
         float
+
     """
     return np.sum(np.abs(np.diff(x)))
 
 
 @jit
 def hjorth_activity(x: np.ndarray) -> float:
-    """ Hjorth activity
+    """Calculate Hjorth activity of input signal [jit].
+
     The variance of the input signal
+
     Params:
         x (np.ndarray): Signal
+
     Returns
         float: Hjorth activity (variance)
+
     """
     return np.var(x)
 
 
 @jit
 def hjorth_mobility(x: np.ndarray) -> float:
-    """ Hjorth mobility
+    """Calculate Hjorth mobility of input signal [jit].
+
     sqrt of the variance of the first derivative of the signal divided by
     the variance of the signal
+
     Params:
         x (np.ndarray): Signal
+
     Returns:
         float: Hjorth mobility of signal
+
     """
     deriv = gradient(x)
     return np.sqrt(np.var(deriv) / np.var(x))
@@ -84,27 +114,35 @@ def hjorth_mobility(x: np.ndarray) -> float:
 
 @jit
 def hjorth_mobility_derivative(x: np.ndarray, deriv: np.ndarray) -> float:
-    """ Hjorth mobility with precomputed first derivitive
+    """Calculate Hjorth mobility with precomputed first derivitive [jit].
+
     sqrt of the variance of the first derivative of the signal divided by
     the variance of the signal
+
     Params:
         x (np.ndarray): Signal
         deriv (np.ndarray): First derivative of the signal
+
     Returns:
         float: Hjorth mobility of signal
+
     """
     return np.sqrt(np.var(deriv) / np.var(x))
 
 
 @jit
 def hjorth_complexity(x: np.ndarray) -> float:
-    """ Hjorth complexity
+    """Calculate Hjorth complexity of a signal. [jit]
+
     Hjorth mobility of the first derivitive divided by the hjorth mobility
     of the signal
+
     Params:
         x (np.ndarray): Signal
+
     Returns:
         float: Hjorth complexity of signal
+
     """
     deriv1 = gradient(x)
     return hjorth_mobility(deriv1) / hjorth_mobility_derivative(x, deriv1)
@@ -113,15 +151,19 @@ def hjorth_complexity(x: np.ndarray) -> float:
 @jit
 def hjorth_complexity_derivatives(x: np.ndarray, deriv1: np.ndarray,
                                   deriv2: np.ndarray) -> float:
-    """ Hjorth complexity with precomputed first and second derivitives
+    """Calculate Hjorth complexity with precomputed derivitives. [jit]
+
     Hjorth mobility of the first derivitive divided by the hjorth mobility
     of the signal
+
     Params:
         x (np.ndarray): Signal
         deriv1 (np.ndarray): First derivative of the signal
         deriv2 (np.ndarray): Second derivative of the signal
+
     Returns:
         float: Hjorth complexity of signal
+
     """
     return (hjorth_mobility_derivative(deriv1, deriv2) /
             hjorth_mobility_derivative(x, deriv1))
@@ -129,12 +171,19 @@ def hjorth_complexity_derivatives(x: np.ndarray, deriv1: np.ndarray,
 
 @jit
 def hjorth_parameters(x: np.ndarray) -> Tuple[float, float, float]:
-    """ Calculate all Hjorth parameters of a signal.
-    doi:10.1016/0013-4694(70)90143-4
+    """Calculate all Hjorth parameters of a signal. [jit]
+
+    May be faster than calculating separately because it reuses computed
+    gradients.
+
     Params:
         x (np.ndarray): Signal in time domain
-    Returns
+
+    Returns:
         (float, float, float): Tuple of activity, mobility, complexity.
+
+    See also:
+        doi:10.1016/0013-4694(70)90143-4
     """
     deriv1 = gradient(x)
     deriv2 = gradient(deriv1)
@@ -188,16 +237,20 @@ def dfa(x: np.ndarray, windows: List[int], o: int = 1, overlap: float = 0):
 
 @jit
 def hurst(x: np.ndarray, lags: np.ndarray = np.arange(2, 64)):
-    """ Hurst exponent of a signal.
+    """Calculate Hurst exponent of a signal [jit].
+
     A test for mean-reversion / trend
     H < 0.5 - mean reversion
     H = 0.5 - random walk
     H > 0.5 - trending
+
     Params:
         x (np.ndarray[int/float]): Signal to calculate hurst exponent on
         lags (np.ndarray[int]): Time-lags to calculate. Default = 2..64
+
     Returns:
         float: Hurst exponent
+
     """
     tau = np.zeros(lags.shape)
     for i in range(len(tau)):
@@ -208,6 +261,16 @@ def hurst(x: np.ndarray, lags: np.ndarray = np.arange(2, 64)):
 
 @jit
 def o1fit(x: np.ndarray, y: np.ndarray) -> Tuple[float, float]:
+    """Calculate a first-order polynomial fit (line) [jit].
+
+    Params:
+        x (np.ndarray)
+        y (np.ndarray)
+
+    Returns:
+        Tuple[float, float]: Fit parameters (intercept, gradient)
+
+    """
     n = len(x)
     sumx = np.sum(x)
     b = (((n * np.sum(x * y)) - (sumx * np.sum(y))) /
@@ -216,11 +279,21 @@ def o1fit(x: np.ndarray, y: np.ndarray) -> Tuple[float, float]:
     return (A, b)
 
 
-def o1fit_vec(x: np.ndarray, ys: np.ndarray) -> np.ndarray:
-    @guvectorize(["void(float64[:], float64[:], float64[:, :], float64[:, :])"],
-                 "(t),(n),(n,m)->(t,m)")
-    def o1fit_vector(two, x, ys, res):
-        for i in range(ys.shape[1]):
-            res[:, i] = o1fit(x, ys[:, i])
+@jit
+def o1fit_multiple(x, ys):
+    """Fit multiple lines with the same x-axis [jit].
 
-    return o1fit_vector(np.zeros(2), x, ys)
+    Params:
+        x (np.ndarray[n])
+        ys (np.ndarray[n, m]): first dim equals length of x.
+
+    Returns:
+        np.ndarray[m, 2]
+
+    """
+    out = np.zeros((ys.shape[1], 2))
+    for i in range(ys.shape[1]):
+        A, b = o1fit(x, ys[:, i])
+        out[i, 0] = A
+        out[i, 1] = b
+    return out
