@@ -34,7 +34,7 @@ def rq2(x: np.ndarray, radius: float = 0.) -> np.ndarray:
     Can handle multi-column input (observations=vectors), but is not jit-able
 
     Args:
-        x (np.ndarray): signal
+        x (np.ndarray[:, :]): signal (Must be 2-dim, m*n)
         radius (int/float): Difference in values must be within the radius
             to count as a recurrence. Default = 0
 
@@ -47,7 +47,7 @@ def rq2(x: np.ndarray, radius: float = 0.) -> np.ndarray:
     return DD <= radius
 
 
-@jit
+@jit(nopython=True)
 def recurrence_rate(r: np.ndarray) -> float:
     """Calculate proportion of recurrent points in RQ matrix.
 
@@ -58,7 +58,7 @@ def recurrence_rate(r: np.ndarray) -> float:
         float: (0-1)
 
     """
-    return np.sum(r)/(r.shape[0]*r.shape[1])
+    return np.sum(r)/(r.shape[0] * r.shape[1])
 
 
 @jit(nopython=True)
