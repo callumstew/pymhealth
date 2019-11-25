@@ -9,65 +9,18 @@ and common wearable devices.
 Pymhealth is in development and the API/package structure is likely to change.
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+    :maxdepth: 2
+    :caption: mHealth
 
--------
-General
--------
-* :doc:`intro`
+    intro
 
+.. toctree::
+    :maxdepth: 3
+    :caption: API Reference
 
----------------
-Getting started
----------------
-* None
-* None
-
-
-
-----------------------
-Tutorials and examples
-----------------------
-* None
-* None
-
-
-
---------------------
-API documentation
---------------------
-* Processing
-    - :doc:`processing/accelerometer`
-    - battery
-    - eda
-    - :doc:`processing/generic`
-    - gyroscope
-    - heart
-    - light
-    - :doc:`processing/location`
-    - magnetometer
-    - smartphone
-    - steps
-    - telephony
-    - temperature
-* Features
-    - accelerometer
-    - battery
-    - ecg
-    - generic
-    - gyroscope
-    - heart
-    - light
-    - location
-    - magnetometer
-    - smartphone
-    - steps
-    - telephony
-    - temperature
+    api
 
 ------------------
-
 Indices and tables
 ------------------
 

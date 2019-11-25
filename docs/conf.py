@@ -15,7 +15,7 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
-
+import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
 
@@ -26,7 +26,7 @@ author = 'Callum L Stewart'
 # The short X.Y version
 version = ''
 # The full version, including alpha/beta/rc tags
-release = '0.0.1'
+release = '0.0.3'
 
 
 # -- General configuration ---------------------------------------------------
@@ -39,8 +39,13 @@ release = '0.0.1'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx.ext.autodoc',
     'sphinx.ext.mathjax',
     'sphinx.ext.githubpages',
+    'sphinx.ext.napoleon',
+    'sphinx_rtd_theme',
+    'sphinx.ext.autosummary',
+    # 'autodocsumm',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -65,7 +70,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '_autoapi/mhealth.rst']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = None
@@ -76,16 +81,14 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+
+html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-html_theme_options = {
-        'github_user': 'callumstew',
-        'github_repo': 'pymhealth',
-        }
+# html_theme_options = {}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -100,7 +103,9 @@ html_static_path = ['_static']
 # default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
 # 'searchbox.html']``.
 #
-# html_sidebars = {}
+# html_sidebars = {
+#         '**': ['globaltoc.html']
+# }
 
 
 # -- Options for HTMLHelp output ---------------------------------------------
@@ -179,3 +184,8 @@ epub_exclude_files = ['search.html']
 
 
 # -- Extension configuration -------------------------------------------------
+# autodoc_default_options = {
+#     'autosummary': True,
+# }
+
+napoleon_custom_sections = ['dispatch']

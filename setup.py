@@ -9,7 +9,7 @@ setup(
         name='mhealth',
         version='0.0.3',
         packages=find_packages(where='src'),
-        package_dir={'mhealth': 'src/mhealth'},
+        package_dir={'': 'src'},
         url='https://github.com/callumstew/pymhealth',
         author='Callum Stewart',
         author_email='callum.stewart@kcl.ac.uk',

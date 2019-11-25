@@ -1,4 +1,6 @@
 """ Generic information theory features and functions
+TODO:
+    * Sample entropy with bucket method
 """
 import numpy as np
 from numba import jit
@@ -37,8 +39,8 @@ def entropy(x: np.ndarray) -> float:
 #     pass
 
 
-@jit('f8(f8[:], i4, f8)')
-def _numba_sampen(x: np.ndarray, mm: int = 2, r: float = 0.2) -> float:
+@jit(nopython=True)
+def sampen(x: np.ndarray, mm: int = 2, r: float = 0.2) -> float:
     """
     Taken from https://github.com/raphaelvallat/entropy until
     lightweight or bucket-assisted algorithms implemented
@@ -90,12 +92,3 @@ def _numba_sampen(x: np.ndarray, mm: int = 2, r: float = 0.2) -> float:
     b[0] = n * n1 / 2
     p = np.true_divide(a, b)
     return -np.log(p[-1])
-
-
-def sample_entropy(x: np.ndarray, order: int = 2, r: float = 0.2) -> float:
-    """
-    Taken from https://github.com/raphaelvallat/entropy until
-    lightweight or bucket-assisted algorithms implemented
-    """
-    x = np.asarray(x, dtype=np.float64)
-    return _numba_sampen(x, mm=order, r=r)
