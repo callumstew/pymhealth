@@ -13,24 +13,41 @@ European Heart Journal, 17(3), 354-381.
 """
 from typing import Optional
 import numpy as np
+from numba import jit
+from numba import types
+from numba.extending import register_jitable
 from ..util.windows import nonuniform_rolling_window
 
 
-TD_FACTOR = {'ns': 1, 'us': 1e3, 'ms': 1e6, 's': 1e9}
 _window_std = nonuniform_rolling_window(np.std)
 _window_mean = nonuniform_rolling_window(np.mean)
 
 
+@register_jitable
+def td_factor(unit: str) -> float:
+    if unit == 'ns':
+        return 1.
+    if unit == 'us':
+        return 1e3
+    if unit == 'ms':
+        return 1e6
+    if unit == 's':
+        return 1e9
+    raise ValueError('Unknown unit. Must be: "ns", "us", "ms", or "s"')
+
+
+@register_jitable
 def nni_to_ms(nni: np.ndarray, current_unit: str = 'ns') -> np.ndarray:
-    return TD_FACTOR[current_unit] * nni.astype(float) / 1e6
+    return td_factor(current_unit) * nni.astype(float) / 1e6
 
 
-def nni_cumulative(nni: np.ndarray, unit: str = 'ms') -> np.ndarray:
-    nni = nni * TD_FACTOR[unit]
-    return np.cumsum(nni, dtype='timedelta64[ns]')
+@register_jitable
+def nni_cumulative(nni: np.ndarray) -> np.ndarray:
+    return np.cumsum(nni)
 
 
 # Time domain
+@register_jitable
 def sdnn(nni: np.ndarray) -> float:
     """ The standard deviation of normalised R-peak intervals (nn).
     Typically taken over the period of 5 minutes or 24 hours.
@@ -61,7 +78,7 @@ def sdann(nni: np.ndarray, index: Optional[np.ndarray] = None,
     """
     if index is None:
         if unit:
-            index = nni_cumulative(nni, unit=unit)
+            index = nni_cumulative(nni) * td_factor(unit)
         else:
             raise ValueError('index or unit must be specified')
     interval = interval * 1e9
@@ -83,13 +100,14 @@ def sdnni(nni: np.ndarray, index: Optional[np.ndarray] = None,
     """
     if index is None:
         if unit:
-            index = nni_cumulative(nni, unit=unit)
+            index = nni_cumulative(nni) * td_factor(unit)
         else:
             raise ValueError('index or interval_unit must be specified')
     interval = interval * 1e9
     return _window_std(index.astype(int), nni, interval, interval).mean()
 
 
+@jit(nopython=True)
 def pnn50(nni: np.ndarray, unit: str = 'ms') -> float:
     """ Proportion of successive differences over 50ms
     Params:
@@ -98,10 +116,25 @@ def pnn50(nni: np.ndarray, unit: str = 'ms') -> float:
     Returns:
         float
     """
-    ms50 = 50 * 1e6 / TD_FACTOR[unit]
+    ms50 = 50 * 1e6 / td_factor(unit)
     return np.sum(np.abs(np.diff(nni)) > ms50) / (len(nni) - 1)
 
 
+@jit(nopython=True)
+def pnnx(nni: np.ndarray, unit: str = 'ms', x: float = 50.) -> float:
+    """ Proportion of successive differences over X ms
+    Params:
+        nni (np.ndarray): R-peak intervals
+        unit (str, optional): Unit the intervals are measured in. Default: 'ms'
+        x (float): The cut-off point in milliseconds. Default: 50ms
+    Returns:
+        float
+    """
+    ms50 = 50 * 1e6 / td_factor(unit)
+    return np.sum(np.abs(np.diff(nni)) > ms50) / (len(nni) - 1)
+
+
+@jit(nopython=True)
 def rmssd(nni: np.ndarray) -> float:
     """ Root mean square of differences.
     Params:
@@ -112,6 +145,7 @@ def rmssd(nni: np.ndarray) -> float:
     return np.sqrt(np.mean(np.square(np.diff(nni))))
 
 
+@jit
 def ssd(nni: np.ndarray) -> float:
     """ Sum of successive differences
     Params:
@@ -122,6 +156,7 @@ def ssd(nni: np.ndarray) -> float:
     return np.sum(np.diff(nni))
 
 
+@jit
 def sdsd(nni: np.ndarray) -> float:
     """ Standard deviation of successive differences.
     Equivilent to rmssd because mean of differences should = 0
@@ -133,13 +168,10 @@ def sdsd(nni: np.ndarray) -> float:
     return np.std(np.diff(nni))
 
 
-def hrv_metrics(rri, interval_units='ms'):
-    pass
-
-
 # Freq domain
 
 # Non-linear
+@jit
 def csi_sd1(rri: np.ndarray, factor: float = 1 / np.sqrt(2)) -> float:
     """ Poincare plot width of ellipsis. Equivilent to sdsd and rmss
     multiplied by some factor.
@@ -152,6 +184,7 @@ def csi_sd1(rri: np.ndarray, factor: float = 1 / np.sqrt(2)) -> float:
     return factor * np.std(np.diff(rri))
 
 
+@jit
 def csi_sd2(rri: np.ndarray, factor: float = 1 / np.sqrt(2)) -> float:
     """ Poincare plot length of ellipsis. Equivilent to sdsd and rmss
     multiplied by some factor.
@@ -165,6 +198,7 @@ def csi_sd2(rri: np.ndarray, factor: float = 1 / np.sqrt(2)) -> float:
     return factor * np.std(rri[1:] + rri[:-1])
 
 
+@jit
 def lorenz_csi(rri: np.ndarray, factor: float = 1 / np.sqrt(2)) -> float:
     """ Cardiac Sympathetic Index
     Params:
@@ -176,12 +210,14 @@ def lorenz_csi(rri: np.ndarray, factor: float = 1 / np.sqrt(2)) -> float:
     return csi_sd1(rri, factor) / csi_sd2(rri, factor)
 
 
+@jit
 def lorenz_cvi(rri: np.ndarray, factor: float = 1 / np.sqrt(2)) -> float:
     """
     """
     return np.log10(csi_sd1(rri, factor) * csi_sd2(rri, factor))
 
 
+@jit
 def lorenz_mcsi(rri: np.ndarray, factor: float = 1 / np.sqrt(2)) -> float:
     """
     A modified sympathetic index as used in [1]
