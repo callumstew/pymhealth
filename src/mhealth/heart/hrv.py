@@ -16,11 +16,11 @@ import numpy as np
 from numba import jit
 from numba import types
 from numba.extending import register_jitable
-from ..util.windows import nonuniform_rolling_window
+from ..util.windows import nonuniform_window_apply
 
 
-_window_std = nonuniform_rolling_window(np.std)
-_window_mean = nonuniform_rolling_window(np.mean)
+_window_std = nonuniform_window_apply(np.std)
+_window_mean = nonuniform_window_apply(np.mean)
 
 
 @register_jitable
@@ -63,6 +63,7 @@ def sdnn(nni: np.ndarray) -> float:
     return np.std(nni)
 
 
+@jit(nopython=True)
 def sdann(nni: np.ndarray, index: Optional[np.ndarray] = None,
           interval: float = 60*5, unit: Optional[str] = None):
     """
@@ -77,7 +78,7 @@ def sdann(nni: np.ndarray, index: Optional[np.ndarray] = None,
             in segments of length interval.
     """
     if index is None:
-        if unit:
+        if unit is not None:
             index = nni_cumulative(nni) * td_factor(unit)
         else:
             raise ValueError('index or unit must be specified')
@@ -85,12 +86,13 @@ def sdann(nni: np.ndarray, index: Optional[np.ndarray] = None,
     return _window_mean(index.astype(int), nni, interval, interval).std()
 
 
+@jit(nopython=True)
 def sdnni(nni: np.ndarray, index: Optional[np.ndarray] = None,
           interval: float = 60*5, unit: Optional[str] = None):
     """
     Params:
         nni (np.ndarray): Normal R-peak intervals
-        index (np.ndarray, optional): Time index
+        index (np.ndarray, optional): Time index (integer in ns / datetime64)
         interval (float): Segment interval length in seconds
         unit (str, optional): Units of nni.
             One of {'ns', 'us', 'ms', 's'}. Required if index not given.
@@ -99,12 +101,12 @@ def sdnni(nni: np.ndarray, index: Optional[np.ndarray] = None,
             in segments of length interval.
     """
     if index is None:
-        if unit:
+        if unit is not None:
             index = nni_cumulative(nni) * td_factor(unit)
         else:
             raise ValueError('index or interval_unit must be specified')
     interval = interval * 1e9
-    return _window_std(index.astype(int), nni, interval, interval).mean()
+    return _window_std(index, nni, interval, interval).mean()
 
 
 @jit(nopython=True)
