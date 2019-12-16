@@ -5,9 +5,9 @@ from typing import Callable, List, Dict
 from functools import lru_cache, singledispatch, wraps, partial
 import numpy as np
 from numpy.lib.stride_tricks import as_strided
-from numba import jit, prange
+from numba import jit, prange, types
 from numba.dispatcher import Dispatcher
-from numba.extending import register_jitable
+from numba.extending import register_jitable, overload
 from .deps import pd
 
 
@@ -25,8 +25,24 @@ def view(x: np.ndarray, w: int, s: int) -> np.ndarray:
     return as_strided(x, (((N - w) // s) + 1, w), (s * stride, stride))
 
 
+def array_shape(x):
+    return x.shape
+
+
+@overload(array_shape)
+def _jit_array_shape(x):
+    def array_shape(x):
+        return x.shape
+    def scalar_shape(x):
+        return tuple()
+    if isinstance(x, types.Array):
+        return array_shape
+    else:
+        return scalar_shape
+
+
 @lru_cache(256)
-def rolling_apply(func: List[Callable], **kwargs) -> Callable:
+def rolling_window_apply(func: List[Callable], **kwargs) -> Callable:
     """Create a function to loop through an evenly-sampled array
     and apply the supplied function.
     Params:
@@ -36,15 +52,19 @@ def rolling_apply(func: List[Callable], **kwargs) -> Callable:
     """
     @jit(nopython=True, parallel=True)
     def windows_loop(arr, wsize, wstep, out):
-        for i in prange(out.shape[0]):
+        for i in prange(1, out.shape[0]):
             out[i] = func(arr[i*wstep:i*wstep + wsize])
         return out
-    @jit(nopython=True)
-    def loop_wrapper(arr, wsize, wstep, shape=tuple(), dtype=np.float64):
+
+    @jit
+    def loop_wrapper(arr, wsize, wstep):
         nw = max(0, 1 + (len(arr) - wsize) // wstep)
-        shape = (nw,) + shape
-        out = np.zeros(shape, dtype=dtype)
+        init = func(arr[:wsize])
+        shape = array_shape(init)
+        out = np.zeros((nw, *shape))
+        out[0] = init
         return windows_loop(arr, wsize, wstep, out)
+
     if not isinstance(func, Dispatcher):
         func = register_jitable(func)
     return loop_wrapper
@@ -67,14 +87,14 @@ def rolling_window(func: Callable, *args, **kwargs) -> Callable:
     def rolling_dispatch(arr: np.ndarray, wsize: int, wstep: int,
                          shape: tuple = tuple(),
                          dtype: type = np.float64) -> np.ndarray:
-        return rolling_apply(func)(arr, wsize, wstep, shape, dtype)
+        return rolling_window_apply(func)(arr, wsize, wstep, shape, dtype)
 
     @rolling_dispatch.register(pd.DataFrame)
     def _(df: pd.DataFrame, wsize: int, wstep: int,
           shape: tuple = tuple(), dtype: type = np.float64) -> pd.DataFrame:
         data = {}
         for c in df.columns:
-            data[c] = rolling_apply(func)(df[c].values, wsize,
+            data[c] = rolling_window_apply(func)(df[c].values, wsize,
                                            wstep, shape, dtype)
         out = pd.DataFrame(data=data)
         tdstep = wstep * (df.index[1] - df.index[0])
