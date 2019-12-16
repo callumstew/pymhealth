@@ -6,6 +6,7 @@ may be preferable.
 """
 import numpy as np
 from numba import jit
+from numba.extending import register_jitable
 
 
 @jit(nopython=True)
@@ -87,6 +88,7 @@ def kurtosis(x: np.ndarray) -> float:
     return np.sum(((x - np.mean(x))**4) / len(x)) / (v**2)
 
 
+@register_jitable
 def kurtosis_excess(x: np.ndarray) -> float:
     """Kurtosis excess is the kurtosis - 3.
 
