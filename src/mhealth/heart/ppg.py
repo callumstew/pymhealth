@@ -3,18 +3,9 @@ from numba import jit
 from ..generic.filters import butterworth
 
 
-def incremental_merge_segmentation(x, m=64):
-    """Detect PPG pulse peaks
-    10.1109/EMBC.2012.6346628
-    """
-    raise NotImplementedError
-    seg = 0
-    z = 0
-    seg_in_line = 1
-    # line = construct_line(x[seg*m:(seg*m)+m])
-    # lines = 
-    for seg in range(1, len(x) // m):
-        pass
+"""To add:
+10.1109/EMBC.2012.6346628
+"""
 
 
 def pulse_onset_physionet(ppg: np.ndarray, sampling_rate: int):
