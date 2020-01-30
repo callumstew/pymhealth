@@ -108,3 +108,7 @@ venv.bak/
 
 # vim
 *.swp
+
+# vscode
+*.vscode
+.vscode/
