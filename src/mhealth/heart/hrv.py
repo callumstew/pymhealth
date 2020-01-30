@@ -14,7 +14,6 @@ European Heart Journal, 17(3), 354-381.
 from typing import Optional
 import numpy as np
 from numba import jit
-from numba import types
 from numba.extending import register_jitable
 from ..util.windows import nonuniform_window_apply
 
@@ -132,7 +131,7 @@ def pnnx(nni: np.ndarray, unit: str = 'ms', x: float = 50.) -> float:
     Returns:
         float
     """
-    ms50 = 50 * 1e6 / td_factor(unit)
+    ms50 = x * 1e6 / td_factor(unit)
     return np.sum(np.abs(np.diff(nni)) > ms50) / (len(nni) - 1)
 
 
@@ -171,6 +170,38 @@ def sdsd(nni: np.ndarray) -> float:
 
 
 # Freq domain
+@register_jitable
+def power_band(psd, freqs, lower=None, upper=None):
+    if lower is None:
+        lower = np.min(freqs)
+    if upper is None:
+        upper = np.max(freqs)
+    return np.sum(np.abs(psd[np.logical_and(freqs >= lower, freqs <= upper)]))
+
+
+@register_jitable
+def peak_frequency(psd, freqs, lower=None, upper=None):
+    if lower is None:
+        lower = np.min(freqs)
+    if upper is None:
+        upper = np.max(freqs)
+    mask = np.logical_and(freqs >= lower, freqs <= upper)
+    return freqs[np.argmax(psd[mask])]
+
+
+@register_jitable
+def relative_power_band(psd, freqs, lower=None, upper=None):
+    if lower is None:
+        lower = np.min(freqs)
+    if upper is None:
+        upper = np.max(freqs)
+    return power_band(psd, freqs, lower, upper) / np.sum(np.abs(psd))
+
+
+@jit
+def frequency_domain(rri: np.ndarray):
+    pass
+
 
 # Non-linear
 @jit
