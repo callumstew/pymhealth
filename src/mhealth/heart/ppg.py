@@ -43,7 +43,8 @@ def slope_sum(x: np.ndarray, w: int):
 
 
 @jit
-def physionet_decision_rule(x: np.ndarray, sampling_rate: int):
+def physionet_decision_rule(x: np.ndarray, sampling_rate: int,
+                            backtracking: float = 0.):
     """Pulse onset decision rule based on the physionet PPG algorithm.
 
     (Zong et al 2003). 10.1109/CIC.2003.1291140
@@ -51,6 +52,8 @@ def physionet_decision_rule(x: np.ndarray, sampling_rate: int):
     Params:
         x (np.ndarray[float]): Filtered PPG signal
         sampling_rate (int): Sampling rate of the PPG signal
+        backtracking (float): Backtrack if a peak isn't detected
+            for given number of seconds. If 0, no backtracking.
     Returns:
         np.ndarray[int]: An array of pulse onset indices.
     """
@@ -60,6 +63,7 @@ def physionet_decision_rule(x: np.ndarray, sampling_rate: int):
     onsets = []
     i = w150
     j = 0
+    backtrack = 0
     amps_idx = 0
     prev_amps = np.zeros(10)
     prev_amps[:] = th
@@ -77,11 +81,13 @@ def physionet_decision_rule(x: np.ndarray, sampling_rate: int):
             prev_amps[amps_idx] = x[largest_nearby]
             th = np.median(prev_amps)
             th_sub_std = th - 2 * np.std(prev_amps)
+            backtrack = j
         i += 1
 
-        if j < i - (sampling_rate * 5):
+        if backtracking and (j < i - (sampling_rate * 10)):
             th = 3 * np.mean(x[j + (sampling_rate):j + (sampling_rate * 11)])
             prev_amps[:] = th
-            i = j + w150
+            i = backtrack + w150
+            backtrack += (sampling_rate * 5)
 
     return onsets
