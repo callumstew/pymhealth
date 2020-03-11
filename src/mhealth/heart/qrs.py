@@ -92,7 +92,7 @@ def rpeaks_hamilton_tompkins(ecg: np.ndarray, fs: float) -> np.ndarray:
 def _np_hamilton_tompkins(ecg: np.ndarray, fs: float) -> np.ndarray:
     fecg = filter_hamilton_tompkins(ecg, fs)
     peaks = find_peaks(fecg)
-    return hamilton_tompkins_detection(fecg, peaks, fs)
+    return decision_rule_hamilton_tompkins(fecg, peaks, fs)
 
 
 @rpeaks_hamilton_tompkins.register(pd.DataFrame)
