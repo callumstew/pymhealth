@@ -5,7 +5,6 @@ from functools import lru_cache, singledispatch
 import numpy as np
 from numpy.lib.stride_tricks import as_strided
 from numba import jit, prange, types
-from numba.dispatcher import Dispatcher
 from numba.extending import register_jitable, overload
 
 
@@ -91,9 +90,7 @@ def rolling_apply(func: Callable, wsize: Optional[int] = None,
         out[0] = init
         return windows_loop(arr, wsize, wstep, out)
 
-    if not isinstance(func, Dispatcher):
-        func = register_jitable(func)
-
+    func = register_jitable(func)
     loop_wrapper.__doc__ = loop_wrapper.__doc__.format(func.__name__)
     return loop_wrapper
 

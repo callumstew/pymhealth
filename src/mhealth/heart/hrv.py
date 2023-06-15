@@ -15,11 +15,11 @@ from typing import Optional
 import numpy as np
 from numba import jit
 from numba.extending import register_jitable
-from ..util.windows import nonuniform_window_apply
+from ..util.windows import nonuniform_rolling_apply
 
 
-_window_std = nonuniform_window_apply(np.std)
-_window_mean = nonuniform_window_apply(np.mean)
+_window_std = nonuniform_rolling_apply(np.std)
+_window_mean = nonuniform_rolling_apply(np.mean)
 
 
 @register_jitable
