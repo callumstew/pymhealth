@@ -5,6 +5,8 @@ __pycache__/
 
 # C extensions
 *.so
+*.c
+*.o
 
 # Distribution / packaging
 .Python
@@ -106,3 +108,7 @@ venv.bak/
 
 # vim
 *.swp
+
+# vscode
+*.vscode
+.vscode/

@@ -38,7 +38,7 @@ def bandpass(ecg: np.ndarray, fs: float, low: int = 5,
                        ftype='bandpass', order=order)
 
 
-def pan_tompkins_filter(ecg: np.ndarray, fs: float) -> np.ndarray:
+def filter_pan_tompkins(ecg: np.ndarray, fs: float) -> np.ndarray:
     """
     Pan, J., & Tompkins, W. J. (1985). A real-time QRS detection
     algorithm. IEEE Trans. Biomed. Eng, 32(3), 230-236.
@@ -57,7 +57,7 @@ def pan_tompkins_filter(ecg: np.ndarray, fs: float) -> np.ndarray:
 
 
 @singledispatch
-def hamilton_tompkins(ecg: np.ndarray, fs: float) -> np.ndarray:
+def rpeaks_hamilton_tompkins(ecg: np.ndarray, fs: float) -> np.ndarray:
     """
     Uses Hamilton-Tompkins algorithm to detect R-peaks in an ECG signal.
 
@@ -88,14 +88,14 @@ def hamilton_tompkins(ecg: np.ndarray, fs: float) -> np.ndarray:
     return _np_hamilton_tompkins(ecg, fs)
 
 
-@hamilton_tompkins.register(np.ndarray)
+@rpeaks_hamilton_tompkins.register(np.ndarray)
 def _np_hamilton_tompkins(ecg: np.ndarray, fs: float) -> np.ndarray:
-    fecg = hamilton_tompkins_filter(ecg, fs)
+    fecg = filter_hamilton_tompkins(ecg, fs)
     peaks = find_peaks(fecg)
-    return hamilton_tompkins_detection(fecg, peaks, fs)
+    return decision_rule_hamilton_tompkins(fecg, peaks, fs)
 
 
-@hamilton_tompkins.register(pd.DataFrame)
+@rpeaks_hamilton_tompkins.register(pd.DataFrame)
 def _df_hamilton_tompkins(ecg: pd.DataFrame, fs: Optional[float] = None,
                           column: Optional[str] = None) -> pd.DataFrame:
     column = column if column else ecg.columns[0]
@@ -104,7 +104,7 @@ def _df_hamilton_tompkins(ecg: pd.DataFrame, fs: Optional[float] = None,
     return pd.DataFrame(vals, index=ecg.index[vals])
 
 
-def hamilton_tompkins_filter(ecg: np.ndarray, fs: float) -> np.ndarray:
+def filter_hamilton_tompkins(ecg: np.ndarray, fs: float) -> np.ndarray:
     """http://www.eplimited.com/osea13.pdf
     """
     ecg = bandpass(ecg, fs, 3, 25)
@@ -114,9 +114,9 @@ def hamilton_tompkins_filter(ecg: np.ndarray, fs: float) -> np.ndarray:
 
 
 @jit(nopython=True)
-def hamilton_tompkins_detection(fecg: np.ndarray, peaks: np.ndarray,
-                                fs: float, buf: int = 8,
-                                th: float = 0.3125) -> np.ndarray:
+def decision_rule_hamilton_tompkins(fecg: np.ndarray, peaks: np.ndarray,
+                                    fs: float, buf: int = 12,
+                                    th: float = 0.3125) -> np.ndarray:
     """ Filters the given peaks according to Hamilton and Tompkins method
 
 
